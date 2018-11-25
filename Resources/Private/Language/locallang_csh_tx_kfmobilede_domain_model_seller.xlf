@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-30T20:04:32Z" product-name="kf_mobile_de">
+		<header/>
+		<body>
+			<trans-unit id="company_name.description">
+				<source>companyName</source>
+			</trans-unit>
+			<trans-unit id="phone.description">
+				<source>phone</source>
+			</trans-unit>
+			<trans-unit id="street.description">
+				<source>street</source>
+			</trans-unit>
+			<trans-unit id="zipcode.description">
+				<source>zipcode</source>
+			</trans-unit>
+			<trans-unit id="city.description">
+				<source>city</source>
+			</trans-unit>
+			<trans-unit id="country_code.description">
+				<source>countryCode</source>
+			</trans-unit>
+			<trans-unit id="latitude.description">
+				<source>latitude</source>
+			</trans-unit>
+			<trans-unit id="longitude.description">
+				<source>longitude</source>
+			</trans-unit>
+			<trans-unit id="seller_image.description">
+				<source>sellerImage</source>
+			</trans-unit>
+			<trans-unit id="url.description">
+				<source>url</source>
+			</trans-unit>
+			<trans-unit id="email.description">
+				<source>email</source>
+			</trans-unit>
+			<trans-unit id="commercial.description">
+				<source>commercial</source>
+			</trans-unit>
+			<trans-unit id="import_key.description">
+				<source>importKey</source>
+			</trans-unit>
+			<trans-unit id="import.description">
+				<source>import</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

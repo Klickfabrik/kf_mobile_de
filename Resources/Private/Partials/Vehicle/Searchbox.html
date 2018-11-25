@@ -1,0 +1,143 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="view-searchbox">
+	<div class="searchbox">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<f:for each="{vehicle.translate.tabs}" key="name" as="data" iteration="iterator">
+				<li role="presentation" class="li_{name} {f:if(condition:'{iterator.index} == 0', then: 'active')}">
+					<a href="#{name}" aria-controls="{name}" role="tab" data-toggle="tab">{data.name}</a>
+				</li>
+			</f:for>
+
+			<li class="count_wrap pull-right">
+				<div class="count">lade...</div>
+			</li>
+		</ul>
+
+		<!-- Tab panes -->
+		<f:form id="ajaxselectlist-form" >
+			<input type="hidden" name="type" value="{settings.ajax.typeNum}">
+			<input type="hidden" name="objects" value="0">
+			<input type="hidden" name="limit" value="{settings.ajax.limit}">
+			<input type="hidden" name="offset" value="0">
+			<input type="hidden" name="goback" value="{goback}">
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="basic">
+					<div class="wrap_inner">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4">
+								<f:for each="{vehicle.tabs.basic.fields}" as="fieldName" iteration="iterator">
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+							<div class="col-xs-12 col-sm-4">
+								<div class="range-wrap">
+									<label class="head-label">Erstzulassung</label>
+									<div class="row">
+										<div class="col-xs-6 col-sm-6">
+											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'von', 'vehicle' : vehicle, 'fieldName' : 'first_registration][min', 'options' : vehicle.data.select.range.year, 'type' : 'year' }" />
+										</div>
+										<div class="col-xs-6 col-sm-6">
+											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'bis', 'vehicle' : vehicle, 'fieldName' : 'first_registration][max', 'options' : vehicle.data.select.range.year, 'type' : 'year' }" />
+										</div>
+									</div>
+								</div>
+								<div class="range-wrap">
+									<label class="head-label">Kilometer</label>
+									<div class="row">
+										<div class="col-xs-6 col-sm-6">
+											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'von', 'vehicle' : vehicle, 'fieldName' : 'mileage][min', 'options' : vehicle.data.select.range.range, 'type' : 'number' }" />
+										</div>
+										<div class="col-xs-6 col-sm-6">
+											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'bis', 'vehicle' : vehicle, 'fieldName' : 'mileage][max', 'options' : vehicle.data.select.range.range, 'type' : 'number' }" />
+										</div>
+									</div>
+								</div>
+
+								<div class="range-wrap">
+									<label class="head-label">Preis</label>
+									<div class="row">
+										<div class="col-xs-6 col-sm-6">
+											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'von', 'vehicle' : vehicle, 'fieldName' : 'price][min', 'options' : vehicle.data.select.range.price, 'type' : 'number' }" />
+										</div>
+										<div class="col-xs-6 col-sm-6">
+											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'bis', 'vehicle' : vehicle, 'fieldName' : 'price][max', 'options' : vehicle.data.select.range.price, 'type' : 'number' }" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-4">
+								<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'importKey', 'translate' : 'Fahrzeug-ID', 'placeholder' : '00000' }" />
+								<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'Alle', 'fieldName' : 'seller', 'translate' : 'Standort', 'options' : vehicle.data.select.seller }" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="engine">
+					<div class="wrap_inner">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4">
+								<f:for each="{vehicle.tabs.engine.fields}" as="fieldName" iteration="iterator">
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+								<div class="range-wrap">
+									<label class="head-label">Leistung</label>
+									<div class="row">
+										<div class="col-xs-6 col-sm-6">
+											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'von', 'vehicle' : vehicle, 'fieldName' : 'power][min', 'options' : vehicle.data.select.power, 'type' : 'power' }" />
+										</div>
+										<div class="col-xs-6 col-sm-6">
+											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'bis', 'vehicle' : vehicle, 'fieldName' : 'power][max', 'options' : vehicle.data.select.power, 'type' : 'power' }" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-4">
+								<f:for each="{vehicle.tabs.equipment.fields}" as="fieldName" iteration="iterator">
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+								<f:render partial="Vehicle/Form/Select" arguments="{'translate' : 'Specifics', 'vehicle' : vehicle, 'fieldName' : 'specifics', 'options' : vehicle.data.select.specifics, 'type' : 'specifics' }" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<f:comment>
+
+				<div role="tabpanel" class="tab-pane" id="equipment">
+					<div class="wrap_inner">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4">
+								<f:for each="{vehicle.tabs.equipment.fields}" as="fieldName" iteration="iterator">
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+								<f:render partial="Vehicle/Form/Select" arguments="{'translate' : 'Specifics', 'vehicle' : vehicle, 'fieldName' : 'specifics', 'options' : vehicle.data.select.specifics, 'type' : 'specifics' }" />
+							</div>
+							<div class="col-xs-12 col-sm-8">
+								<f:render partial="Vehicle/Form/Checkbox" arguments="{'translate' : 'Ausstattungen', 'vehicle' : vehicle, 'fieldName' : 'features', 'options' : vehicle.data.select.features, 'type' : 'features' }" />
+							</div>
+						</div>
+					</div>
+				</div>
+				</f:comment>
+
+			</div>
+			<div class="wrap_submit">
+				<button type="reset" class="btn btn-primary">Zurücksetzen</button>
+				<button type="submit" class="btn btn-primary">Suchen</button>
+			</div>
+		</f:form>
+	</div>
+
+	<div id="ajaxCallResult"></div>
+	<div id="ajaxCountResult"></div>
+	<script src="{f:uri.resource(path:'JavaScript/searchbox.js')}" type="text/javascript"></script>
+	<script src="{f:uri.resource(path:'JavaScript/events.js')}" type="text/javascript"></script>
+	<script src="{f:uri.resource(path:'JavaScript/cookie.js')}" type="text/javascript"></script>
+
+
+</div>
+</html>

@@ -1,0 +1,28 @@
+{
+    "name": "kfmobilede/kf-mobile-de",
+    "type": "typo3-cms-extension",
+    "description": "a plugin to show the mobile.de data in typo3",
+    "authors": [
+        {
+            "name": "Marc Finnern",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^8.7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Klickfabrik\\KfMobileDe\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Klickfabrik\\KfMobileDe\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "kf_mobile_de": "self.version",
+        "typo3-ter/kf-mobile-de": "self.version"
+    }
+}

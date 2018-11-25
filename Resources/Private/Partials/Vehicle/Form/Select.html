@@ -1,0 +1,39 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="form-group {fieldName}">
+	<label for="{fieldName}">{f:if(condition:'{translate}', then: '{translate}' , else: '{vehicle.translate.data.select.{fieldName}}')}</label>
+	<select class="form-control" id="{fieldName}" name="_search[{fieldName}]">
+		<option value="">
+			{f:if(condition:'{default}', then: '{default}' , else: 'Alle')}
+		</option>
+
+		<f:for each="{options}" as="data">
+			<f:if condition="{data}">
+				<f:if condition="{type} == 'number'">
+					<f:then>
+						<option value="{data}">
+							<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{data}</f:format.number>
+						</option>
+					</f:then>
+					<f:else if="{type} == 'power'">
+						<option value="{data}">
+							<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{data*vehicle.kw}kW</f:format.number> ({data} PS)
+						</option>
+					</f:else>
+					<f:else if="{type} == 'specifics'">
+						<option value="{data.uid}">{data.description}</option>
+					</f:else>
+					<f:else if="{type} == 'year'">
+						<option value="{data}">{data}</option>
+					</f:else>
+					<f:else if="{fieldName} == 'seller'">
+						<option value="{data.uid}">{data.city} ({data.zipcode})</option>
+					</f:else>
+					<f:else>
+						<option value="{data}">{data}</option>
+					</f:else>
+				</f:if>
+			</f:if>
+		</f:for>
+	</select>
+</div>
+</html>

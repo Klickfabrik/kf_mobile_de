@@ -1,0 +1,14 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+Ausgabe vom Ajax-Call
+
+<f:section name="content">
+	<f:render partial="Vehicle/Results" arguments="{_all}" />
+	<f:if condition="{vehicles.limits.next_offset} < {vehicles.limits.offsets}">
+		<div class="wrap_next text-center">
+			<a href="javascript:service.getVehicles(form,1,{vehicles.limits.next_offset})" class="btn btn-success">Weitere laden</a>
+		</div>
+	</f:if>
+</f:section>
+</html>

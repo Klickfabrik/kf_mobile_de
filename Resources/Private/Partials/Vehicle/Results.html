@@ -1,0 +1,75 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{vehicles.data}">
+	<f:then>
+		<f:if condition="{vehicles.goback}">
+			<f:variable name="goback" value="{vehicles.goback}" />
+		</f:if>
+		<div class="view-result">
+			<div class="row">
+				<f:for each="{vehicles.data}" as="vehicle">
+					<div class="col-xs-12 item_wrap">
+						<div class="row">
+							<div class="col-xs-12 col-sm-3">
+								<f:if condition="{settings.list.images.limit}">
+									<div class="images">
+										<f:for each="{vehicle.images}" as="image" iteration="iterator">
+											<f:if condition="{iterator.index} < {settings.list.images.limit}">
+												<f:render partial="Vehicle/Image/Default" arguments="{_all}" />
+											</f:if>
+										</f:for>
+									</div>
+								</f:if>
+							</div>
+							<div class="col-xs-12 col-sm-9">
+								<div class="headerbox">
+									<div class="row">
+										<div class="col-sm-9">
+											<div class="header">
+												<h2>{vehicle.modelDescription}</h2>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="price">
+												€<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.price}</f:format.number>,-
+												<div class="mwst">(inkl. 19% MwSt.)</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<f:if condition="{vehicles.options.{vehicle.importKey}}">
+									<div class="options">
+										<div class="row">
+											<div class="col-xs-12">
+												<ul>
+													<f:for each="{vehicles.options.{vehicle.importKey}}" as="item" key="translate">
+														<f:if condition="{item.city}">
+															<f:then>
+																<li><strong>{translate}:</strong> {item.city}</li>
+															</f:then>
+															<f:else>
+																<li><strong>{translate}:</strong> {item}</li>
+															</f:else>
+														</f:if>
+													</f:for>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</f:if>
+								<div class="controls">
+									<f:render partial="Vehicle/Item/ButtonDetail" arguments="{_all}" />
+									<f:render partial="Vehicle/Item/ButtonSave" arguments="{_all}" />
+									<f:render partial="Vehicle/Item/ButtonMail" arguments="{_all}" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</f:for>
+			</div>
+		</div>
+	</f:then>
+	<f:else>
+		<f:render partial="Vehicle/NothingFound" arguments="{_all}" />
+	</f:else>
+</f:if>
+</html>

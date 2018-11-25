@@ -1,0 +1,25 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{vehicles.data}">
+	<f:then>
+		<div class="row">
+			<f:for each="{vehicles.data}" as="vehicle">
+				<div class="item_wrap col-xs-6">
+					<div class="images">
+						<f:for each="{vehicle.images}" as="image" iteration="iterator">
+							<f:if condition="{iterator.index} < 1">
+								<f:render partial="Vehicle/Image/Menu" arguments="{_all}" />
+							</f:if>
+						</f:for>
+					</div>
+					<div class="item">
+						<p>{vehicle.modelDescription}</p>
+					</div>
+				</div>
+			</f:for>
+		</div>
+	</f:then>
+	<f:else>
+		<f:render partial="Vehicle/NothingFound" arguments="{_all}" />
+	</f:else>
+</f:if>
+</html>

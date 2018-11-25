@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-30T20:04:32Z" product-name="kf_mobile_de">
+		<header/>
+		<body>
+			<trans-unit id="name.description">
+				<source>name</source>
+			</trans-unit>
+			<trans-unit id="id.description">
+				<source>id</source>
+			</trans-unit>
+			<trans-unit id="username.description">
+				<source>username</source>
+			</trans-unit>
+			<trans-unit id="password.description">
+				<source>password</source>
+			</trans-unit>
+			<trans-unit id="apikey.description">
+				<source>apikey</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

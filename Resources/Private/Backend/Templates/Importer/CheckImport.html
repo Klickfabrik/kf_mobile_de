@@ -1,0 +1,34 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+	<f:section name="content">
+		<h1>Check Import</h1>
+
+		<f:debug>{_all}</f:debug>
+		Kunden gefunden: {importers.count}
+
+		<hr />
+
+		<ul>
+			<f:for each="{importers.clients}" as="client">
+				<li>
+					{client.name}
+					<f:if condition="{client.count}">[{client.count}]</f:if>
+				</li>
+				<ul>
+					<f:for each="{client.download}" as="_value" key="_key">
+						<li>{_key}: {_value}</li>
+					</f:for>
+				</ul>
+			</f:for>
+		</ul>
+
+
+		<f:render partial="FormErrors" />
+
+		<f:form action="checkImport">
+			<f:render partial="Importer/FormFields" />
+			<f:form.submit value="Do it!" />
+		</f:form>
+	</f:section>
+</html>

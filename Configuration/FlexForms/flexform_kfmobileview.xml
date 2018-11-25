@@ -1,0 +1,311 @@
+<T3DataStructure>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Function</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<switchableControllerActions>
+						<TCEforms>
+							<label>Select function</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">List / Detailview</numIndex>
+										<numIndex index="1">Vehicle-&gt;list;Vehicle-&gt;show</numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">Listview</numIndex>
+										<numIndex index="1">Vehicle-&gt;list</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">Detailview</numIndex>
+										<numIndex index="1">Vehicle-&gt;show</numIndex>
+									</numIndex>
+									<numIndex index="3">
+										<numIndex index="0">Searchbox</numIndex>
+										<numIndex index="1">Vehicle-&gt;search</numIndex>
+									</numIndex>
+									<numIndex index="4">
+										<numIndex index="0">Seller Maps</numIndex>
+										<numIndex index="1">Seller-&gt;places</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</switchableControllerActions>
+
+                    <!-- Layout -->
+					<settings.layout>
+						<TCEforms>
+							<label>Layout / Design</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">Please select</numIndex>
+										<numIndex index="1"> </numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">List</numIndex>
+										<numIndex index="1">list</numIndex>
+									</numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">Slider</numIndex>
+                                        <numIndex index="1">slider</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">Search-results</numIndex>
+                                        <numIndex index="1">results</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4">
+                                        <numIndex index="0">Menu-List</numIndex>
+                                        <numIndex index="1">menuliste</numIndex>
+                                    </numIndex>
+                                    <numIndex index="5">
+                                        <numIndex index="0">Simple Map</numIndex>
+                                        <numIndex index="1">simple_map</numIndex>
+                                    </numIndex>
+                                    <numIndex index="6">
+                                        <numIndex index="0">Searchmask (complex)</numIndex>
+                                        <numIndex index="1">search_complex</numIndex>
+                                    </numIndex>
+                                    <numIndex index="7">
+                                        <numIndex index="0">Searchmask (simple)</numIndex>
+                                        <numIndex index="1">search_simple</numIndex>
+                                    </numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.layout>
+
+                    <settings.debug>
+                        <TCEforms type="array">
+                            <label>Debug Modus</label>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.debug>
+				</el>
+			</ROOT>
+		</sDEF>
+        <filter>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>Filters</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <!-- Cookie Ansicht -->
+                    <settings.list.cookies>
+                        <TCEforms type="array">
+                            <label>Display save results (from cookiedata)?</label>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.list.cookies>
+
+                    <!-- Datenbank -->
+                    <settings.select.vehicle>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>Vehicles</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectMultipleSideBySide</renderType>
+                                <size>10</size>
+                                <minitems>0</minitems>
+                                <maxitems>999</maxitems>
+                                <autoSizeMax>5</autoSizeMax>
+                                <foreign_table>tx_kfmobilede_domain_model_vehicle</foreign_table>
+                            </config>
+                        </TCEforms>
+                    </settings.select.vehicle>
+
+                    <settings.select.features>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>Features</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectMultipleSideBySide</renderType>
+                                <size>10</size>
+                                <minitems>0</minitems>
+                                <maxitems>999</maxitems>
+                                <autoSizeMax>5</autoSizeMax>
+                                <foreign_table>tx_kfmobilede_domain_model_features</foreign_table>
+                                <foreign_table_prefix></foreign_table_prefix>
+                            </config>
+                        </TCEforms>
+                    </settings.select.features>
+
+                    <settings.select.specifics>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>Specifics</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectMultipleSideBySide</renderType>
+                                <size>10</size>
+                                <minitems>0</minitems>
+                                <maxitems>999</maxitems>
+                                <autoSizeMax>5</autoSizeMax>
+                                <foreign_table>tx_kfmobilede_domain_model_specifics</foreign_table>
+                                <foreign_table_prefix></foreign_table_prefix>
+                            </config>
+                        </TCEforms>
+                    </settings.select.specifics>
+
+                    <settings.select.seller>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>Seller</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectMultipleSideBySide</renderType>
+                                <size>10</size>
+                                <minitems>0</minitems>
+                                <maxitems>999</maxitems>
+                                <autoSizeMax>5</autoSizeMax>
+                                <foreign_table>tx_kfmobilede_domain_model_seller</foreign_table>
+                                <foreign_table_prefix></foreign_table_prefix>
+                            </config>
+                        </TCEforms>
+                    </settings.select.seller>
+
+                    <settings.select.json>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>Json-Filter: {"field": {"make":"Ford"}}</label>
+                            <config>
+                                <type>text</type>
+                                <cols>24</cols>
+                                <rows>3</rows>
+                            </config>
+                        </TCEforms>
+                    </settings.select.json>
+                </el>
+            </ROOT>
+        </filter>
+        <sTabLists>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>List-View</sheetTitle>
+                    <sheetDescription><![CDATA[List-page can show all results, but be careful!.
+Many results can slow down.
+List-page: only used in forms]]></sheetDescription>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.overwrite.list.showAll>
+                        <TCEforms type="array">
+                            <label>Show all results?</label>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.overwrite.list.showAll>
+
+                    <settings.overwrite.list.items>
+                        <TCEforms type="array">
+                            <label>Limit</label>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                            </config>
+                        </TCEforms>
+                    </settings.overwrite.list.items>
+
+                    <settings.list.pid>
+                        <TCEforms type="array">
+                            <label>List-page (used in forms)</label>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>trim</eval>
+                                <softref>typolink</softref>
+                                <wizards>
+                                    <_PADDING>2</_PADDING>
+                                    <link>
+                                        <type>popup</type>
+                                        <title>Link</title>
+                                        <module>
+                                            <name>wizard_element_browser</name>
+                                            <urlParameters>
+                                                <mode>wizard</mode>
+                                            </urlParameters>
+                                        </module>
+                                        <icon>link_popup.gif</icon>
+                                        <script>browse_links.php?mode=wizard</script>
+                                        <params>
+                                            <!--<blindLinkOptions>page,file,folder,url,spec</blindLinkOptions>-->
+                                        </params>
+                                        <JSopenParams>height=500,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+                                    </link>
+                                </wizards>
+                            </config>
+                        </TCEforms>
+                    </settings.list.pid>
+                </el>
+            </ROOT>
+        </sTabLists>
+        <sTabDetails>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>Detail-View</sheetTitle>
+                    <sheetDescription><![CDATA[Detail-page is only visible from the search / list-results.]]></sheetDescription>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <!-- Detailpage nutzen -->
+                    <settings.overwrite.detail.use>
+                        <TCEforms type="array">
+                            <label>Use single-detail-page?</label>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.overwrite.detail.use>
+
+
+                    <!-- Detailpage UID -->
+                    <settings.overwrite.detail.pid>
+                        <TCEforms type="array">
+                            <label>Detail-page</label>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>trim</eval>
+                                <softref>typolink</softref>
+                                <wizards>
+                                    <_PADDING>2</_PADDING>
+                                    <link>
+                                        <type>popup</type>
+                                        <title>Link</title>
+                                        <module>
+                                            <name>wizard_element_browser</name>
+                                            <urlParameters>
+                                                <mode>wizard</mode>
+                                            </urlParameters>
+                                        </module>
+                                        <icon>link_popup.gif</icon>
+                                        <script>browse_links.php?mode=wizard</script>
+                                        <params>
+                                            <!--<blindLinkOptions>page,file,folder,url,spec</blindLinkOptions>-->
+                                        </params>
+                                        <JSopenParams>height=500,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+                                    </link>
+                                </wizards>
+                            </config>
+                        </TCEforms>
+                    </settings.overwrite.detail.pid>
+                </el>
+            </ROOT>
+        </sTabDetails>
+	</sheets>
+</T3DataStructure>

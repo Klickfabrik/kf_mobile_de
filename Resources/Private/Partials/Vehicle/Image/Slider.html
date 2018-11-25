@@ -1,0 +1,16 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="slider--image">
+	<f:if condition="{settings.detail.pid} && {settings.detail.use} == 1">
+		<f:then>
+			<f:link.action action="show" pageUid="{settings.detail.pid}" arguments="{vehicle : vehicle}">
+				<div class="slider--item slider--uid{vehicle.uid}"></div>
+			</f:link.action>
+		</f:then>
+		<f:else>
+			<f:link.action action="show" arguments="{vehicle : vehicle}">
+				<div class="slider--item slider--uid{vehicle.uid}"></div>
+			</f:link.action>
+		</f:else>
+	</f:if>
+</div>
+</html>

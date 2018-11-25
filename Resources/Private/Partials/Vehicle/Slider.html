@@ -1,0 +1,104 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{vehicles.data}">
+	<f:then>
+		<f:render partial="Vehicle/Misc/SliderStyle" arguments="{_all}" />
+		<div class="view-slider">
+			<div class="sly_wrap">
+				<div class="sly" id="centered">
+					<div class="outer">
+						<f:for each="{vehicles.data}" as="vehicle">
+							<div class="inner">
+								<div class="item">
+									<f:if condition="{settings.list.images.limit}">
+										<div class="images">
+											<f:for each="{vehicle.images}" as="image" iteration="iterator">
+												<f:if condition="{iterator.index} < {settings.list.images.limit}">
+													<f:render partial="Vehicle/Image/Slider" arguments="{_all}" />
+												</f:if>
+											</f:for>
+										</div>
+									</f:if>
+									<div class="content_inner sameHeight">
+										<div class="headerbox">
+											<h2 title="{vehicle.modelDescription}">
+												<f:format.crop maxCharacters="18" respectWordBoundaries="FALSE">{vehicle.modelDescription}</f:format.crop>
+											</h2>
+										</div>
+										<f:if condition="{vehicles.options.{vehicle.importKey}}">
+											<div class="options">
+												<ul>
+													<f:for each="{vehicles.options.{vehicle.importKey}}" as="item" key="translate">
+														<li>{item}</li>
+													</f:for>
+												</ul>
+											</div>
+										</f:if>
+
+										<f:if condition="{vehicles.features.{vehicle.importKey}}">
+											<div class="features">
+												<ul>
+													<f:for each="{vehicles.features.{vehicle.importKey}.features}" as="item" key="translate" iteration="iterator">
+														<f:if condition="{iterator.index} < {settings.slider.features.limit}">
+															<li>{item.description}</li>
+														</f:if>
+													</f:for>
+												</ul>
+											</div>
+										</f:if>
+									</div>
+
+									<div class="price">
+										€<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.price}</f:format.number>,-
+									</div>
+									<div class="controls">
+										<f:render partial="Vehicle/Item/ButtonDetailSlider" arguments="{_all}" />
+									</div>
+								</div>
+							</div>
+						</f:for>
+					</div>
+				</div>
+
+				<div class="sly-controls controls center">
+					<button class="btn prev"><i class="fa fa-chevron-left"></i></button>
+
+					<button class="btn next"><i class="fa fa-chevron-right"></i></button>
+				</div>
+			</div>
+
+			<script>
+                $(document).ready(function(){
+                    var $frame = $('#centered');
+                    var $wrap  = $frame.parent();
+
+                    // Call Sly on frame
+                    $frame.sly({
+                        horizontal: 1,
+                        itemNav: 'centered',
+                        smart: 1,
+                        activateOn: 'click',
+                        mouseDragging: 1,
+                        touchDragging: 1,
+                        releaseSwing: 1,
+                        scrollBar: $wrap.find('.scrollbar'),
+                        scrollBy: 1,
+                        speed: 300,
+                        elasticBounds: 1,
+                        easing: 'easeOutExpo',
+                        dragHandle: 1,
+                        dynamicHandle: 1,
+                        clickBar: 1,
+
+                        // Buttons
+                        prevPage: $wrap.find('.prev'),
+                        nextPage: $wrap.find('.next')
+                    });
+                });
+			</script>
+		</div>
+	</f:then>
+	<f:else>
+		<f:render partial="Vehicle/NothingFound" arguments="{_all}" />
+	</f:else>
+</f:if>
+</html>

@@ -1,0 +1,62 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+<h1>Listing for Seller</h1>
+
+<f:flashMessages />
+
+<table  class="tx_kfmobilede" >
+	<tr>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.company_name" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.phone" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.street" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.zipcode" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.city" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.country_code" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.latitude" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.longitude" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.url" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.email" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.commercial" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.import_key" /></th>
+		<th><f:translate key="tx_kfmobilede_domain_model_seller.import" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{sellers}" as="seller">
+		<tr>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.companyName}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.phone}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.street}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.zipcode}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.city}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.countryCode}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.latitude}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.longitude}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.url}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.email}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.commercial}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.importKey}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{seller : seller}"> {seller.import}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{seller : seller}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{seller : seller}">Delete</f:link.action></td>
+		</tr>
+		</f:for>
+</table>
+
+<f:link.action action="new">New Seller</f:link.action>
+	</f:section>
+</html>

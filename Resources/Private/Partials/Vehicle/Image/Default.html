@@ -1,0 +1,14 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{settings.detail.pid} && {settings.detail.use} == 1">
+	<f:then>
+		<f:link.action action="show" pageUid="{settings.detail.pid}" arguments="{vehicle : vehicle}">
+			<f:image src="{image.originalResource.publicUrl}" class="img-responsive center-block img-thumbnail" title="{vehicle.modelDescription}" width="{settings.list.images.maxW}"/>
+		</f:link.action>
+	</f:then>
+	<f:else>
+		<f:link.action action="show" arguments="{vehicle : vehicle}">
+			<f:image src="{image.originalResource.publicUrl}" class="img-responsive center-block img-thumbnail" title="{vehicle.modelDescription}" width="{settings.list.images.maxW}"/>
+		</f:link.action>
+	</f:else>
+</f:if>
+</html>

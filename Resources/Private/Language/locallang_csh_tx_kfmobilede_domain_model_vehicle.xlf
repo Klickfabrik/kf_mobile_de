@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-30T20:04:32Z" product-name="kf_mobile_de">
+		<header/>
+		<body>
+			<trans-unit id="model_description.description">
+				<source>model description</source>
+			</trans-unit>
+			<trans-unit id="class.description">
+				<source>class</source>
+			</trans-unit>
+			<trans-unit id="category.description">
+				<source>category</source>
+			</trans-unit>
+			<trans-unit id="make.description">
+				<source>make</source>
+			</trans-unit>
+			<trans-unit id="model.description">
+				<source>model</source>
+			</trans-unit>
+			<trans-unit id="price.description">
+				<source>price</source>
+			</trans-unit>
+			<trans-unit id="damage_and_unrepaired.description">
+				<source>damage and unrepaired</source>
+			</trans-unit>
+			<trans-unit id="accident_damaged.description">
+				<source>accident damaged</source>
+			</trans-unit>
+			<trans-unit id="roadworthy.description">
+				<source>roadworthy</source>
+			</trans-unit>
+			<trans-unit id="price_type.description">
+				<source>priceType</source>
+			</trans-unit>
+			<trans-unit id="fuel.description">
+				<source>fuel</source>
+			</trans-unit>
+			<trans-unit id="gearbox.description">
+				<source>gearbox</source>
+			</trans-unit>
+			<trans-unit id="color.description">
+				<source>color</source>
+			</trans-unit>
+			<trans-unit id="mileage.description">
+				<source>mileage</source>
+			</trans-unit>
+			<trans-unit id="seats.description">
+				<source>seats</source>
+			</trans-unit>
+			<trans-unit id="doors.description">
+				<source>doors</source>
+			</trans-unit>
+			<trans-unit id="power.description">
+				<source>power</source>
+			</trans-unit>
+			<trans-unit id="emission_class.description">
+				<source>emissionClass</source>
+			</trans-unit>
+			<trans-unit id="images.description">
+				<source>images</source>
+			</trans-unit>
+			<trans-unit id="description.description">
+				<source>description</source>
+			</trans-unit>
+			<trans-unit id="misc.description">
+				<source>misc</source>
+			</trans-unit>
+			<trans-unit id="consumer_price_amount.description">
+				<source>consumerPriceAmount</source>
+			</trans-unit>
+			<trans-unit id="dealer_price_amount.description">
+				<source>dealerPriceAmount</source>
+			</trans-unit>
+			<trans-unit id="first_registration.description">
+				<source>firstRegistration</source>
+			</trans-unit>
+			<trans-unit id="creation_date.description">
+				<source>creationDate</source>
+			</trans-unit>
+			<trans-unit id="modification_date.description">
+				<source>modificationDate</source>
+			</trans-unit>
+			<trans-unit id="detail_page.description">
+				<source>detail page from mobile.de</source>
+			</trans-unit>
+			<trans-unit id="import_key.description">
+				<source>importKey</source>
+			</trans-unit>
+			<trans-unit id="import_client.description">
+				<source>importClient</source>
+			</trans-unit>
+			<trans-unit id="import.description">
+				<source>import</source>
+			</trans-unit>
+			<trans-unit id="features.description">
+				<source>features</source>
+			</trans-unit>
+			<trans-unit id="specifics.description">
+				<source>specifics</source>
+			</trans-unit>
+			<trans-unit id="seller.description">
+				<source>seller</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

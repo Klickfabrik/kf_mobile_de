@@ -1,0 +1,50 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<style>#{google_id} {height: 400px;width: 100%;}</style>
+<div id="{google_id}"></div>
+<script>
+    var gmarkers = [];
+    var {google_id}_loc = <f:format.htmlentitiesDecode>{google_data}</f:format.htmlentitiesDecode>;
+    function initMap(map_id,gmap_loc) {
+        var mapOptions = {
+            zoom: 6,
+            center: {
+                lat: 51.165691,
+                lng: 10.451526
+            },
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById(map_id), mapOptions);
+        var marker, i;
+        var infowindow = new google.maps.InfoWindow();
+        google.maps.event.addListener(map, 'click', function() {
+            infowindow.close();
+        });
+
+        for (i = 0; i < gmap_loc.length; i++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(gmap_loc[i].latitude, gmap_loc[i].longitude)
+                ,map: map
+                //,icon: gmap_loc[i][3]
+            });
+            gmarkers.push(marker);
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(gmap_loc[i].address);
+                    infowindow.open(map, marker);
+
+                    map.setZoom(15);
+                    map.panTo(marker.position);
+                }
+            })(marker, i));
+        }
+    }
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var initTimierMap = setInterval(function(){
+            if(typeof google !== "undefined"){
+                clearInterval(initTimierMap);
+                initMap('<f:format.htmlentitiesDecode>{google_id}</f:format.htmlentitiesDecode>',{google_id}_loc);
+            }
+        },500)
+    });
+</script>
+</html>

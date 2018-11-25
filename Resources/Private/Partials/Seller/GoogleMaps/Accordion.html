@@ -1,0 +1,29 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="panel-group" id="{accordion_id}" role="tablist" aria-multiselectable="true">
+    <f:for each="{sellers}" as="seller" iteration="iterator">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="header_tab_{iterator.index}">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#{accordion_id}" href="#tab_{iterator.index}" aria-expanded="true" onclick="google.maps.event.trigger(gmarkers[{iterator.index}],'click');">
+                        <span class="company">{seller.companyName}</span>
+                        <span class="city">{seller.city}</span>
+                    </a>
+                </h4>
+            </div>
+            <div id="tab_{iterator.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <p>
+                        {seller.street}<br/>
+                        {seller.zipcode}, {seller.city}<br/>
+                         <a href="mailto:{seller.email}"><i class="fa fa-envelope"></i> E-Mail</a></p>
+                    <p>
+                        <f:for each="{phones.{iterator.index}}" as="phone">
+                            {phone.type}: {phone.number}<br/>
+                        </f:for>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </f:for>
+</div>
+</html>

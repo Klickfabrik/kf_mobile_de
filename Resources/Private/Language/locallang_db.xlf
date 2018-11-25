@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-30T20:04:31Z" product-name="kf_mobile_de">
+		<header/>
+		<body>
+			<trans-unit id="tx_kfmobilede_domain_model_clients">
+				<source>Clients</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_clients.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_clients.id">
+				<source>Id</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_clients.username">
+				<source>Username</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_clients.password">
+				<source>Password</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_clients.apikey">
+				<source>Apikey</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle">
+				<source>Vehicle</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.model_description">
+				<source>Model Description</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.class">
+				<source>Class</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.make">
+				<source>Make</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.model">
+				<source>Model</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.price">
+				<source>Price</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.damage_and_unrepaired">
+				<source>Damage And Unrepaired</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.accident_damaged">
+				<source>Accident Damaged</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.roadworthy">
+				<source>Roadworthy</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.price_type">
+				<source>Price Type</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.fuel">
+				<source>Fuel</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.gearbox">
+				<source>Gearbox</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.color">
+				<source>Color</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.mileage">
+				<source>Mileage</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.seats">
+				<source>Seats</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.doors">
+				<source>Doors</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.power">
+				<source>Power</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.emission_class">
+				<source>Emission Class</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.images">
+				<source>Images</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.misc">
+				<source>Misc</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.consumer_price_amount">
+				<source>Consumer Price Amount</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.dealer_price_amount">
+				<source>Dealer Price Amount</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.first_registration">
+				<source>First Registration</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.creation_date">
+				<source>Creation Date</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.modification_date">
+				<source>Modification Date</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.detail_page">
+				<source>Detail Page</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.import_key">
+				<source>Import Key</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.import_client">
+				<source>Import Client</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.import">
+				<source>Import</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.features">
+				<source>Features</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.specifics">
+				<source>Specifics</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.seller">
+				<source>Seller</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_features">
+				<source>Features</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_features.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_features.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_specifics">
+				<source>Specifics</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_specifics.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_specifics.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller">
+				<source>Seller</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.company_name">
+				<source>Company Name</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.phone">
+				<source>Phone</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.street">
+				<source>Street</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.zipcode">
+				<source>Zipcode</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.country_code">
+				<source>Country Code</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.latitude">
+				<source>Latitude</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.longitude">
+				<source>Longitude</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.seller_image">
+				<source>Seller Image</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.url">
+				<source>Url</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.commercial">
+				<source>Commercial</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.import_key">
+				<source>Import Key</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.import">
+				<source>Import</source>
+			</trans-unit>
+			<trans-unit id="tx_kf_mobile_de_kfmobileview.name">
+				<source>Mobile.de</source>
+			</trans-unit>
+			<trans-unit id="tx_kf_mobile_de_kfmobileview.description">
+				<source>Display a mobile.de data</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
