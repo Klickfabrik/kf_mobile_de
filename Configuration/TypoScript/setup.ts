@@ -100,9 +100,10 @@ plugin.tx_kfmobilede_kfmobileview {
         }
 
         detail {
-            pid = {$plugin.tx_kfmobilede_kfmobileview.settings.detailPid}
-            use = {$plugin.tx_kfmobilede_kfmobileview.settings.detailUse}
-            powermail = {$plugin.tx_kfmobilede_kfmobileview.settings.powermailPid}
+            pid             = {$plugin.tx_kfmobilede_kfmobileview.settings.detailPid}
+            backPid         = {$plugin.tx_kfmobilede_kfmobileview.settings.backPid}
+            use             = {$plugin.tx_kfmobilede_kfmobileview.settings.detailUse}
+            powermail       = {$plugin.tx_kfmobilede_kfmobileview.settings.powermailPid}
             images {
                 maxW        = 600c
                 maxH        = 600c

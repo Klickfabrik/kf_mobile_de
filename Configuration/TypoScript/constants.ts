@@ -23,6 +23,9 @@ plugin.tx_kfmobilede_kfmobileview {
         # cat=plugin.tx_kfmobilede_kfmobileview/links; type=boolean; label=Use Detail-Page
         detailUse = 0
 
+        # cat=plugin.tx_kfmobilede_kfmobileview/links; type=int+; label=Back-Page-ID (Back from Detail-Page)
+        backPid = 0
+
         # cat=plugin.tx_kfmobilede_kfmobileview/links; type=int+; label=Powermail Formular-Page
         powermailPid = 0
 
