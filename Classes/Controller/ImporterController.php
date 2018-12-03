@@ -559,29 +559,29 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             # File Info
             $fileInfo = pathinfo($filename);
 
-            // Daten verarbeiten
+            // data handler
             $count = $xml::getCount();
             for ($i = 0; $i < $count;){
                 $xml::setPos($i);
 
-                // prüft auf ein Update
+                // smart check for update
                 $cur = array(
                     "importKey"             => $this->getValue($xml::getTag('','key'),"importKey"),
                     "modificationDate"      => $this->getValue($xml::getTag('ad:modification-date'),"modificationDate"),
                 );
 
-                // Prüfen ob die Daten schon vorhanden sind
+                // check for data
                 $find   = "findOneBy" . ucfirst($search);
                 $obj    = $this->$rep->$find($cur[$search]);
                 $objNew = empty($obj);
 
-                // Objekt holen / nutzen
+                // object
                 $newElement = $objNew
                     ? new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle()
                     : $obj;
 
 
-                // Daten für spätere Checks
+                // data for later checks
                 $this->checks[$rep]['type'] = $search;
                 $this->checks[$rep]['file'] = $fileInfo['filename'] . DIRECTORY_SEPARATOR . $cur['importKey'];
                 $this->checks[$rep]['data'][] = $cur[$search];
@@ -605,7 +605,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                     $imageTag = $this->mode == "single" ? 'ad:images|ad:image' : 'ad:images|ad:image|ad:representation';
 
-                    // Daten sammeln
+                    // collect data
                     $xmlResult = array(
                         'modelDescription'      => $xml::getTag('ad:vehicle|ad:model-description'),
                         'class'                 => $xml::getTag('ad:vehicle|ad:class'),
@@ -665,7 +665,6 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                         'images'                => $xml::getTag($imageTag)
                     );
 
-                    #$this->showArray($xmlResult);exit();
                     $cur = array(
                         'import'            => true,
                         'importClient'      => $fileInfo['filename'],
@@ -845,6 +844,9 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     if(!is_null($this->pid))
                         $newElement->setPid($this->pid);
 
+                    // Check Import-Credentials
+                    $newElement = $this->checkCredentials($newElement);
+
                     // Update & Insert
                     $objNew
                         ? $this->$rep->add($newElement)
@@ -889,11 +891,66 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
     /**
+     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newElement
+     * @return \Klickfabrik\KfMobileDe\Domain\Model\Vehicle
+     */
+    private function checkCredentials (\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newElement){
+        $hidden = false;
+        $checks = [
+            "misc" => [
+                "emissionConsumption"
+            ]
+        ];
+
+        foreach ($checks as $checkKey => $checkValues){
+            try {
+                if(!empty($checkKey)){
+                    $get = 'get' . ucfirst($checkKey);
+                    $value = $newElement->$get();
+                    $value = json_decode($value,true);
+
+                    if(is_array($checkValues)){
+                        foreach ($checkValues as $check){
+                            if(empty($value[$check])){
+                                $hidden = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        if(empty($value[$checkValues])){
+                            $hidden = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch(\Exception $exception) {
+                // If the property mapper did throw a \TYPO3\CMS\Extbase\Property\Exception, because it was unable to find the requested entity, call the page-not-found handler.
+                $previousException = $exception->getPrevious();
+                if (($exception instanceof \TYPO3\CMS\Extbase\Property\Exception) && (($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) || ($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException))) {
+                    $GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
+                }
+                throw $exception;
+            }
+        }
+
+        // Change element
+        if($hidden){
+            $newElement->setHidden(true);
+        } else {
+            $newElement->setHidden(false);
+        }
+
+        return $newElement;
+    }
+
+
+    /**
      * @param array $imageData
      * @param bool $debug
      * @return array
      */
-    private function parseImageData(array $imageData, bool $debug=false){
+    private function parseImageData(array $imageData, $debug=false){
         $return = [];
         foreach ($imageData as $mainPos => $data){
             foreach ($data as $pos => $sizes){

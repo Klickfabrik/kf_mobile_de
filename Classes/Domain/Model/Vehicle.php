@@ -251,6 +251,29 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $seller = null;
 
     /**
+     * hidden
+     *
+     * @var boolean
+     */
+    protected $hidden = false;
+
+    /**
+     * @return bool
+     */
+    public function isHidden(): bool
+    {
+        return $this->hidden;
+    }
+
+    /**
+     * @param bool $hidden
+     */
+    public function setHidden(bool $hidden)
+    {
+        $this->hidden = $hidden;
+    }
+
+    /**
      * __construct
      */
     public function __construct()
