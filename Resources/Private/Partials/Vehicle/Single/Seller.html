@@ -1,0 +1,32 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:if condition="{vehicle.seller}">
+    <div class="wrap_seller">
+        <h3>Standort</h3>
+
+        <div class="row">
+            <f:if condition="{vehicle.seller.sellerImage.uid}">
+                <div class="col-xs-12 col-sm-4">
+                    <f:image src="{vehicle.seller.sellerImage.uid}" class="img-responsive" width="250" treatIdAsReference="TRUE" />
+                </div>
+            </f:if>
+            <div class="col-xs-12 col-sm-8">
+                <div class="seller">
+                    <p><strong>{vehicle.seller.companyName}</strong><br/>
+                        {vehicle.seller.street}<br/>
+                        {vehicle.seller.zipcode} {vehicle.seller.city}</p>
+                    <p>{vehicle.seller.email}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <f:render partial="Seller/GoogleMaps/MapsSingle" arguments="{_all}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</f:if>
+
+</html>

@@ -105,20 +105,7 @@
 					</f:if>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<f:if condition="{vehicle.seller}">
-						<div class="wrap_seller">
-							<h3>Standort</h3>
-							<div class="seller">
-								<p><strong>{vehicle.seller.companyName}</strong><br/>
-									{vehicle.seller.street}<br/>
-									{vehicle.seller.zipcode} {vehicle.seller.city}</p>
-								<p>{vehicle.seller.email}</p>
-							</div>
-							<div class="embed-responsive embed-responsive-16by9">
-								<f:render partial="Seller/GoogleMaps/MapsSingle" arguments="{_all}" />
-							</div>
-						</div>
-					</f:if>
+					<f:render partial="Vehicle/Single/Seller" arguments="{_all}"/>
 				</div>
 			</div>
 
