@@ -126,8 +126,9 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      * @param $object
      * @return array
      */
-    private function parsePhone($object)
+    private function parsePhone($object,$skip=['fax'])
     {
+
         $phone = [];
         $maps = [];
         $translate = [
@@ -136,6 +137,11 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             'CELL' => 'Mobil'
         ];
         foreach (json_decode($object, true) as $entry) {
+
+            if(!empty($skip) && in_array(strtolower($entry['type']),$skip)){
+                continue;
+            }
+
             $number = $entry['country-calling-code'] . substr($entry['area-code'], 1) . $entry['number'];
             $array = [
                 'type' => $translate[$entry['type']],
