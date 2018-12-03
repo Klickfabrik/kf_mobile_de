@@ -45,6 +45,12 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $featuresRepository = null;
 
     /**
+     * @var \Klickfabrik\KfMobileDe\Domain\Repository\ClientsRepository
+     * @inject
+     */
+    protected $clientsRepository = null;
+
+    /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      * @inject
      */
@@ -128,6 +134,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $data = $seller->getGoogleMaps($vehicle->getSeller(),"showAction");
         $this->view->assign('google_data', json_encode($data['googleData']));
         $this->view->assign('google_id', 'map_' . rand(0, 9999));
+        $this->view->assign('google_places', $this->getPlacesId($vehicle->getImportClient()));
 
         // CO2
         $this->view->assign('energy_efficiency', $this->getEfficiency($vehicle));
@@ -154,6 +161,23 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $return['sticker_img'] = $this->get_numerics($return['emission-sticker']);
 
         return $return;
+    }
+
+    /**
+     * @param $clientID
+     * @return string
+     */
+    private function getPlacesId($clientID){
+        $clientData = $this->clientsRepository->findById($clientID);
+
+        $apiKey = "";
+        foreach ($clientData as $client){
+            $apiKey = $client->getApikey();
+            if(!empty($apiKey)){
+                break;
+            }
+        }
+        return $apiKey;
     }
 
     /**

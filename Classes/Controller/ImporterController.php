@@ -29,6 +29,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     private $singleList     = array();
     private $mode           = "single";
     private $pid            = null;
+    private $importClient   = 0;
 
     /**
      * Persistence Manager
@@ -166,6 +167,9 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     "name"  => $client->getName(),
                     "id"    => $client->getId(),
                 );
+
+                // clientID
+                $this->importClient = $client->getId();
 
                 // inital Getter
                 $config = array(
@@ -667,7 +671,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                     $cur = array(
                         'import'            => true,
-                        'importClient'      => $fileInfo['filename'],
+                        'importClient'      => $this->importClient,
                     );
 
                     foreach ($xmlResult as $name => $data){

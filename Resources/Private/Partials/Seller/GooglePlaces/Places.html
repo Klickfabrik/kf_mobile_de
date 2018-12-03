@@ -1,0 +1,25 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:if condition="{google_places}">
+    <h2>Google Rating</h2>
+    <div id="google-reviews">
+        ... loading ...
+    </div>
+    <script src="{f:uri.resource(path:'Vendor/google-places/google-places.js')}"></script>
+    <link rel="stylesheet" href="{f:uri.resource(path:'Vendor/google-places/google-places.css')}">
+    <script>
+        var googlePlaces_key = '<f:format.htmlentitiesDecode>{google_places}</f:format.htmlentitiesDecode>';
+        $(document).ready(function() {
+            $("#google-reviews").googlePlaces({
+                placeId: googlePlaces_key
+                , render: ['reviews']
+                , min_rating: 3
+                , max_rows: 2
+                , shorten_names: true
+                //, rotateTime: 1000 * 60
+            });
+        });
+    </script>
+</f:if>
+
+</html>

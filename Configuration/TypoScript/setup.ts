@@ -219,7 +219,7 @@ page {
     includeJSFooter {
         jquery_easing	= {$plugin.tx_kfmobilede_kfmobileview.settings.javaScript.jquery_easing}
         sly				= {$plugin.tx_kfmobilede_kfmobileview.settings.javaScript.sly}
-        googlemaps      = https://maps.googleapis.com/maps/api/js?sensor=false&key={$plugin.tx_kfmobilede_kfmobileview.settings.googleMaps.key}
+        googlemaps      = https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&signed_in=true&libraries=places&key={$plugin.tx_kfmobilede_kfmobileview.settings.googleMaps.key}
         googlemaps.external = 1
     }
 }
