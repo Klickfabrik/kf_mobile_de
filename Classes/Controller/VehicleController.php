@@ -89,12 +89,20 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
         $settings = $this->getSettings();
         $vehicles = $this->vehicleRepository->findAll($settings, $settings['filter']);
+
+        $energy_efficiency = [];
+        foreach ($vehicles as $vehicle){
+            $importKey = $vehicle->getImportKey();
+            $energy_efficiency[$importKey] = $this->getEfficiency($vehicle);
+        }
+
         $data = [
             'data' => $vehicles,
             'options' => $this->collectData($vehicles, 'options'),
             'specifics' => $this->collectData($vehicles, 'specifics'),
             'features' => $this->collectData($vehicles, 'features'),
             'seller' => $this->collectData($vehicles, 'seller'),
+            'energy_efficiency' => $energy_efficiency,
         ];
         $this->view->assign('vehicles', $data);
     }

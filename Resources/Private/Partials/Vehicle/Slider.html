@@ -45,6 +45,18 @@
 												</ul>
 											</div>
 										</f:if>
+
+										<f:if condition="{vehicles.energy_efficiency.{vehicle.importKey}}">
+											<f:variable name="energy_efficiency">{vehicles.energy_efficiency.{vehicle.importKey}}</f:variable>
+											<div class="energy">
+												<ul>
+													<li>innerorts: {energy_efficiency.inner}</li>
+													<li>außerorts: {energy_efficiency.outer}</li>
+													<li>kombinert: {energy_efficiency.combined}</li>
+												</ul>
+											</div>
+										</f:if>
+
 									</div>
 
 									<div class="price">
