@@ -171,6 +171,9 @@
 			<trans-unit id="tx_kfmobilede_domain_model_seller.seller_image">
 				<source>Seller Image</source>
 			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.seller_info">
+				<source>Seller Info</source>
+			</trans-unit>
 			<trans-unit id="tx_kfmobilede_domain_model_seller.url">
 				<source>Url</source>
 			</trans-unit>

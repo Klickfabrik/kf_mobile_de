@@ -30,6 +30,9 @@
 			<trans-unit id="seller_image.description">
 				<source>sellerImage</source>
 			</trans-unit>
+			<trans-unit id="seller_image.seller_info">
+				<source>sellerInfo</source>
+			</trans-unit>
 			<trans-unit id="url.description">
 				<source>url</source>
 			</trans-unit>
