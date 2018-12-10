@@ -4,43 +4,8 @@
 		<div class="view-list">
 			<div class="row">
 				<f:for each="{vehicles.data}" as="vehicle">
-					<div class="col-xs-12 col-sm-4 col-md-4 item_wrap">
-						<f:if condition="{settings.list.images.limit}">
-							<div class="images">
-								<f:for each="{vehicle.images}" as="image" iteration="iterator">
-									<f:if condition="{iterator.index} < {settings.list.images.limit}">
-										<f:render partial="Vehicle/Image/Default" arguments="{_all}" />
-									</f:if>
-								</f:for>
-							</div>
-						</f:if>
-
-						<div class="item">
-							<h2>{vehicle.modelDescription}</h2>
-							<div class="options">
-								<div class="row">
-									<div class="col-xs-12">
-										<ul>
-											<f:for each="{vehicles.options.{vehicle.importKey}}" as="item" key="translate">
-												<f:if condition="{item.city}">
-													<f:then>
-														<li><strong>{translate}:</strong> {item.city}</li>
-													</f:then>
-													<f:else>
-														<li><strong>{translate}:</strong> {item}</li>
-													</f:else>
-												</f:if>
-											</f:for>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="controlls">
-							<f:render partial="Vehicle/Item/ButtonDetail" arguments="{_all}" />
-						</div>
-					</div>
+					<f:variable name="type" value="list" />
+					<f:render partial="Vehicle/Item/ListSearch" arguments="{_all}" />
 				</f:for>
 			</div>
 		</div>

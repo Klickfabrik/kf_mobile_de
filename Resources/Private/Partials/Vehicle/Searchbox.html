@@ -47,10 +47,10 @@
 									<label class="head-label">Kilometer</label>
 									<div class="row">
 										<div class="col-xs-6 col-sm-6">
-											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'von', 'vehicle' : vehicle, 'fieldName' : 'mileage][min', 'options' : vehicle.data.select.range.range, 'type' : 'number' }" />
+											<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'mileage][min', 'placeholder' : 'von' }" />
 										</div>
 										<div class="col-xs-6 col-sm-6">
-											<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'bis', 'vehicle' : vehicle, 'fieldName' : 'mileage][max', 'options' : vehicle.data.select.range.range, 'type' : 'number' }" />
+											<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'mileage][max', 'placeholder' : 'bis' }" />
 										</div>
 									</div>
 								</div>
