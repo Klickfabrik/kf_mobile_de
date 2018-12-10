@@ -16,14 +16,14 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'company_name,phone,street,zipcode,city,country_code,latitude,longitude,seller_image,url,email,commercial,import_key,import',
+        'searchFields' => 'company_name,phone,street,zipcode,city,country_code,latitude,longitude,seller_image,seller_info,url,email,commercial,import_key,import',
         'iconfile' => 'EXT:kf_mobile_de/Resources/Public/Icons/tx_kfmobilede_domain_model_seller.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, company_name, phone, street, zipcode, city, country_code, latitude, longitude, seller_image, url, email, commercial, import_key, import',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, company_name, phone, street, zipcode, city, country_code, latitude, longitude, seller_image, seller_info, url, email, commercial, import_key, import',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, company_name, phone, street, zipcode, city, country_code, latitude, longitude, seller_image, url, email, commercial, import_key, import, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, company_name, phone, street, zipcode, city, country_code, latitude, longitude, seller_image, seller_info, url, email, commercial, import_key, import, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -233,6 +233,24 @@ return [
                 ],
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
             ),
+        ],
+        'seller_info' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_seller.seller_info',
+            'config' => [
+                'type' => 'text',
+                'enableRichtext' => true,
+                'richtextConfiguration' => 'default',
+                'fieldControl' => [
+                    'fullScreenRichtext' => [
+                        'disabled' => false,
+                    ],
+                ],
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim',
+            ],
+            
         ],
         'url' => [
             'exclude' => true,

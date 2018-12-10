@@ -18,6 +18,13 @@ namespace Klickfabrik\KfMobileDe\Domain\Model;
 class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
+     * hidden
+     *
+     * @var boolean
+     */
+    protected $hidden = false;
+
+    /**
      * model description
      *
      * @var string
@@ -251,16 +258,9 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $seller = null;
 
     /**
-     * hidden
-     *
-     * @var boolean
-     */
-    protected $hidden = false;
-
-    /**
      * @return bool
      */
-    public function isHidden(): bool
+    public function isHidden()
     {
         return $this->hidden;
     }

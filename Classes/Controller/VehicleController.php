@@ -95,20 +95,18 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
         $settings = $this->getSettings();
         $vehicles = $this->vehicleRepository->findAll($settings, $settings['filter']);
-
         $energy_efficiency = [];
-        foreach ($vehicles as $vehicle){
+        foreach ($vehicles as $vehicle) {
             $importKey = $vehicle->getImportKey();
             $energy_efficiency[$importKey] = $this->getEfficiency($vehicle);
         }
-
         $data = [
             'data' => $vehicles,
             'options' => $this->collectData($vehicles, 'options'),
             'specifics' => $this->collectData($vehicles, 'specifics'),
             'features' => $this->collectData($vehicles, 'features'),
             'seller' => $this->collectData($vehicles, 'seller'),
-            'energy_efficiency' => $energy_efficiency,
+            'energy_efficiency' => $energy_efficiency
         ];
         $this->view->assign('vehicles', $data);
     }
@@ -128,19 +126,21 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         ];
         $this->view->assign('vehicle', $data);
         $this->view->assign('goback', GeneralUtility::_GP($this->goback));
-
         // Google Maps
         $seller = new SellerController();
-        $data = $seller->getGoogleMaps($vehicle->getSeller(),"showAction");
+        $data = $seller->getGoogleMaps($vehicle->getSeller(), 'showAction');
         $this->view->assign('google_data', json_encode($data['googleData']));
         $this->view->assign('google_id', 'map_' . rand(0, 9999));
         $this->view->assign('google_places', $this->getPlacesId($vehicle->getImportClient()));
-
         // CO2
         $this->view->assign('energy_efficiency', $this->getEfficiency($vehicle));
     }
 
-    private function getEfficiency(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle){
+    /**
+     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
+     */
+    private function getEfficiency(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
+    {
         $data = [
             'emissionClass' => '-',
             'emissionSticker' => '',
@@ -149,17 +149,14 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 'co2-emission' => '-',
                 'inner' => '-',
                 'outer' => '-',
-                'combined' => '-',
-            ],
+                'combined' => '-'
+            ]
         ];
-        if($vehicle->getEmissionClass()){
-            $data = json_decode($vehicle->getMisc(),true);
+        if ($vehicle->getEmissionClass()) {
+            $data = json_decode($vehicle->getMisc(), true);
         }
-
-
         $return = $this->array_flatten($data);
         $return['sticker_img'] = $this->get_numerics($return['emission-sticker']);
-
         return $return;
     }
 
@@ -167,24 +164,23 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param $clientID
      * @return string
      */
-    private function getPlacesId($clientID){
+    private function getPlacesId($clientID)
+    {
         $clientData = $this->clientsRepository->findById($clientID);
-
-        $apiKey = "";
-        foreach ($clientData as $client){
+        $apiKey = '';
+        foreach ($clientData as $client) {
             $apiKey = $client->getApikey();
-            if(!empty($apiKey)){
+            if (!empty($apiKey)) {
                 break;
             }
         }
         return $apiKey;
     }
 
-    /**
-     * ========================================================================================
-     * Searchbox
-     * ========================================================================================
-     **/
+    # ========================================================================================
+    # Searchbox
+    # ========================================================================================
+
 
     /**
      * action search
@@ -205,10 +201,8 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $data['data'][$area] = $this->vehicleRepository->getSearchBoxData(array_keys($setting_data));
             }
         }
-
         // Searchbox with json-Data
         $data['data']['json'] = json_encode($this->vehicleRepository->getSearchboxByMake(array_keys($setting_data)));
-
         // Ranges
         $data['data']['select']['range'] = [
             'range' => $this->getSearchboxRange(0, 150000, 10000),
@@ -243,11 +237,9 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('goback', $GLOBALS['TSFE']->id);
     }
 
-    /**
-     * ========================================================================================
-     * Ajax Requests
-     * ========================================================================================
-     **/
+    # ========================================================================================
+    # Ajax Requests
+    # ========================================================================================
 
 
     /**
@@ -265,13 +257,10 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             ]);
             $data['result']['goback'] = GeneralUtility::_GP($this->goback);
         }
-
         $this->saveLastSearch($searchRequest);
-
         if (GeneralUtility::_GP('objects') == false) {
             return json_encode($data['result']);
         }
-
         $this->view->assign('vehicles', $data['result']);
     }
 
@@ -283,32 +272,33 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->setCookieData('search', $searchRequest);
     }
 
-
-
+    # ========================================================================================
+    # Helper functions
+    # ========================================================================================
 
 
     /**
-     * ========================================================================================
-     * Helper functions
-     * ========================================================================================
-     **/
-
-    function get_numerics ($str) {
-        preg_match_all('/\d+/', $str, $matches);
+     * @param $str
+     */
+    function get_numerics($str)
+    {
+        preg_match_all('/\\d+/', $str, $matches);
         return is_array($matches[0]) ? array_shift($matches[0]) : $matches[0];
     }
 
-
-    function array_flatten($array) {
+    /**
+     * @param $array
+     */
+    function array_flatten($array)
+    {
         if (!is_array($array)) {
             return FALSE;
         }
-        $result = array();
+        $result = [];
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $result = array_merge($result, $this->array_flatten($value));
-            }
-            else {
+            } else {
                 $result[$key] = $value;
             }
         }
@@ -408,11 +398,10 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         setcookie($cookieName, $cookieData, $ttl);
     }
 
-    /**
-     * ========================================================================================
-     * In Arbeit
-     * ========================================================================================
-     **/
+    # ========================================================================================
+    # In Arbeit
+    # ========================================================================================
+
 
     /**
      * @param $arr
@@ -422,17 +411,19 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         echo '<pre>' . print_r($arr, true) . '</pre>';
     }
 
+    /**
+     * @param $arr
+     */
     public function showDebug($arr)
     {
         /** \TYPO3\CMS\Extbase\Utility\DebuggerUtility */
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($arr);
     }
 
-    /**
-     * ========================================================================================
-     * Ungebraucht
-     * ========================================================================================
-     **/
+    # ========================================================================================
+    # Ungebraucht
+    # ========================================================================================
+
 
     /**
      * @return array

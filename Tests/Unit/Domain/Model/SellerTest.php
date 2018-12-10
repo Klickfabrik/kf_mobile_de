@@ -253,6 +253,31 @@ class SellerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getSellerInfoReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getSellerInfo()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setSellerInfoForStringSetsSellerInfo()
+    {
+        $this->subject->setSellerInfo('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'sellerInfo',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getUrlReturnsInitialValueForString()
     {
         self::assertSame(

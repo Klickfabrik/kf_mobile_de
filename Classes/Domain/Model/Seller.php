@@ -119,6 +119,13 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $import = false;
 
     /**
+     * sellerInfo
+     *
+     * @var string
+     */
+    protected $sellerInfo = '';
+
+    /**
      * Returns the url
      *
      * @return string $url
@@ -430,5 +437,26 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setSellerImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $sellerImage)
     {
         $this->sellerImage = $sellerImage;
+    }
+
+    /**
+     * Returns the sellerInfo
+     *
+     * @return string $sellerInfo
+     */
+    public function getSellerInfo()
+    {
+        return $this->sellerInfo;
+    }
+
+    /**
+     * Sets the sellerInfo
+     *
+     * @param string $sellerInfo
+     * @return void
+     */
+    public function setSellerInfo($sellerInfo)
+    {
+        $this->sellerInfo = $sellerInfo;
     }
 }

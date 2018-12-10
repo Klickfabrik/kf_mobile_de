@@ -215,6 +215,7 @@ CREATE TABLE tx_kfmobilede_domain_model_seller (
 	latitude varchar(255) DEFAULT '' NOT NULL,
 	longitude varchar(255) DEFAULT '' NOT NULL,
 	seller_image int(11) unsigned NOT NULL default '0',
+	seller_info text,
 	url varchar(255) DEFAULT '' NOT NULL,
 	email varchar(255) DEFAULT '' NOT NULL,
 	commercial smallint(5) unsigned DEFAULT '0' NOT NULL,

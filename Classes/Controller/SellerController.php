@@ -43,37 +43,31 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $this->googleMaps();
     }
 
-    /**
-     * ========================================================================================
-     * Google Maps
-     * ========================================================================================
-     */
+     # ========================================================================================
+     # Google Maps
+     # ========================================================================================
     public function placesAction()
     {
         #Debug
         if (isset($this->settings['debug']) && $this->settings['debug']) {
             $this->showArray($this->settings);
         }
-
         # single seller
-        if(isset($this->settings['select']['seller']) && !empty($this->settings['select']['seller'])){
+        if (isset($this->settings['select']['seller']) && !empty($this->settings['select']['seller'])) {
             $seller = [];
-            $uids = explode(",",$this->settings['select']['seller']);
-            foreach ($uids as $uid){
+            $uids = explode(',', $this->settings['select']['seller']);
+            foreach ($uids as $uid) {
                 $seller[] = $this->sellerRepository->findByUid($uid);
             }
         } else {
             $seller = $this->sellerRepository->findAll();
         }
-
-        $data = $this->getGoogleMaps($seller,'seller');
+        $data = $this->getGoogleMaps($seller, 'seller');
         $this->view->assign('sellers', $data['sellers']);
         $this->view->assign('phones', $data['phones']);
-
         $this->view->assign('google_data', json_encode($data['googleData']));
         $this->view->assign('google_id', 'map_' . rand(0, 9999));
         $this->view->assign('accordion_id', 'accordion' . rand(0, 999));
-
     }
 
     /**
@@ -85,16 +79,13 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         if (empty($_seller) || is_null($_seller)) {
             $_seller = $this->sellerRepository->findAll();
         }
-
         // Check Type (detail-page)
-        if(is_a($_seller,'Klickfabrik\KfMobileDe\Domain\Model\Seller')) {
+        if (is_a($_seller, 'Klickfabrik\\KfMobileDe\\Domain\\Model\\Seller')) {
             $_seller = [$_seller];
         }
-
         $sellers = [];
         $phones = [];
         $googleData = [];
-
         foreach ($_seller as $seller) {
             $phone = $this->parsePhone($seller->getPhone());
             $googleData[] = [
@@ -111,24 +102,21 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             $phones[] = $phone['raw'];
             $sellers[] = $seller;
         }
-
         $return = [
             'sellers' => $sellers,
             'phones' => $phones,
             'googleData' => $googleData
         ];
-
-
         return $return;
     }
 
     /**
      * @param $object
+     * @param $skip
      * @return array
      */
-    private function parsePhone($object,$skip=['fax'])
+    private function parsePhone($object, $skip = ['fax'])
     {
-
         $phone = [];
         $maps = [];
         $translate = [
@@ -137,11 +125,9 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             'CELL' => 'Mobil'
         ];
         foreach (json_decode($object, true) as $entry) {
-
-            if(!empty($skip) && in_array(strtolower($entry['type']),$skip)){
+            if (!empty($skip) && in_array(strtolower($entry['type']), $skip)) {
                 continue;
             }
-
             $number = $entry['country-calling-code'] . substr($entry['area-code'], 1) . $entry['number'];
             $array = [
                 'type' => $translate[$entry['type']],
@@ -156,12 +142,9 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         ];
     }
 
-
-    /**
-     * ========================================================================================
-     * Helpers
-     * ========================================================================================
-     **/
+     # ========================================================================================
+     # Helpers
+     # ========================================================================================
 
     /**
      * @param $arr
@@ -171,6 +154,9 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         echo '<pre>' . print_r($arr, true) . '</pre>';
     }
 
+    /**
+     * @param $arr
+     */
     public function showDebug($arr)
     {
         /** \TYPO3\CMS\Extbase\Utility\DebuggerUtility */

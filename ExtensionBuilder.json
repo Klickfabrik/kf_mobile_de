@@ -772,6 +772,17 @@
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
+                            "propertyName": "sellerInfo",
+                            "propertyType": "RichText",
+                            "uid": "559863689334"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
                             "propertyName": "url",
                             "propertyType": "String",
                             "uid": "275173573511"
@@ -869,7 +880,7 @@
         "plugins": [
             {
                 "actions": {
-                    "controllerActionCombinations": "",
+                    "controllerActionCombinations": "Importer => list, show, new, create, checkImport\nVehicle => list, show, new, create, edit, update, delete, search, ajaxResult\nFeatures => list, new, create, edit, update, delete\nSpecifics => list, new, create, edit, update, delete\nSeller => places",
                     "noncacheableActions": "",
                     "switchableActions": "List \/ Detailview\nVehicle->list; Vehicle->show;\nListview\nVehicle->list;\nDetailview\nVehicle->show;\nSearchbox\nVehicle->search;\nSeller Maps\nSeller->places;"
                 },
@@ -919,8 +930,8 @@
         }
     ],
     "log": {
-        "last_modified": "2018-09-30 08:04",
+        "last_modified": "2018-12-10 05:08",
         "extension_builder_version": "8.10.2",
-        "be_user": " (1)"
+        "be_user": "Marc Finnern (3)"
     }
 }
