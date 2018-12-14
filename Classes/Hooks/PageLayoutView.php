@@ -17,6 +17,13 @@ namespace Klickfabrik\KfMobileDe\Hooks;
 
 class PageLayoutView implements \TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface {
 
+    private $header = 'KF: Mobile.de Plugin';
+    private $allow = [
+        'settings.layout' => "Layout",
+        'switchableControllerActions' => "Controller",
+        'settings.order' => "Sorting"
+    ];
+
     /**
      * Preprocesses the preview rendering of a content element.
      *
@@ -38,27 +45,44 @@ class PageLayoutView implements \TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHo
         $content = [];
         $filters = [];
 
-        $headerContent = '<b>KF: Mobile.de Plugin' . "</b><br>";
+        $headerContent = "<strong>{$this->header}</strong><br>";
 
         $flexform = $row['pi_flexform'];
 
         //fetch the xml fleform value and get the value (field[0] - this depends on your own flexform)
         //see article on this page "XML Dateien in Extbase"
         $xml = simplexml_load_string($flexform);
-        $uid = strip_tags($xml->data->sheet->language->field[0]->value->asXML());
 
-
-        foreach ($xml->data->sheet[1]->language->field as $field){
+        $pluginXML = [];
+        foreach ($xml->data->sheet->language->field as $field){
             $name = strip_tags($field->attributes()->index);
-            $data = strip_tags($field->value->asXML());
-            if(!empty($data)){
-                $filters[] = "{$name} = ID: {$data}";
+            $data = htmlspecialchars_decode(strip_tags($field->value->asXML()));
+            $pluginXML[$name] = [
+                'name' => $name,
+                'data' => $data,
+            ];
+        }
+
+        foreach ($pluginXML as $field){
+            $name = $field['name'];
+            $data = $field['data'];
+            if(in_array($name,array_keys($this->allow)) && !empty($data)){
+                $name = isset($this->allow[$name]) && !empty($this->allow[$name]) ? $this->allow[$name] : $name;
+                $filters[] = "{$name}: {$data}";
             }
         }
 
+        asort($filters);
+        $uid = strip_tags($xml->data->sheet->language->field[0]->value->asXML());
         $layout = !empty($uid) ? $uid : "-";
         $content[] = "Layout: " . $layout;
-        $content[] = "Filter: " . join("<br/>",$filters);
+
+        if(!empty($filters)){
+            $content[] = "";
+            $content[] = "<strong>Filter</strong>:";
+            $content[] = join("<br/>",$filters);
+        }
+
 
         $itemContent = join("<br/>",$content);
     }
