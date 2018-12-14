@@ -321,7 +321,13 @@
       }
     }
     .wrap_co2 {}
-    .wrap_seller {}
+    .seller {
+      &--wrap {}
+      &--info {
+        padding-bottom: 15px;
+      }
+      &--map {}
+    }
 
     .table {
       &.table-size {
