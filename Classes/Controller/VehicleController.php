@@ -206,7 +206,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         // Ranges
         $data['data']['select']['range'] = [
             'range' => $this->getSearchboxRange(0, 150000, 10000),
-            'year' => $this->getSearchboxRange(date('Y') - 30, date('Y'), 1),
+            'year' => $this->getSearchboxRange(date('Y'), date('Y') - 30, 1),
             'price' => $this->getSearchboxRange(1000, 100000, 1000)
         ];
         // Reps
