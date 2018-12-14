@@ -1,6 +1,9 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Domain\Repository;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -12,8 +15,6 @@ namespace Klickfabrik\KfMobileDe\Domain\Repository;
  *
  * https://www.andrerinas.de/tutorials/typo3-extbase-ueberblick-ueber-query-und-repository-methoden.html
  ***/
-
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * The repository for Clients
@@ -36,6 +37,32 @@ class ClientsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             return $query
                 ->execute();
         }
+    }
+
+
+    /**
+     * @param $uids
+     * @return mixed
+     */
+    public function findByUids($uids){
+
+        $uidArray = explode(",", $uids);
+        $query = $this->createQuery();
+        foreach ($uidArray as $key => $value) {
+            $constraints[] =  $query->equals('uid', $value);
+        }
+
+        $result = $query->matching(
+            $query->logicalAnd(
+                $query->logicalOr(
+                    $constraints
+                ),
+                $query->equals('hidden', 0),
+                $query->equals('deleted', 0)
+            )
+        )->execute();
+
+        return $result;
     }
 
     /**

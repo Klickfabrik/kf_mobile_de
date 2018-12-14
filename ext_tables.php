@@ -27,7 +27,8 @@ call_user_func(
                     'Vehicle' => 'list, show, new, create, edit, update, delete, search, ajaxResult',
                     'Features' => 'list, new, create, edit, update, delete',
                     'Specifics' => 'list, new, create, edit, update, delete',
-                    'Seller' => 'places',
+                    'Seller' => 'maps',
+                    'Clients' => 'places',
                 ],
                 [
                     'access' => 'user,group',

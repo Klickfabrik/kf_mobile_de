@@ -18,10 +18,11 @@ call_user_func(
             ],
             // non-cacheable actions
             [
-                'Vehicle' => 'create, update, delete, ',
+                'Vehicle' => 'create, update, delete',
                 'Features' => 'create, update, delete',
                 'Specifics' => 'create, update, delete',
-                'Seller' => ''
+                'Seller' => '',
+                'Clients' => ''
             ]
         );
 

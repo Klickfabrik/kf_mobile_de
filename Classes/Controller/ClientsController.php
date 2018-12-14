@@ -33,13 +33,12 @@ class ClientsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     public function placesAction()
     {
-        #Debug
-        $this->debug();
-
         # single clients
         $clients = $this->getCurrentClient();
-
-        $this->view->assign('google_places', $clients);
+        if(!empty($clients) && is_array($clients)){
+            $clients = array_shift($clients);
+            $this->view->assign('google_places', $clients->getApikey());
+        }
     }
 
     # ========================================================================================
