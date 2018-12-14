@@ -26,12 +26,21 @@
             </div>
         </div>
     </div>
-    <f:if condition="{vehicles.options.{vehicle.importKey}}">
+    <f:if condition="{energy_efficiency}">
+        <div class="energy">
+            <ul>
+                <li>innerorts: {energy_efficiency.inner}</li>
+                <li>außerorts: {energy_efficiency.outer}</li>
+                <li>kombinert: {energy_efficiency.combined}</li>
+            </ul>
+        </div>
+    </f:if>
+    <f:if condition="{vehicle.options.{vehicle.importKey}}">
         <div class="options">
             <div class="row">
                 <div class="col-xs-12">
                     <ul>
-                        <f:for each="{vehicles.options.{vehicle.importKey}}" as="item" key="translate">
+                        <f:for each="{vehicle.options.{vehicle.importKey}}" as="item" key="translate">
                             <f:if condition="{item.city}">
                                 <f:then>
                                     <li><strong>{translate}:</strong> {item.city}</li>

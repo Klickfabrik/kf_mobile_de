@@ -255,12 +255,23 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 'limit' => GeneralUtility::_GP('limit'),
                 'offset' => GeneralUtility::_GP('offset')
             ]);
+
             $data['result']['goback'] = GeneralUtility::_GP($this->goback);
         }
         $this->saveLastSearch($searchRequest);
         if (GeneralUtility::_GP('objects') == false) {
             return json_encode($data['result']);
         }
+
+        foreach ($data['result'] as $pos => $vehicles){
+            if(is_object($vehicles)){
+                foreach ($vehicles as $vehicle){
+                    $data['result']['energy_efficiency'][$vehicle->getImportKey()] = $this->getEfficiency($vehicle);
+                }
+            }
+        }
+
+
         $this->view->assign('vehicles', $data['result']);
     }
 

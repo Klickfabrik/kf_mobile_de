@@ -10,6 +10,7 @@
 					<div class="col-xs-12 item_wrap">
 						<div class="row">
 							<f:variable name="type" value="search" />
+							<f:variable name="energy_efficiency" value="{vehicles.energy_efficiency.{vehicle.importKey}}" />
 							<f:render partial="Vehicle/Item/ListSearch" arguments="{_all}" />
 						</div>
 					</div>
