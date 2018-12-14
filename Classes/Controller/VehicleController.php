@@ -128,7 +128,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('goback', GeneralUtility::_GP($this->goback));
         // Google Maps
         $seller = new SellerController();
-        $data = $seller->getGoogleMaps($vehicle->getSeller(), 'showAction');
+        $data = $seller->getGoogleMaps($vehicle->getSeller());
         $this->view->assign('google_data', json_encode($data['googleData']));
         $this->view->assign('google_id', 'map_' . rand(0, 9999));
         $this->view->assign('google_places', $this->getPlacesId($vehicle->getImportClient()));

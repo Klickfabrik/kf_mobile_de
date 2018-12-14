@@ -62,7 +62,7 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         } else {
             $seller = $this->sellerRepository->findAll();
         }
-        $data = $this->getGoogleMaps($seller, 'seller');
+        $data = $this->getGoogleMaps($seller);
         $this->view->assign('sellers', $data['sellers']);
         $this->view->assign('phones', $data['phones']);
         $this->view->assign('google_data', json_encode($data['googleData']));
