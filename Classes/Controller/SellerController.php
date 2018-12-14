@@ -43,25 +43,19 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $this->googleMaps();
     }
 
-     # ========================================================================================
-     # Google Maps
-     # ========================================================================================
-    public function placesAction()
+
+    # ========================================================================================
+    # Google Maps
+    # ========================================================================================
+
+    public function mapsAction()
     {
         #Debug
-        if (isset($this->settings['debug']) && $this->settings['debug']) {
-            $this->showArray($this->settings);
-        }
+        $this->debug();
+
         # single seller
-        if (isset($this->settings['select']['seller']) && !empty($this->settings['select']['seller'])) {
-            $seller = [];
-            $uids = explode(',', $this->settings['select']['seller']);
-            foreach ($uids as $uid) {
-                $seller[] = $this->sellerRepository->findByUid($uid);
-            }
-        } else {
-            $seller = $this->sellerRepository->findAll();
-        }
+        $seller = $this->getCurrentSellers();
+
         $data = $this->getGoogleMaps($seller);
         $this->view->assign('sellers', $data['sellers']);
         $this->view->assign('phones', $data['phones']);
@@ -93,11 +87,11 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
                 'longitude' => $seller->getLongitude(),
                 'name' => $seller->getCompanyName(),
                 'address' => join(',<br/>', [
-                        "<strong>{$seller->getCompanyName()}</strong>",
-                        $seller->getStreet(),
-                        $seller->getZipcode() . ' ' . $seller->getCity(),
-                        join('<br/>', $phone['maps'])
-                    ])
+                    "<strong>{$seller->getCompanyName()}</strong>",
+                    $seller->getStreet(),
+                    $seller->getZipcode() . ' ' . $seller->getCity(),
+                    join('<br/>', $phone['maps'])
+                ])
             ];
             $phones[] = $phone['raw'];
             $sellers[] = $seller;
@@ -142,9 +136,39 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         ];
     }
 
-     # ========================================================================================
-     # Helpers
-     # ========================================================================================
+    # ========================================================================================
+    # System helper
+    # ========================================================================================
+
+    private function debug()
+    {
+        if (isset($this->settings['debug']) && $this->settings['debug']) {
+            $this->showArray($this->settings);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function getCurrentSellers()
+    {
+        # single seller
+        if (isset($this->settings['select']['seller']) && !empty($this->settings['select']['seller'])) {
+            $seller = [];
+            $uids = explode(',', $this->settings['select']['seller']);
+            foreach ($uids as $uid) {
+                $seller[] = $this->sellerRepository->findByUid($uid);
+            }
+        } else {
+            $seller = $this->sellerRepository->findAll();
+        }
+
+        return $seller;
+    }
+
+    # ========================================================================================
+    # Helpers
+    # ========================================================================================
 
     /**
      * @param $arr

@@ -26,4 +26,43 @@ class ClientsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $ClientsRepository = null;
 
 
+
+    # ========================================================================================
+    # Google Reviews
+    # ========================================================================================
+
+    public function placesAction()
+    {
+        #Debug
+        $this->debug();
+
+        # single clients
+        $clients = $this->getCurrentClient();
+
+        $this->view->assign('google_places', $clients);
+    }
+
+    # ========================================================================================
+    # System helper
+    # ========================================================================================
+
+    /**
+     * @return array
+     */
+    private function getCurrentClient()
+    {
+        # single clients
+        if (isset($this->settings['select']['clients']) && !empty($this->settings['select']['clients'])) {
+            $clients = [];
+            $uids = explode(',', $this->settings['select']['clients']);
+            foreach ($uids as $uid) {
+                $clients[] = $this->ClientsRepository->findByUid($uid);
+            }
+        } else {
+            $clients = $this->ClientsRepository->findAll();
+        }
+
+        return $clients;
+    }
+
 }
