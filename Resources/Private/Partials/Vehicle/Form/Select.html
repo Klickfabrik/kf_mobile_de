@@ -6,7 +6,7 @@
 			{f:if(condition:'{default}', then: '{default}' , else: 'Alle')}
 		</option>
 
-		<f:for each="{options}" as="data">
+		<f:for each="{options}" as="data" key="itemkey">
 			<f:if condition="{data}">
 				<f:if condition="{type} == 'number'">
 					<f:then>
@@ -27,6 +27,9 @@
 					</f:else>
 					<f:else if="{fieldName} == 'seller'">
 						<option value="{data.uid}">{data.city} ({data.zipcode})</option>
+					</f:else>
+					<f:else if="{type} == 'custom'">
+						<option value="{itemkey}">{data}</option>
 					</f:else>
 					<f:else>
 						<option value="{data}">{data}</option>
