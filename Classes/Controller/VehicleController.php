@@ -138,6 +138,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
+     * @return array|bool
      */
     private function getEfficiency(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
     {

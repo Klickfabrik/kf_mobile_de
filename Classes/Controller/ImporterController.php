@@ -178,6 +178,9 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 );
                 $this->mobileGetter = new \Klickfabrik\KfMobileDe\Helper\MobileGetter($config);
 
+                // clean up
+                $this->cleanTypo3temp();
+
                 /**
                  * Status all elements
                  */
@@ -199,8 +202,6 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     }
 
                     if($this->mode == "single"){
-
-
                         self::createSingleCalls($this->tmpDir . $filename);
                         foreach ($this->singleList[$filename] as $singleFile){
                             $file = $singleFile['file'];
@@ -360,6 +361,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param string $search
      * @param string $rep
      * @return array
+     * @throws \Exception
      */
     private function createSeller($filename, $search="importKey", $rep="sellerRepository"){
         $status  = array(
@@ -575,8 +577,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 );
 
                 // check for data
-                $find   = "findOneBy" . ucfirst($search);
-                $obj    = $this->$rep->$find($cur[$search]);
+                $obj    = $this->$rep->findOneByKey('import_key',$cur[$search]);
                 $objNew = empty($obj);
 
                 // object
@@ -609,6 +610,10 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                     $imageTag = $this->mode == "single" ? 'ad:images|ad:image' : 'ad:images|ad:image|ad:representation';
 
+                    // specs
+                    $specs = $xml::getSpecifics();
+                    $specs = isset($specs['steps']) ? (count($specs['steps']) == 1 ? array_shift($specs['steps']) : $specs['steps']) : $specs;
+
                     // collect data
                     $xmlResult = array(
                         'modelDescription'      => $xml::getTag('ad:vehicle|ad:model-description'),
@@ -632,11 +637,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                         // relations
                         'seller'                => $xml::getTag('seller:seller','key'),
-                        'specifics'             => [
-                            'fuel'          => $xml::getTag('ad:vehicle|ad:specifics|ad:fuel','key'),
-                            'gearbox'       => $xml::getTag('ad:vehicle|ad:specifics|ad:gearbox','key'),
-                            'emissionClass' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-class','key'),
-                        ],
+                        'specifics'             => $specs,
                         'features'              => $xml::getFeatures(),
 
                         // spects
@@ -656,6 +657,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                             'emissionSticker'       => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-sticker','key'),
                             'emissionConsumption'   => [
                                 'emission-sticker' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-sticker'),
+                                'energy-efficiency-class' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','energy-efficiency-class'),
                                 'envkv-compliant' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','envkv-compliant'),
                                 'co2-emission' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','co2-emission'),
                                 'inner' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','inner'),
@@ -682,23 +684,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                 $value  = $this->sellerRepository->$find($firstData);
                                 break;
                             case "features":
+                            case "specifics":
                                 $value = array();
                                 if($data != null){
                                     foreach ($data as $relValue){
                                         $relName    = $relValue['key'];
-                                        $resData    = $this->featuresRepository->findOneByName($relName);
-
-                                        if(!empty($resData))
-                                            $value[$name][] = $resData;
-                                    }
-                                }
-                                break;
-                            case "specifics":
-                                $value = array();
-                                if($data != null){
-                                    foreach ($data as $relKey => $relValue){
-                                        $relName    = $this->getValue($data,$relKey);
-                                        $resData    = $this->specificsRepository->findOneByName($relName);
+                                        $relRep     = "{$name}Repository";
+                                        $resData    = $this->$relRep->findOneByName($relName);
 
                                         if(!empty($resData))
                                             $value[$name][] = $resData;
@@ -783,7 +775,6 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                         $newElement->addSpecific($obj);
                                     }
                                 }
-
                                 // clear
                                 $value = "";
                                 break;
@@ -999,6 +990,9 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
     }
 
+    /**
+     * @param $filename
+     */
     private function createSingleCalls($filename){
         $fileInfo = pathinfo($filename);
 
@@ -1014,6 +1008,27 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             if($res['status'])
                 $this->singleList[$fileInfo['basename']]["{$id}.xml"] = $res;
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function cleanTypo3temp(){
+        $log = [];
+        $filesTypes = [
+            '*.xml' => strtotime("now -7days"),
+        ];
+        foreach ($filesTypes as $type => $age){
+            $files = glob($this->tmpDir . $type);
+            foreach ($files as $file){
+                if($age > filemtime($file)){
+                    unlink($file);
+                    $log[$type][] = $file;
+                }
+            }
+        }
+
+        return $log;
     }
 
 

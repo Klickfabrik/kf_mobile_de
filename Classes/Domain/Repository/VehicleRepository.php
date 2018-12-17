@@ -1,12 +1,12 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Domain\Repository;
 
-use TYPO3\CMS\Backend\Controller\DummyController;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-use TYPO3\CMS\Extensionmanager\Domain\Model\Dependency;
+
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -102,10 +102,18 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                         }
                         $constraints[] = $query->matching($query->in($field, $uids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
                         break;
-                    case 'features':    
+                    case 'features':
                     case 'specifics':
                     case 'seller':
-                        $constraints[] = $query->statement("SELECT * FROM {$this->tableKey}_domain_model_vehicle WHERE uid IN ( SELECT uid_local FROM `{$this->tableKey}_vehicle_{$key}_mm` WHERE `uid_foreign` IN ({$filter[$key]}) #ORDER BY `uid_foreign` ) {$this->getDefaults('AND')} {$this->getLimitOffset($settings)} ");
+                        $uids = explode(",",$field);
+                        $constraints[] =  $query->matching(
+                            $query->in($field, $uids),
+                            $query->logicalAnd(
+                                $query->equals('hidden', 0),
+                                $query->equals('deleted', 0)
+                            )
+                        );
+                        #$constraints[] = $query->statement("SELECT * FROM {$this->tableKey}_domain_model_vehicle WHERE uid IN ( SELECT uid_local FROM `{$this->tableKey}_vehicle_{$key}_mm` WHERE `uid_foreign` IN ({$filter[$key]}) #ORDER BY `uid_foreign` ) {$this->getDefaults('AND')} {$this->getLimitOffset($settings)} ");
                         break;
                     default:    $ids = $filter[$key];
                         $constraints[] = $query->matching($query->in($field, $ids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
@@ -130,12 +138,18 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $this->setcurCount($result->count());
         return $result;
     }
+    public function findOneByKey($key,$value){
+        $query = $this->createQuery();
+        $query->matching($query->equals($key, $value));
+        $result = $query->execute()->getFirst();
+
+        return $result;
+    }
 
     /**
-     * Set the order method
-     *
      * @param $field
      * @param $values
+     * @return array
      */
     protected function orderByField($field, $values)
     {
@@ -217,7 +231,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             if (!empty($requestValue)) {
                 if (!is_array($requestValue)) {
                     switch ($requestKey) {
-                        case 'features':    
+                        case 'features':
                         case 'specifics':
                             $constraints[] = $query->equals("{$requestKey}.uid", $requestValue);
                             break;
@@ -237,8 +251,8 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 } else {
                     $subQuery = [];
                     switch ($requestKey) {
-                        case 'first_registration':    
-                        case 'mileage':    
+                        case 'first_registration':
+                        case 'mileage':
                         case 'price':
                             foreach ($requestValue as $subKey => $subValue) {
                                 if (!empty($subValue)) {
@@ -260,7 +274,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                                 }
                             }
                             break;
-                        case 'features':    
+                        case 'features':
                         case 'specifics':
                             $requestKey = "{$requestKey}.name";
                             $queryAnd = [];
@@ -403,10 +417,10 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $sqlStatement = $queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL();
 
             if(!empty($request))
-            DebuggerUtility::var_dump($request);
+                DebuggerUtility::var_dump($request);
 
             if(!empty($sqlStatement))
-            DebuggerUtility::var_dump($sqlStatement);
+                DebuggerUtility::var_dump($sqlStatement);
 
             echo "<div style='max-width: 600px;height: auto'>{$sqlStatement}</div>";
         }
