@@ -291,6 +291,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * @param $str
+     * @return mixed
      */
     function get_numerics($str)
     {
@@ -300,6 +301,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * @param $array
+     * @return array|bool
      */
     function array_flatten($array)
     {

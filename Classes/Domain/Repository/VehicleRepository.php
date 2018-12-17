@@ -105,15 +105,9 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                     case 'features':
                     case 'specifics':
                     case 'seller':
-                        $uids = explode(",",$field);
                         $constraints[] =  $query->matching(
-                            $query->in($field, $uids),
-                            $query->logicalAnd(
-                                $query->equals('hidden', 0),
-                                $query->equals('deleted', 0)
-                            )
+                            $query->in($field, $ids)
                         );
-                        #$constraints[] = $query->statement("SELECT * FROM {$this->tableKey}_domain_model_vehicle WHERE uid IN ( SELECT uid_local FROM `{$this->tableKey}_vehicle_{$key}_mm` WHERE `uid_foreign` IN ({$filter[$key]}) #ORDER BY `uid_foreign` ) {$this->getDefaults('AND')} {$this->getLimitOffset($settings)} ");
                         break;
                     default:    $ids = $filter[$key];
                         $constraints[] = $query->matching($query->in($field, $ids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
@@ -130,7 +124,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->setLimit($settings['limit']);
             }
         }
-        if (!empty($constraints) && count($constraints) > 1) {
+        if (!empty($constraints) && count($constraints) > 0) {
             $query->matching($query->logicalAnd($constraints));
         }
 
@@ -138,8 +132,24 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $this->setcurCount($result->count());
         return $result;
     }
-    public function findOneByKey($key,$value){
+
+    /**
+     * @param $key
+     * @param $value
+     * @param int $hidden
+     * @param int $delete
+     * @return mixed
+     */
+    public function findOneByKey($key, $value, $hidden=1, $delete=0){
         $query = $this->createQuery();
+
+        // Here you enable the hidden and deleted Records
+        if($hidden)
+            $query->getQuerySettings()->setIgnoreEnableFields(true);
+
+        if($delete)
+            $query->getQuerySettings()->setIncludeDeleted(true);
+
         $query->matching($query->equals($key, $value));
         $result = $query->execute()->getFirst();
 

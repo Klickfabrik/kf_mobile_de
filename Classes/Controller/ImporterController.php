@@ -1,6 +1,8 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Controller;
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -578,13 +580,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                 // check for data
                 $obj    = $this->$rep->findOneByKey('import_key',$cur[$search]);
-                $objNew = empty($obj);
+                $objNew = is_null($obj) || empty($obj);
+
 
                 // object
                 $newElement = $objNew
                     ? new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle()
                     : $obj;
-
 
                 // data for later checks
                 $this->checks[$rep]['type'] = $search;
