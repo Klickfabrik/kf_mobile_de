@@ -1,71 +1,95 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<div class="col-xs-12 col-sm-3">
-    <f:if condition="{settings.list.images.limit}">
-        <div class="images">
-            <f:for each="{vehicle.images}" as="image" iteration="iterator">
-                <f:if condition="{iterator.index} < {settings.list.images.limit}">
-                    <f:render partial="Vehicle/Image/Default" arguments="{_all}" />
-                </f:if>
-            </f:for>
-        </div>
+<f:for each="{vehicle.specifics}" as="specific">
+    <f:if condition="{specific.name} == 'USED' || {specific.name} == 'NEW'">
+        <f:variable name="typ" value="{specific.description}" />
     </f:if>
-</div>
-<div class="col-xs-12 col-sm-9">
-    <div class="headerbox">
-        <div class="row">
-            <div class="col-sm-9">
-                <div class="header">
-                    <h2>{vehicle.make} {vehicle.modelDescription}</h2>
-                </div>
+</f:for>
+<div class="list--item">
+    <div class="col-xs-12 col-sm-3">
+        <f:if condition="{settings.list.images.limit}">
+            <div class="images">
+                <f:for each="{vehicle.images}" as="image" iteration="iterator">
+                    <f:if condition="{iterator.index} < {settings.list.images.limit}">
+                        <f:render partial="Vehicle/Image/Default" arguments="{_all}" />
+                    </f:if>
+                </f:for>
             </div>
-            <div class="col-sm-3">
-                <div class="price">
-                    €<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.price}</f:format.number>,-
-                    <div class="mwst">(inkl. 19% MwSt.)</div>
-                </div>
-            </div>
-        </div>
+        </f:if>
     </div>
-    <f:if condition="{energy_efficiency}">
-        <div class="energy">
-            <ul>
-                <li>innerorts: {energy_efficiency.inner}</li>
-                <li>außerorts: {energy_efficiency.outer}</li>
-                <li>kombinert: {energy_efficiency.combined}</li>
-            </ul>
-        </div>
-    </f:if>
-    <f:if condition="{vehicle.options.{vehicle.importKey}}">
-        <div class="options">
+    <div class="col-xs-12 col-sm-9">
+        <div class="list--headerbox">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-sm-9">
+                    <div class="header">
+                        <h2>{vehicle.make} {vehicle.modelDescription}</h2>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="price">
+                        €<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.price}</f:format.number>,-
+                        <div class="mwst">(inkl. 19% MwSt.)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list--data">
+            <ul>
+                <li><strong>Typ:</strong> {typ}</li>
+                <li><strong>Leistung:</strong> {vehicle.power} kW</li>
+                <li><strong>Kraftstoffart:</strong> {vehicle.fuel}</li>
+                <li><strong>Kilometerstand:</strong> {vehicle.mileage} km</li>
+                <li><strong>Farbe:</strong> {vehicle.color}</li>
+                <li><strong>Getriebe:</strong> {vehicle.gearbox}</li>
+                <li><strong>Erstzulassung:</strong> {vehicle.firstRegistration->f:format.date(format: 'Y.m.d')}</li>
+                <li><strong>Aufbauart:</strong> {vehicle.category}</li>
+                <li><strong>Türen:</strong> {vehicle.doors}</li>
+            </ul>
+            <f:if condition="{energy_efficiency}">
+                <div class="list--data--energy">
+                    <hr/>
+                    <p><strong>Verbrauch:</strong></p>
                     <ul>
-                        <f:for each="{vehicle.options.{vehicle.importKey}}" as="item" key="translate">
-                            <f:if condition="{item.city}">
-                                <f:then>
-                                    <li><strong>{translate}:</strong> {item.city}</li>
-                                </f:then>
-                                <f:else>
-                                    <li><strong>{translate}:</strong> {item}</li>
-                                </f:else>
-                            </f:if>
-                        </f:for>
+                        <li>innerorts: {energy_efficiency.inner}</li>
+                        <li>außerorts: {energy_efficiency.outer}</li>
+                        <li>kombinert: {energy_efficiency.combined}</li>
                     </ul>
                 </div>
-            </div>
+            </f:if>
         </div>
-    </f:if>
-    <div class="controls">
-        <f:switch expression="{type}">
-            <f:case value="search">
-                <f:render partial="Vehicle/Button/ButtonDetail" arguments="{_all}" />
-                <f:render partial="Vehicle/Button/ButtonSave" arguments="{_all}" />
-                <f:render partial="Vehicle/Button/ButtonMail" arguments="{_all}" />
-            </f:case>
-            <f:defaultCase>
-                <f:render partial="Vehicle/Button/ButtonDetail" arguments="{_all}" />
-            </f:defaultCase>
-        </f:switch>
+
+        <f:if condition="{vehicle.options.{vehicle.importKey}}">
+            <div class="list--options">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul>
+                            <f:for each="{vehicle.options.{vehicle.importKey}}" as="item" key="translate">
+                                <f:if condition="{item.city}">
+                                    <f:then>
+                                        <li><strong>{translate}:</strong> {item.city}</li>
+                                    </f:then>
+                                    <f:else>
+                                        <li><strong>{translate}:</strong> {item}</li>
+                                    </f:else>
+                                </f:if>
+                            </f:for>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </f:if>
+        <div class="list--controls">
+            <f:switch expression="{type}">
+                <f:case value="search">
+                    <f:render partial="Vehicle/Button/ButtonDetail" arguments="{_all}" />
+                    <f:render partial="Vehicle/Button/ButtonSave" arguments="{_all}" />
+                    <f:render partial="Vehicle/Button/ButtonMail" arguments="{_all}" />
+                </f:case>
+                <f:defaultCase>
+                    <f:render partial="Vehicle/Button/ButtonDetail" arguments="{_all}" />
+                </f:defaultCase>
+            </f:switch>
+        </div>
     </div>
 </div>
 </html>

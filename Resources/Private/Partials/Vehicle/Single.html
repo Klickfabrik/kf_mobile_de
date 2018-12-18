@@ -147,9 +147,19 @@
 							</table>
 						</div>
 						<f:if condition="{energy_efficiency.sticker_img}">
-							<div class="col-xs-12 col-sm-6">
-								<f:image src="{f:uri.resource(path:'Images/EURO{energy_efficiency.sticker_img}.png')}" class="img-responsive" title="{energy_efficiency.emissionClass}" maxWidth="300" />
-							</div>
+							<f:if condition="{energy_efficiency.energy-efficiency-class}">
+								<f:then>
+									<div class="col-xs-12 col-sm-6">
+										<f:variable name="image_class" value="Images/energy_efficiency_label_{energy_efficiency.energy-efficiency-class -> f:format.case(mode: 'lower')}.png" />
+										<f:image src="{f:uri.resource(path:'{image_class}')}" class="img-responsive" title="{energy_efficiency.emissionClass}" maxWidth="300" />
+									</div>
+								</f:then>
+								<f:else>
+									<div class="col-xs-12 col-sm-6">
+										<f:image src="{f:uri.resource(path:'Images/EURO{energy_efficiency.sticker_img}.png')}" class="img-responsive" title="{energy_efficiency.emissionClass}" maxWidth="300" />
+									</div>
+								</f:else>
+							</f:if>
 						</f:if>
 					</div>
 				</div>

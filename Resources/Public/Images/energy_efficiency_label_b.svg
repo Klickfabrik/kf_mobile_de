@@ -1,1 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="550" height="500" viewBox="0, 0, 55, 50"><path d="M21 8H0v6h21l3-3-3-3z" fill="#58AB27"/><text transform="translate(10.5 11)"><tspan x="7.165" y="2" font-family="sans-serif" font-size="5" fill="#FFF">A</tspan></text><path d="M18 1H0v6h18l3-3-3-3z" fill="#009036"/><text transform="translate(8.919 4)"><tspan x="4.125" y="2" font-family="sans-serif" font-size="5" fill="#FFF">A⁺</tspan></text><path d="M24 15H0v6h24l3-3-3-3z" fill="#B1C800"/><text transform="translate(12 18)"><tspan x="8.665" y="2" font-family="sans-serif" font-size="5" fill="#FFF">B</tspan></text><path d="M27 22H0v6h27l3-3-3-3z" fill="#FFEC00"/><text transform="translate(13.5 25)"><tspan x="9.889" y="2" font-family="sans-serif" font-size="5" fill="#FFF">C</tspan></text><path d="M30 29H0v6h30l3-3-3-3z" fill="#FECC00"/><text transform="translate(15 32)"><tspan x="11.389" y="2" font-family="sans-serif" font-size="5" fill="#FFF">D</tspan></text><path d="M33 36H0v6h33l3-3-3-3z" fill="#F29400"/><text transform="translate(16.5 39)"><tspan x="13.165" y="2" font-family="sans-serif" font-size="5" fill="#FFF">E</tspan></text><path d="M36 43H0v6h36l3-3-3-3z" fill="#E2001A"/><text transform="translate(18 46)"><tspan x="14.946" y="2" font-family="sans-serif" font-size="5" fill="#FFF">F</tspan></text><g class="marker" id="B"><path d="M44 22l-4-4 4-4h11v8H44z"/><text transform="translate(49.5 18)"><tspan x="-2.001" y="2" font-family="sans-serif" font-size="6" fill="#FFF">B</tspan></text></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 550 500" style="enable-background:new 0 0 550 500;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#58AB27;}
+	.st1{fill:#FFFFFF;}
+	.st2{font-family:'Helvetica';}
+	.st3{font-size:50px;}
+	.st4{fill:#009036;}
+	.st5{fill:#B1C800;}
+	.st6{fill:#FFEC00;}
+	.st7{fill:#FECC00;}
+	.st8{fill:#F29400;}
+	.st9{fill:#E2001A;}
+	.st10{font-size:60px;}
+</style>
+<path class="st0" d="M210,80H0v60h210l30-30L210,80z"/>
+<text transform="matrix(1 0 0 1 176.6484 130)" class="st1 st2 st3">A</text>
+<path class="st4" d="M180,10H0v60h180l30-30L180,10z"/>
+<text transform="matrix(1 0 0 1 130.4375 60)" class="st1 st2 st3">A⁺</text>
+<path class="st5" d="M240,150H0v60h240l30-30L240,150z"/>
+<text transform="matrix(1 0 0 1 206.6484 200)" class="st1 st2 st3">B</text>
+<path class="st6" d="M270,220H0v60h270l30-30L270,220z"/>
+<text transform="matrix(1 0 0 1 233.8906 270)" class="st1 st2 st3">C</text>
+<path class="st7" d="M300,290H0v60h300l30-30L300,290z"/>
+<text transform="matrix(1 0 0 1 263.8906 340)" class="st1 st2 st3">D</text>
+<path class="st8" d="M330,360H0v60h330l30-30L330,360z"/>
+<text transform="matrix(1 0 0 1 296.6484 410)" class="st1 st2 st3">E</text>
+<path class="st9" d="M360,430H0v60h360l30-30L360,430z"/>
+<text transform="matrix(1 0 0 1 329.4609 480)" class="st1 st2 st3">F</text>
+<g id="B">
+	<path d="M440,220l-40-40l40-40h110v80H440z"/>
+	<text transform="matrix(1 0 0 1 474.9922 200)" class="st1 st2 st10">B</text>
+</g>
+</svg>

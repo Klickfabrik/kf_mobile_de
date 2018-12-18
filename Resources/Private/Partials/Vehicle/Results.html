@@ -4,10 +4,10 @@
 		<f:if condition="{vehicles.goback}">
 			<f:variable name="goback" value="{vehicles.goback}" />
 		</f:if>
-		<div class="view-result">
+		<div class="view--result">
 			<div class="row">
 				<f:for each="{vehicles.data}" as="vehicle">
-					<div class="col-xs-12 item_wrap">
+					<div class="col-xs-12 list--wrap">
 						<div class="row">
 							<f:variable name="type" value="search" />
 							<f:variable name="energy_efficiency" value="{vehicles.energy_efficiency.{vehicle.importKey}}" />
