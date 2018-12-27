@@ -1,0 +1,144 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="view--searchbox complexv2">
+	<div class="view--searchbox__complex">
+		<f:form id="ajaxselectlist-form" class="{f:if(condition:'{settings.list.pid}', then: 'target', else: 'notarget')} complex" pageUid="{settings.list.pid}">
+			<input type="hidden" name="objects" value="0">
+			<input type="hidden" name="type" value="{settings.ajax.typeNum}">
+			<input type="hidden" name="limit" value="{settings.ajax.limit}">
+			<input type="hidden" name="offset" value="0">
+			<input type="hidden" name="goback" value="{goback}">
+
+
+			<!-- Radioboxes -->
+			<div class="view--searchbox__radio">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<strong>Fahrzeugtyp</strong>
+						<label class="radio-inline">
+							<input type="radio" name="_search[specifics][0]" value="0"> beliebig
+						</label>
+						<f:for each="{vehicle.data.select.specifics}" as="spec">
+							<f:if condition="{spec.name} == 'NEW' || {spec.name} == 'USED'">
+								<label class="radio-inline">
+									<input type="radio" name="_search[specifics][0]" value="{spec.name}"> {spec.description}
+								</label>
+							</f:if>
+						</f:for>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<strong>Vornutzung</strong>
+						<label class="radio-inline">
+							<input type="radio" name="_search[specifics][1]" value="0"> beliebig
+						</label>
+						<f:for each="{vehicle.data.select.specifics}" as="spec">
+							<f:if condition="{spec.name} != 'NEW' && {spec.name} != 'USED'">
+								<label class="radio-inline">
+									<input type="radio" name="_search[specifics][1]" value="{spec.name}"> {spec.description}
+								</label>
+							</f:if>
+						</f:for>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="view--searchbox__select">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<f:for each="{1:'make'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="Alle {f:if(condition:'{translate}', then: '{translate}' , else: '{vehicle.translate.data.select.{fieldName}}')}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<f:for each="{1:'model'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="Alle {f:if(condition:'{translate}', then: '{translate}' , else: '{vehicle.translate.data.select.{fieldName}}')}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'km bis', 'vehicle' : vehicle, 'fieldName' : 'mileage][max', 'options' : vehicle.data.select.range.range, 'type' : 'number' }" />
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'Preis bis', 'vehicle' : vehicle, 'fieldName' : 'price][max', 'options' : vehicle.data.select.range.price, 'type' : 'number' }" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<f:for each="{1:'gearbox'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="{f:if(condition:'{translate}', then: '{translate}' , else: '{vehicle.translate.data.select.{fieldName}}')}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<f:for each="{1:'fuel'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="{f:if(condition:'{translate}', then: '{translate}' , else: '{vehicle.translate.data.select.{fieldName}}')}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<f:for each="{1:'category'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="{f:if(condition:'{translate}', then: '{translate}' , else: '{vehicle.translate.data.select.{fieldName}}')}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'EZ ab', 'vehicle' : vehicle, 'fieldName' : 'first_registration][min', 'options' : vehicle.data.select.range.year, 'type' : 'year' }" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<f:render partial="Vehicle/Form/Select" arguments="{'default' : 'Leistung von', 'vehicle' : vehicle, 'fieldName' : 'power][min', 'options' : vehicle.data.select.power, 'type' : 'power' }" />
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<f:render partial="Vehicle/Form/Select" arguments="{'default' : '', 'fieldName' : 'sorting', 'translate' : 'Sortierung', 'options' : {
+								'price;asc':'Preis (aufsteigend)',
+								'price;desc':'Preis (absteigend)',
+								 'mileage;asc':'Kilometerstand (aufsteigend)',
+								 'mileage;desc':'Kilometerstand (absteigend)',
+								  'first_registration;asc':'Erstzulassung (aufsteigend)'
+								  'first_registration;desc':'Erstzulassung (absteigend)'
+								}, 'type' : 'custom' }" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="wrap_submit">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<button type="reset" class="btn btn-primary btn-block">Zurücksetzen</button>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<button type="submit" class="btn btn-primary btn-block"><span class="count">...</span> Treffer anzeigen </button>
+					</div>
+				</div>
+			</div>
+		</f:form>
+	</div>
+	<f:if condition="{settings.list.pid} == ''">
+		<div class="view--searchbox__result">
+			<div id="ajaxCallResult"></div>
+			<div id="ajaxCountResult"></div>
+		</div>
+	</f:if>
+</div>
+<script src="{f:uri.resource(path:'JavaScript/events.js')}" type="text/javascript"></script>
+<script src="{f:uri.resource(path:'JavaScript/searchbox.js')}" type="text/javascript"></script>
+<script src="{f:uri.resource(path:'JavaScript/cookie.js')}" type="text/javascript"></script>
+</html>

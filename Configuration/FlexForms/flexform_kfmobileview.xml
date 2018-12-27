@@ -81,6 +81,10 @@
                                         <numIndex index="0">Searchmask (simple)</numIndex>
                                         <numIndex index="1">search_simple</numIndex>
                                     </numIndex>
+                                    <numIndex index="8">
+                                        <numIndex index="0">Searchmask (medium)</numIndex>
+                                        <numIndex index="1">search_medium</numIndex>
+                                    </numIndex>
 								</items>
 							</config>
 						</TCEforms>

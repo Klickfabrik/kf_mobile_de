@@ -1,11 +1,15 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:if condition="{vehicles.data}">
 	<f:then>
-		<div class="view-list">
+		<div class="view--result">
 			<div class="row">
 				<f:for each="{vehicles.data}" as="vehicle">
-					<f:variable name="type" value="list" />
-					<f:render partial="Vehicle/Item/ListSearch" arguments="{_all}" />
+					<div class="col-xs-12 list--wrap">
+						<div class="row">
+							<f:variable name="type" value="list" />
+							<f:render partial="Vehicle/Item/ListSearch" arguments="{_all}" />
+						</div>
+					</div>
 				</f:for>
 			</div>
 		</div>

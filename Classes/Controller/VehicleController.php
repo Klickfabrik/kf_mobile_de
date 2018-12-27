@@ -2,6 +2,8 @@
 namespace Klickfabrik\KfMobileDe\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -76,7 +78,8 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         'importKey' => 'Fahrzeug-ID',
         'gearbox' => 'Getriebe',
         'category' => 'Karosserie',
-        'seller' => 'Standort'
+        'seller' => 'Standort',
+        'first_registration' => 'Erstzulassung',
     ];
 
     protected $kw = 0.735499;
@@ -202,12 +205,13 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $data['data'][$area] = $this->vehicleRepository->getSearchBoxData(array_keys($setting_data));
             }
         }
+
         // Searchbox with json-Data
         $data['data']['json'] = json_encode($this->vehicleRepository->getSearchboxByMake(array_keys($setting_data)));
         // Ranges
         $data['data']['select']['range'] = [
             'range' => $this->getSearchboxRange(0, 150000, 10000),
-            'year' => $this->getSearchboxRange(date('Y'), date('Y') - 30, 1),
+            'year' => $this->getSearchboxRange(date('Y'), date("Y",$this->vehicleRepository->getByDate('firstRegistration','asc')), 1),
             'price' => $this->getSearchboxRange(1000, 100000, 1000)
         ];
         // Reps
@@ -406,6 +410,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $cookieName = $this->extensionName . $cookieName;
         if (is_array($cookieData)) {
+            $cookieData = json_decode(json_encode($cookieData),true);
             $cookieData = json_encode($cookieData);
             $cookieData = stripslashes($cookieData);
         }

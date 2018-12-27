@@ -1,0 +1,14 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{goback}">
+	<f:then>
+		<f:link.page class="btn btn-goback btn-default" pageUid="{goback}">
+			« zurück zur Suche
+		</f:link.page>
+	</f:then>
+	<f:else>
+		<f:link.page class="btn btn-goback btn-default" pageUid="{settings.detail.backPid}">
+			« zurück zur Suche
+		</f:link.page>
+	</f:else>
+</f:if>
+</html>

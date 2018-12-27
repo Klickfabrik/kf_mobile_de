@@ -3,8 +3,8 @@
 <f:variable name="vehicle" value="{vehicle.data}" />
 <f:if condition="{vehicle}">
 	<f:then>
-		<div class="view-single">
-			<div class="header">
+		<div class="view--single">
+			<div class="view--single--header">
 				<div class="row">
 					<div class="col-xs-12">
 						<h2>{vehicle.modelDescription}</h2>
@@ -18,22 +18,20 @@
 			</div>
 
 			<f:if condition="{vehicle.images}">
-				<div class="images">
+				<div class="view--single--gallery">
 					<div class="row">
-						<div class="large col-xs-12 col-sm-6">
+						<div class="view--single--gallery__large col-xs-12 col-sm-6">
 							<f:for each="{vehicle.images}" as="image" iteration="iterator">
 								<f:if condition="{iterator.index} == 0">
 									<f:render partial="Vehicle/Image/Single" arguments="{_all}" />
 								</f:if>
 							</f:for>
 						</div>
-						<div class="small col-xs-12 col-sm-6">
+						<div class="view--single--gallery__small col-xs-12 col-sm-6">
 							<div class="row">
 								<f:for each="{vehicle.images}" as="image" iteration="iterator">
 									<div class="col-xs-2 col-sm-3">
-										<div class="item">
-											<f:render partial="Vehicle/Image/Single" arguments="{_all}" />
-										</div>
+										<f:render partial="Vehicle/Image/SingleSmall" arguments="{_all}" />
 									</div>
 								</f:for>
 							</div>
@@ -41,24 +39,24 @@
 						<script type="text/javascript">
                             var images;
                             (function ($, root, undefined) {
-                                images = $('.images');
+                                images = $('.view--single--gallery');
                                 initSmallGallery();
                             })(jQuery, this);
 
                             function initSmallGallery(){
-                                var small = images.find(".small"),
-                                    large = images.find(".large");
+                                var small = images.find(".view--single--gallery__item"),
+                                    large = images.find(".view--single--gallery__large");
 
-                                small.find('.item').eq(0).addClass("act");
+                                small.eq(0).addClass("act");
                                 toggleSmallGallery(large,small);
                             }
                             function toggleSmallGallery(large,small){
-                                small.find(".item").hover(function(){
-                                    small.find(".item.act").removeClass("act");
+                                small.hover(function(){
+                                    small.removeClass("act");
 
                                     var that = $(this);
                                     that.addClass("act");
-                                    large.find("img").attr("src",that.find("img").attr("src"));
+                                    large.find("img").attr("src",that.data("src"));
                                 });
                             }
 						</script>

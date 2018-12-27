@@ -1,0 +1,23 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="content">
+	<div class="view-map">
+		<f:switch expression="{settings.layout}">
+			<f:case value="simple_map">
+				<f:render partial="Seller/GoogleMaps/MapsSingle" arguments="{_all}" />
+			</f:case>
+			<f:defaultCase>
+				<div class="row">
+					<div class="col-xs-12 map">
+						<f:render partial="Seller/GoogleMaps/Maps" arguments="{_all}" />
+					</div>
+					<div class="col-xs-12 acc">
+						<f:render partial="Seller/GoogleMaps/Accordion" arguments="{_all}" />
+					</div>
+				</div>
+			</f:defaultCase>
+		</f:switch>
+	</div>
+</f:section>
+</html>

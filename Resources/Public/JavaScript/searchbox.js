@@ -4,7 +4,9 @@ var service,
     objects,
     offset,
     countObj,
-    loadingText = "Loading...";
+    loadingText = "Loading...",
+    init;
+
 jQuery(document).ready(function ($) {
 
     service = {
@@ -13,7 +15,7 @@ jQuery(document).ready(function ($) {
             resultContainer = $('#ajaxCallResult');
             objects = $('[name="objects"]');
             offset = $('[name="offset"]');
-            countObj = $('.count_wrap .count');
+            countObj = $('.count_wrap .count,button .count');
 
             if(form.hasClass("simple")){
                 service.sortByJson(form);
@@ -26,10 +28,10 @@ jQuery(document).ready(function ($) {
             });
             form.on('submit', function (ev) {
                 ev.preventDefault();
+
                 resultContainer.html(loadingText);
                 service.getVehicles($(this),false,0);
-
-                if(form.hasClass("simple")){
+                if( form.hasClass("simple") || form.hasClass("target")){
                     setTimeout(function(){
                         window.location = form.attr("action");
                     },200);
@@ -87,9 +89,23 @@ jQuery(document).ready(function ($) {
             $.each(data,function(k,v){
                 if(typeof v === "object"){
                     $.each(v,function(subK,subV) {
-                        subV = service.encode_utf8(subV);
                         if(subV !== ""){
-                            form.find('[name*="_search['+k+']['+subK+']"]').val(subV);
+                            subV = service.encode_utf8(subV);
+                            var input = form.find('[name*="_search['+k+']['+subK+']"]');
+
+                            switch(input.attr('type')){
+                                case "radio":
+                                    $.each(input,function(){
+                                        var iThat = $(this);
+                                        if(iThat.val() === subV){
+                                            iThat.attr("checked");
+                                        }
+                                    });
+                                    break;
+                                default:
+                                    input.val(subV);
+                                    break;
+                            }
                         }
                     });
                 } else {
@@ -169,12 +185,16 @@ jQuery(document).ready(function ($) {
         }
     };
 
-    service.init();
+    if(typeof init === "undefined"){
+        init = true;
+        service.init();
 
-    var lastSearch = service.getLastSearch();
-    if(lastSearch != null){
-        service.setCookieValues(lastSearch);
+        var lastSearch = service.getLastSearch();
+        if(lastSearch != null){
+            service.setCookieValues(lastSearch);
+        }
+
+        service.getCount(form);
+        service.getVehicles(form,0,0);
     }
-    service.getCount(form);
-    service.getVehicles(form,0,0);
 });

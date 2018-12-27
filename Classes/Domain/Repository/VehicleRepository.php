@@ -27,6 +27,8 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
     private $curCount = 0;
 
+    private $dateTimes = ['first_registration','creation_date','modification_date'];
+
     /**
      * @param int $curCount
      */
@@ -266,7 +268,21 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                         case 'price':
                             foreach ($requestValue as $subKey => $subValue) {
                                 if (!empty($subValue)) {
-                                    $subValue = intval($subValue);
+
+                                    if(in_array($requestKey,$this->dateTimes)){
+                                        switch ($subKey) {
+                                            case "min":
+                                                $day = "01-01";
+                                                break;
+                                            case "max":
+                                                $day = "12-31";
+                                                break;
+                                        }
+                                        $subValue = date("Y-m-d H:i:s",strtotime("{$subValue}-{$day}"));
+                                    } else {
+                                        $subValue = intval($subValue);
+                                    }
+
                                     switch ($subKey) {
                                         case 'min':
                                             $subQuery[] = $query->logicalOr([
@@ -286,11 +302,14 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                             break;
                         case 'features':
                         case 'specifics':
-                            $requestKey = "{$requestKey}.name";
-                            $queryAnd = [];
-                            foreach ($requestValue as $value) {
+                        $requestKey = "{$requestKey}.name";
+                        $queryAnd = [];
+                        foreach ($requestValue as $value) {
+                            if(!empty($value))
                                 $queryAnd[] = $query->equals($requestKey, $value);
-                            }
+                        }
+
+                        if(!empty($queryAnd))
                             $subQuery[] = $query->logicalAnd($queryAnd);
                             break;
                         case 'sorting':
@@ -304,7 +323,6 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
         $constraints[] = $query->equals('hidden', 0);
         $constraints[] = $query->equals('deleted', 0);
-
 
         $query->matching($query->logicalAnd($constraints));
 
@@ -378,8 +396,8 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             foreach ($fields as $name) {
                 $call = 'get' . ucfirst($name);
                 $data[$name] = array_filter(explode($delimiter, $result->{$call}()));
+                natsort($data[$name]);
             }
-            natsort($data[$name]);
         }
         return $data;
     }
@@ -415,6 +433,33 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
 
         return $return;
+    }
+
+
+    /**
+     * @param $name
+     * @param $order
+     * @return \DateTime|int
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function getByDate($name, $order){
+        $timestamp  = new \DateTime('now');
+        $timestamp  = $timestamp->getTimestamp();
+
+        $query = $this->createQuery();
+        $date = new \DateTime('1970');
+        $query->matching(
+            $query->greaterThanOrEqual($name, $date->format('Y-m-d'))
+        );
+        $query->setOrderings([$name => $order == 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING]);
+        $result     = $query->execute()->getFirst();
+
+        if(!empty($result)){
+            $field      = "get{$name}";
+            $timestamp  = $result->$field()->getTimestamp();
+        }
+
+        return $timestamp;
     }
 
     /**

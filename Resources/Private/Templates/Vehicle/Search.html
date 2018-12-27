@@ -16,7 +16,10 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	<div class="tx_kfmobilede--search">
 		<f:switch expression="{settings.layout}">
 			<f:case value="search_simple">
-				<f:render partial="Vehicle/SearchboxSimpleJson" arguments="{_all}" />
+				<f:render partial="Vehicle/SearchboxSimpleJson_v2" arguments="{_all}" />
+			</f:case>
+			<f:case value="search_medium">
+				<f:render partial="Vehicle/SearchboxMedium" arguments="{_all}" />
 			</f:case>
 			<f:defaultCase>
 				<f:render partial="Vehicle/Searchbox" arguments="{_all}" />
