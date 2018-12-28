@@ -3,43 +3,6 @@
    tx_kfmobilede
    ========================================================================== */
 .tx-kf-mobile-de {
-  .panel {
-    > .panel-heading,
-    .images img {
-      -webkit-transition: all 300ms;
-      -moz-transition: all 300ms;
-      -ms-transition: all 300ms;
-      -o-transition: all 300ms;
-      transition: all 300ms;
-    }
-
-    .header {height: 50px;}
-    .images {
-      position: relative;
-      height: 150px;
-
-      img:hover {
-        -moz-transform: scale(1.2);
-        -webkit-transform: scale(1.2);
-        -o-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        transform: scale(1.2);
-      }
-    }
-  }
-
-  // Active
-  .active .panel,
-  .panel:hover {
-    > .panel-heading {
-      background-image: -webkit-linear-gradient(top,#dff0d8 0,#d0e9c6 100%);
-      background-image: -o-linear-gradient(top,#dff0d8 0,#d0e9c6 100%);
-      background-image: -webkit-gradient(linear,left top,left bottom,from(#dff0d8),to(#d0e9c6));
-      background-image: linear-gradient(to bottom,#dff0d8 0,#d0e9c6 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdff0d8', endColorstr='#ffd0e9c6', GradientType=0);
-      background-repeat: repeat-x;
-    }
-  }
 
   /* Sly Slider
   ********************************************* */
@@ -680,8 +643,15 @@
   }
 }
 
-/* Listenansicht - Single
-********************************************* */
+
+
+
+
+
+
+/* ==========================================================================
+   Listenansicht
+   ========================================================================== */
 .view {
   &--single {
     &--header {}
@@ -734,7 +704,20 @@
 }
 
 
-.view--searchbox {
+
+
+
+
+
+/* ==========================================================================
+   Searchbox
+   ========================================================================== */
+.view--searchbox,
+.searchbox {
+
+  &__relative {
+    position: relative;
+  }
 
   &__complex {
     -webkit-box-shadow: 0 0 5px 0 rgba($color_black,0.5);
@@ -756,5 +739,209 @@
 
   &__result {
     margin-top: 20px;
+  }
+
+  &--checkbox {
+    padding: 10px 0;
+
+    &__large {
+      .label {
+        &--text {
+          font-size: $fontSizeMedium;
+          top: 4px;
+        }
+        &--container {
+          padding-left: 48px;
+        }
+        &--checkmark {
+          height: 30px;
+          width: 30px;
+
+          &::after {
+            left: 10px;
+            top: 7px;
+            width: 10px;
+            height: 15px;
+          }
+        }
+      }
+    }
+
+    &__small {
+      .label {
+        &--text {
+          font-size: $fontSizeS;
+          top: 0;
+        }
+        &--container {
+          padding-left: 25px;
+        }
+        &--checkmark {
+          height: 20px;
+          width: 20px;
+
+          &::after {
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 10px;
+          }
+        }
+      }
+    }
+
+    &__flex {
+      display: flex;
+      flex-wrap: wrap;
+
+      .label {
+        flex-basis: 20%;
+        flex-grow: 0;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+
+.label {
+  display: inline-block;
+
+  &--text {
+    position: relative;
+    font-size: $fontSize;
+  }
+  &--container {
+    text-align: left;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: $color_black;
+  }
+
+  &--input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    &:checked {
+      &~ {
+        .label--checkmark {
+          background-color: $color_main;
+        }
+        &::after {
+          display: block;
+        }
+      }
+    }
+    &:hover {
+      &~ {
+        .label--checkmark {
+          background-color: $color_maingrau;
+        }
+        &::after {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &--checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: $color_grey;
+
+    &::after {
+      left: 9px;
+      top: 7px;
+      width: 5px;
+      height: 10px;
+      border: solid $color_white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+      content: "";
+      position: absolute;
+      display: none;
+    }
+  }
+}
+
+
+
+
+
+
+
+/* ==========================================================================
+   Ribbon in der Suchmaske
+   ========================================================================== */
+.ribbon {
+  &--wrap {
+    position: absolute;
+  }
+  &--left {left:0;}
+  &--right {right:0;}
+  &--top {top:0;}
+
+  &--item {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+
+    &__box {
+      font-size: 10px;
+      font-weight: bold;
+      color: #FFF;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: $color_maingrau;
+      background: linear-gradient($color_maingrau 0%, $color_maingrau 100%);
+      box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+      position: absolute;
+      top: 19px; right: -21px;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        z-index: -1;
+        border-left: 3px solid transparent;
+        border-right: 0 solid $color_maingrau;
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid $color_maingrau;
+      }
+
+
+      &::before {
+        left: 0px;
+      }
+
+      &::after {
+        right: 0px;
+      }
+    }
   }
 }

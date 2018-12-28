@@ -1,4 +1,4 @@
-$(function(){
+(function( $ ){
     $('body').on('click','.kf_send_mail',function(e){
         var that = $(this),
             url = that.attr("href"),
@@ -16,5 +16,6 @@ $(function(){
         window.location.href = url;
 
         return false;
-    })
-});
+    });
+
+})( jQuery );

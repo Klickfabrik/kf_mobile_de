@@ -86,34 +86,43 @@ jQuery(document).ready(function ($) {
             return $.parseJSON(_rawData);
         },
         setCookieValues(data){
+            var input, value;
+
             $.each(data,function(k,v){
                 if(typeof v === "object"){
                     $.each(v,function(subK,subV) {
                         if(subV !== ""){
-                            subV = service.encode_utf8(subV);
-                            var input = form.find('[name*="_search['+k+']['+subK+']"]');
+                            value = service.encode_utf8(subV);
+                            input = form.find('[name*="_search['+k+']['+subK+']"]');
 
-                            switch(input.attr('type')){
-                                case "radio":
-                                    $.each(input,function(){
-                                        var iThat = $(this);
-                                        if(iThat.val() === subV){
-                                            iThat.attr("checked");
-                                        }
-                                    });
-                                    break;
-                                default:
-                                    input.val(subV);
-                                    break;
-                            }
+                            service.setValue(input,value);
                         }
                     });
                 } else {
                     if(v !== ""){
-                        form.find('[name*="_search['+k+']"]').val(v);
+                        value = v;
+                        input = form.find('[name*="_search['+k+']"]');
+
+                        service.setValue(input,value);
                     }
                 }
             });
+        },
+        setValue(input,value) {
+            switch(input.attr('type')){
+                case "checkbox":
+                case "radio":
+                    $.each(input,function(){
+                        var iThat = $(this);
+                        if(iThat.val() === value){
+                            iThat.attr("checked");
+                        }
+                    });
+                    break;
+                default:
+                    input.val(value);
+                    break;
+            }
         },
         encode_utf8(text) {
             var entities = [

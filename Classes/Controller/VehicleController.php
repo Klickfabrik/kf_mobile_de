@@ -85,6 +85,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $kw = 0.735499;
 
     private $goback = 'goback';
+    private $specificsAllow = ['Gebrauchtfahrzeug', 'Tageszulassung', 'Elektro', 'Neufahrzeug', 'Vorführfahrzeug', 'Jahreswagen'];
 
     /**
      * @throws \InvalidArgumentException
@@ -187,9 +188,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 
     /**
-     * action search
-     *
-     * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function searchAction()
     {
@@ -222,12 +221,12 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         foreach ($data['data']['select'] as $key => $rep) {
             switch ($key) {
                 case 'specifics':
-                    $allow = ['Gebrauchtfahrzeug', 'Tageszulassung', 'Elektro', 'Neufahrzeug', 'Vorführfahrzeug', 'Jahreswagen'];
                     $count = count($rep);
                     for ($i = 0; $i < $count; $i++) {
                         $curRep = $rep[$i];
                         $desc = $curRep->getDescription();
-                        if (!in_array($desc, $allow)) {
+                        $allow = "{$key}Allow";
+                        if (!in_array($desc, $this->$allow)) {
                             unset($data['data']['select']['specifics'][$i]);
                         }
                     }

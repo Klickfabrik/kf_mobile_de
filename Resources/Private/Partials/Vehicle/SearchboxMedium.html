@@ -20,7 +20,7 @@
 						<f:for each="{vehicle.data.select.specifics}" as="spec">
 							<f:if condition="{spec.name} == 'NEW' || {spec.name} == 'USED'">
 								<label class="radio-inline">
-									<input type="radio" name="_search[specifics][0]" value="{spec.name}"> {spec.description}
+									<input type="radio" name="_search[specifics][0]" value="{spec.uid}"> {spec.description}
 								</label>
 							</f:if>
 						</f:for>
@@ -33,7 +33,7 @@
 						<f:for each="{vehicle.data.select.specifics}" as="spec">
 							<f:if condition="{spec.name} != 'NEW' && {spec.name} != 'USED'">
 								<label class="radio-inline">
-									<input type="radio" name="_search[specifics][1]" value="{spec.name}"> {spec.description}
+									<input type="radio" name="_search[specifics][1]" value="{spec.uid}"> {spec.description}
 								</label>
 							</f:if>
 						</f:for>

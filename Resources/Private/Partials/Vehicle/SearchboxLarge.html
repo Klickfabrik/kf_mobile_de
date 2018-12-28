@@ -1,0 +1,224 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="view--searchbox searchbox large">
+	<div class="searchbox__large searchbox__complex searchbox__relative">
+
+		<div class="ribbon ribbon--wrap ribbon--right ribbon--top">
+			<div class="ribbon--item count_wrap">
+				<span class="ribbon--item__box count">...</span>
+			</div>
+		</div>
+
+		<f:form id="ajaxselectlist-form" class="{f:if(condition:'{settings.list.pid}', then: 'target', else: 'notarget')} complex" pageUid="{settings.list.pid}">
+			<input type="hidden" name="objects" value="0">
+			<input type="hidden" name="type" value="{settings.ajax.typeNum}">
+			<input type="hidden" name="limit" value="{settings.ajax.limit}">
+			<input type="hidden" name="offset" value="0">
+			<input type="hidden" name="goback" value="{goback}">
+
+			<!-- Switchbox zwischen den Typen -->
+			<div class="searchbox--switch text-center">
+				<label class="label label--container radio-inline">
+					<span class="label--text">Beliebig</span>
+					<input class="label--input" type="radio" name="_search[class]" value="">
+					<span class="label--checkmark"></span>
+				</label>
+				<f:for each="{vehicle.data.select.class}" as="spec">
+					<label class="label label--container radio-inline">
+						<span class="label--text">{spec}</span>
+						<input class="label--input" type="radio" name="_search[class]" value="{spec}">
+						<span class="label--checkmark"></span>
+					</label>
+				</f:for>
+			</div>
+
+			<hr />
+
+			<!-- Switchbox zwischen den Arten -->
+			<div class="searchbox--checkbox searchbox--checkbox__large">
+				<label class="label label--container radio-inline">
+					<span class="label--text">Beliebig</span>
+					<input class="label--input" type="radio" name="_search[specifics]" value="">
+					<span class="label--checkmark"></span>
+				</label>
+				<f:for each="{vehicle.data.select.specifics}" as="spec">
+					<label class="label label--container radio-inline">
+						<span class="label--text">{spec.description}</span>
+						<input class="label--input" type="radio" name="_search[specifics]" value="{spec.uid}">
+						<span class="label--checkmark"></span>
+					</label>
+				</f:for>
+			</div>
+
+			<hr />
+
+			<!-- Freie Suche -->
+			<div class="searchbox--freebox">
+
+			</div>
+
+			<!-- Selectboxen mit den Optionen -->
+			<div class="searchbox--select">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="row">
+							<div class="col-xs-12">
+								<f:for each="{1:'make'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="Alle" />
+									<f:variable name="translate" value="Marke" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+						</div>
+						<div class="range-wrap">
+							<label class="head-label">Kilometer</label>
+							<div class="row">
+								<div class="col-xs-6 col-sm-6">
+									<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'mileage][min', 'placeholder' : 'von' }" />
+								</div>
+								<div class="col-xs-6 col-sm-6">
+									<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'mileage][max', 'placeholder' : 'bis' }" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<f:render partial="Vehicle/Form/Select" arguments="{'translate' : 'Leistung', 'default' : 'Leistung', 'vehicle' : vehicle, 'fieldName' : 'power', 'options' : vehicle.data.select.power, 'type' : 'power' }" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="row">
+							<div class="col-xs-12">
+								<f:for each="{1:'model'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="Alle" />
+									<f:variable name="translate" value="{vehicle.translate.data.select.{fieldName}}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+						</div>
+						<div class="range-wrap">
+							<label class="head-label">Preis</label>
+							<div class="row">
+								<div class="col-xs-6 col-sm-6">
+									<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'price][min', 'placeholder' : 'von' }" />
+								</div>
+								<div class="col-xs-6 col-sm-6">
+									<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'price][max', 'placeholder' : 'bis' }" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<f:for each="{1:'gearbox'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="Alle" />
+									<f:variable name="translate" value="{vehicle.translate.data.select.{fieldName}}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="row">
+							<div class="col-xs-12">
+								<f:for each="{1:'category'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="Alle" />
+									<f:variable name="translate" value="{vehicle.translate.data.select.{fieldName}}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+						</div>
+						<div class="range-wrap">
+							<label class="head-label">Erstzulassung</label>
+							<div class="row">
+								<div class="col-xs-6 col-sm-6">
+									<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'first_registration][min', 'placeholder' : 'von' }" />
+								</div>
+								<div class="col-xs-6 col-sm-6">
+									<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'first_registration][max', 'placeholder' : 'bis' }" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<f:for each="{1:'color'}" as="fieldName" iteration="iterator">
+									<f:variable name="default" value="Alle" />
+									<f:variable name="translate" value="{vehicle.translate.data.select.{fieldName}}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</f:for>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<f:for each="{1:'fuel', 2:'gearbox', 3:'seats'}" as="fieldName" iteration="iterator">
+							<div class="row">
+								<div class="col-xs-12">
+									<f:variable name="default" value="Alle" />
+									<f:variable name="translate" value="{vehicle.translate.data.select.{fieldName}}" />
+									<f:variable name="options" value="{vehicle.data.select.{fieldName}}" />
+									<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
+								</div>
+							</div>
+						</f:for>
+					</div>
+				</div>
+			</div>
+
+			<hr />
+
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<h4 class="panel-title">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#features" aria-expanded="true" aria-controls="collapseOne">Ausstattung</a>
+						</h4>
+					</div>
+					<div id="features" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+
+							<!-- Features -->
+							<div class="searchbox--checkbox searchbox--checkbox__flex searchbox--checkbox__small">
+								<f:for each="{vehicle.data.select.features}" as="spec">
+									<label class="label label--container radio-inline">
+										<span class="label--text">{spec.description}</span>
+										<input class="label--input" type="checkbox" name="_search[features][]" value="{spec.uid}">
+										<span class="label--checkmark"></span>
+									</label>
+								</f:for>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<hr />
+
+			<div class="searchbox--submit">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<button type="reset" class="btn btn-primary btn-block">Zurücksetzen</button>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<button type="submit" class="btn btn-primary btn-block"><span class="count">...</span> Treffer anzeigen </button>
+					</div>
+				</div>
+			</div>
+		</f:form>
+	</div>
+	<f:if condition="{settings.list.pid} == ''">
+		<div class="searchbox__result">
+			<div id="ajaxCallResult"></div>
+			<div id="ajaxCountResult"></div>
+		</div>
+	</f:if>
+</div>
+<script src="{f:uri.resource(path:'JavaScript/searchbox.js')}" type="text/javascript"></script>
+<script src="{f:uri.resource(path:'JavaScript/events.js')}" type="text/javascript"></script>
+<script src="{f:uri.resource(path:'JavaScript/cookie.js')}" type="text/javascript"></script>
+</html>

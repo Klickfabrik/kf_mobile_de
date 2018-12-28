@@ -133,6 +133,7 @@ plugin.tx_kfmobilede_kfmobileview {
         search {
             data {
                 select {
+                    class           = Typ
                     make            = Hersteller
                     model           = Modell
                     category        = Aufbauart
@@ -140,6 +141,7 @@ plugin.tx_kfmobilede_kfmobileview {
                     gearbox         = Getriebe
                     color           = Farbe
                     power           = Leistung
+                    seats           = Sitze
                 }
             }
             tabs {

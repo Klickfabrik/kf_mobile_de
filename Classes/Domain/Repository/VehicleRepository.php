@@ -272,10 +272,10 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                                     if(in_array($requestKey,$this->dateTimes)){
                                         switch ($subKey) {
                                             case "min":
-                                                $day = "01-01";
+                                                $day = "01-01 00:00:00";
                                                 break;
                                             case "max":
-                                                $day = "12-31";
+                                                $day = "12-31 23:59:59";
                                                 break;
                                         }
                                         $subValue = date("Y-m-d H:i:s",strtotime("{$subValue}-{$day}"));
@@ -302,15 +302,14 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                             break;
                         case 'features':
                         case 'specifics':
-                        $requestKey = "{$requestKey}.name";
-                        $queryAnd = [];
-                        foreach ($requestValue as $value) {
-                            if(!empty($value))
-                                $queryAnd[] = $query->equals($requestKey, $value);
-                        }
+                            $maching = [];
+                            foreach ($requestValue as $value){
+                                $maching[] = $query->contains($requestKey, $value);
+                            }
 
-                        if(!empty($queryAnd))
-                            $subQuery[] = $query->logicalAnd($queryAnd);
+                            if(!empty($maching))
+                                $subQuery[] = $query->logicalAnd($maching);
+
                             break;
                         case 'sorting':
                             break;
