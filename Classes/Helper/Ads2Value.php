@@ -215,7 +215,7 @@ class Ads2Value
                 $value  = $data['@attributes'][$valueKey];
             }
 
-            if(empty($value)){
+            if(empty($value) && empty($valueKey)){
                 $res = array();
                 foreach ($data as $entry){
                     $res[] = isset($entry['@attributes']) ? $entry['@attributes'] : $entry;

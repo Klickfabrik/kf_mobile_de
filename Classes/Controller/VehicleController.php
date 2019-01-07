@@ -154,7 +154,8 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 'co2-emission' => '-',
                 'inner' => '-',
                 'outer' => '-',
-                'combined' => '-'
+                'combined' => '-',
+                'energy-efficiency-class' => '',
             ]
         ];
         if ($vehicle->getEmissionClass()) {
