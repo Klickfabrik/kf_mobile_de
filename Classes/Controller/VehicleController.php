@@ -126,18 +126,26 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->settings['layout'] = 'detail';
         $data = [
             'data' => $vehicle,
-            'options' => $this->collectData([$vehicle], 'options')
+            'options' => $this->collectData([$vehicle], 'options'),
         ];
         $this->view->assign('vehicle', $data);
         $this->view->assign('goback', GeneralUtility::_GP($this->goback));
+
         // Google Maps
         $seller = new SellerController();
         $data = $seller->getGoogleMaps($vehicle->getSeller());
         $this->view->assign('google_data', json_encode($data['googleData']));
         $this->view->assign('google_id', 'map_' . rand(0, 9999));
         $this->view->assign('google_places', $this->getPlacesId($vehicle->getImportClient()));
+
         // CO2
         $this->view->assign('energy_efficiency', $this->getEfficiency($vehicle));
+
+        // Misc
+        $this->view->assign('misc', [
+            'layout' => 'detail',
+            'kw' => $this->kw,
+        ]);
     }
 
     /**

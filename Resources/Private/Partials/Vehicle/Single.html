@@ -90,10 +90,17 @@
 									<f:for each="{options.{vehicle.importKey}}" as="item" key="translate">
 										<tr>
 											<td>{translate}</td>
-											<f:if condition="{translate} == 'Erstzulassung'">
-												<f:then><td><f:format.date format="%d.%m.%Y">{item}</f:format.date></td></f:then>
-												<f:else><td>{item}</td></f:else>
-											</f:if>
+											<f:switch expression="{translate}">
+												<f:case value="Erstzulassung">
+													<td><f:format.date format="%d.%m.%Y">{item}</f:format.date></td>
+												</f:case>
+												<f:case value="Leistung">
+													<td><f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{item*misc.kw}</f:format.number>kW ({item} PS)</td>
+												</f:case>
+												<f:defaultCase>
+													<td>{item}</td>
+												</f:defaultCase>
+											</f:switch>
 										</tr>
 									</f:for>
 									</tbody>
