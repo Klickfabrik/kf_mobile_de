@@ -28,6 +28,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     private $curCount = 0;
 
     private $dateTimes = ['first_registration','creation_date','modification_date'];
+    private $searchFields = ['model_description','class','category','model','make'];
 
     /**
      * @param int $curCount
@@ -255,6 +256,14 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                                     $setOrder[0] => $sort
                                 ];
                             }
+                            break;
+                        case 'fulltext':
+                        case 'freitext':
+                            $_search = [];
+                            foreach ($this->searchFields as $field){
+                                $_search[] = $query->like($field, '%' . $requestValue . '%', false);
+                            }
+                            $constraints[] = $query->logicalOr($_search);
                             break;
                         default:
                             $constraints[] = $query->equals($requestKey, $requestValue);
