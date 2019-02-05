@@ -98,21 +98,26 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->showArray($this->settings);
         }
         $settings = $this->getSettings();
-        $vehicles = $this->vehicleRepository->findAll($settings, $settings['filter']);
-        $energy_efficiency = [];
-        foreach ($vehicles as $vehicle) {
-            $importKey = $vehicle->getImportKey();
-            $energy_efficiency[$importKey] = $this->getEfficiency($vehicle);
+
+        if(isset($settings['filter']['uids']) && empty($settings['filter']['uids'])){
+            $this->view->assign('vehicles', ['data' => []]);
+        } else {
+            $vehicles = $this->vehicleRepository->findAll($settings, $settings['filter']);
+            $energy_efficiency = [];
+            foreach ($vehicles as $vehicle) {
+                $importKey = $vehicle->getImportKey();
+                $energy_efficiency[$importKey] = $this->getEfficiency($vehicle);
+            }
+            $data = [
+                'data' => $vehicles,
+                'options' => $this->collectData($vehicles, 'options'),
+                'specifics' => $this->collectData($vehicles, 'specifics'),
+                'features' => $this->collectData($vehicles, 'features'),
+                'seller' => $this->collectData($vehicles, 'seller'),
+                'energy_efficiency' => $energy_efficiency
+            ];
+            $this->view->assign('vehicles', $data);
         }
-        $data = [
-            'data' => $vehicles,
-            'options' => $this->collectData($vehicles, 'options'),
-            'specifics' => $this->collectData($vehicles, 'specifics'),
-            'features' => $this->collectData($vehicles, 'features'),
-            'seller' => $this->collectData($vehicles, 'seller'),
-            'energy_efficiency' => $energy_efficiency
-        ];
-        $this->view->assign('vehicles', $data);
     }
 
     /**
@@ -132,11 +137,25 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('goback', GeneralUtility::_GP($this->goback));
 
         // Google Maps
-        $seller = new SellerController();
-        $data = $seller->getGoogleMaps($vehicle->getSeller());
-        $this->view->assign('google_data', json_encode($data['googleData']));
-        $this->view->assign('google_id', 'map_' . rand(0, 9999));
-        $this->view->assign('google_places', $this->getPlacesId($vehicle->getImportClient()));
+        $settings_map = $this->settings[$this->settings['layout']]['map'];
+        if(!$settings_map['hide']){
+            if(isset($settings_map['all_places']) && $settings_map['all_places']){
+                $googleType = 'all';
+                $curSellers = $this->sellerRepository->findAll();
+            } else {
+                $googleType = 'single';
+                $curSellers = $vehicle->getSeller();
+            }
+
+            $seller = new SellerController();
+            $data = $seller->getGoogleMaps($curSellers);
+            $this->view->assign('google_data', json_encode($data['googleData']));
+            $this->view->assign('google_type', $googleType);
+            $this->view->assign('google_count', $data['count']);
+            $this->view->assign('google_id', 'map_' . rand(0, 9999));
+            $this->view->assign('google_places', $this->getPlacesId($vehicle->getImportClient()));
+        }
+
 
         // CO2
         $this->view->assign('energy_efficiency', $this->getEfficiency($vehicle));
@@ -374,6 +393,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $showAll = isset($ov['list']['showAll']) && $ov['list']['showAll'] != '' ? $ov['list']['showAll'] : $showAll;
         // Cookie
         if (isset($this->settings['list']['cookies']) && $this->settings['list']['cookies'] == 1) {
+            $filter['mode'] = 'cookie';
             $filter['uids'] = $this->getCookieData();
         }
         return [

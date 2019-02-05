@@ -67,7 +67,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $constraints = [];
         foreach ($filterAllow as $key => $field) {
             if (isset($filter[$key]) && !empty($filter[$key])) {
-                $ids = array_map('intval', explode(',', $filter[$key]));
+                $ids = array_map('intval', is_string($filter[$key]) ? explode(',', $filter[$key]) : $filter[$key]);
                 switch ($key) {
                     case 'json':
                         $table = $this->tableKey . '_domain_model_vehicle';
@@ -112,7 +112,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                             $query->in($field, $ids)
                         );
                         break;
-                    default:    $ids = $filter[$key];
+                    default:
                         $constraints[] = $query->matching($query->in($field, $ids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
                         break;
                 }
@@ -127,9 +127,12 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->setLimit($settings['limit']);
             }
         }
+
+        /*
         if (!empty($constraints) && count($constraints) > 0) {
             $query->matching($query->logicalAnd($constraints));
         }
+        */
 
         $result = $query->execute();
         $this->setcurCount($result->count());

@@ -131,6 +131,25 @@
           }
         }
       }
+
+      @media(max-width: $tablet){
+        .sly-controls {
+          position: relative;
+          .prev,
+          .next {
+            position: relative;
+            left: inherit;
+            right: inherit;
+            border-radius: 0;
+          }
+          .prev {
+            float: left;
+          }
+          .next {
+            float: right;
+          }
+        }
+      }
     }
   }
 

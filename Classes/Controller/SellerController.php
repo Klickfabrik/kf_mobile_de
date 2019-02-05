@@ -99,7 +99,8 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $return = [
             'sellers' => $sellers,
             'phones' => $phones,
-            'googleData' => $googleData
+            'googleData' => $googleData,
+            'count' => count($_seller),
         ];
         return $return;
     }
@@ -150,7 +151,7 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     /**
      * @return array
      */
-    private function getCurrentSellers()
+    public function getCurrentSellers()
     {
         # single seller
         if (isset($this->settings['select']['seller']) && !empty($this->settings['select']['seller'])) {

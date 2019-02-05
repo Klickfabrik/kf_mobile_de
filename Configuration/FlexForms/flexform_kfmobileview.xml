@@ -296,6 +296,24 @@ List-page: only used in forms]]></sheetDescription>
                         </TCEforms>
                     </settings.overwrite.detail.use>
 
+                    <!-- Google Maps -->
+                    <settings.detail.map.hide>
+                        <TCEforms type="array">
+                            <label>Hide google maps?</label>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.detail.map.hide>
+                    <settings.detail.map.all_places>
+                        <TCEforms type="array">
+                            <label>Use all places in google maps?</label>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.detail.map.all_places>
+
 
                     <!-- Detailpage UID -->
                     <settings.overwrite.detail.pid>

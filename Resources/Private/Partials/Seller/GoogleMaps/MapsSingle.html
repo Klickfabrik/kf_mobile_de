@@ -1,12 +1,13 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<style>#{google_id} {height: 400px;width: 100%;}</style>
+<style>#{google_id} {padding-bottom: 56.25%;width: 100%;}</style>
 <div id="{google_id}" class="simple"></div>
 <script>
     var gSingleMarkers = [];
     var {google_id}_loc = <f:format.htmlentitiesDecode>{google_data}</f:format.htmlentitiesDecode>;
+    var google_zoom = {f:if(condition:'{google_count} > 1',then:'8',else:'15')};
     function initSingleMap(map_id,gmap_loc) {
         var mapOptions = {
-            zoom: 15,
+            zoom: google_zoom,
             center: {
                 lat: parseFloat(gmap_loc[0].latitude),
                 lng: parseFloat(gmap_loc[0].longitude)
