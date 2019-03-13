@@ -37,7 +37,7 @@ plugin.tx_kfmobilede_kfmobileview {
 
                 modelDescription = Titel
                 category = Karosserie
-                class = Aufbauart
+                class = Fahrzeugform
                 firstRegistration = Erstzulassung
                 make = Marke
                 model = Model
@@ -136,7 +136,7 @@ plugin.tx_kfmobilede_kfmobileview {
                     class           = Typ
                     make            = Hersteller
                     model           = Modell
-                    category        = Aufbauart
+                    category        = Fahrzeugform
                     fuel            = Kraftstoffart
                     gearbox         = Getriebe
                     color           = Farbe
