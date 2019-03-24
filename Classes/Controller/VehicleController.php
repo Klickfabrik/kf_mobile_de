@@ -281,9 +281,15 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $data = [];
         $searchRequest = GeneralUtility::_GP('_search');
+        $objects = GeneralUtility::_GP('objects');
+        if($objects == -1){
+            $this->resetLastSearch();
+            $objects = 0;
+        }
+
         if (!is_null($searchRequest) && !empty($searchRequest)) {
             $data['result'] = $this->vehicleRepository->getSearchResults($searchRequest, [
-                'objects' => GeneralUtility::_GP('objects'),
+                'objects' => $objects,
                 'limit' => GeneralUtility::_GP('limit'),
                 'offset' => GeneralUtility::_GP('offset')
             ]);
@@ -291,7 +297,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $data['result']['goback'] = GeneralUtility::_GP($this->goback);
         }
         $this->saveLastSearch($searchRequest);
-        if (GeneralUtility::_GP('objects') == false) {
+        if ($objects == false) {
             return json_encode($data['result']);
         }
 
@@ -313,6 +319,12 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     private function saveLastSearch($searchRequest)
     {
         $this->setCookieData('search', $searchRequest);
+    }
+
+
+    private function resetLastSearch()
+    {
+        $this->setCookieData('search', '');
     }
 
     # ========================================================================================

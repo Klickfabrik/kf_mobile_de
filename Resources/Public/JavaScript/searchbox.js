@@ -37,6 +37,11 @@ jQuery(document).ready(function ($) {
                     },200);
                 }
             });
+
+            form.on('reset', function (ev) {
+                service.changeCount(loadingText);
+                service.getCount($(this));
+            });
         },
         getVehicles: function (data,append,offsetPos) {
             objects.val(1);
@@ -60,8 +65,10 @@ jQuery(document).ready(function ($) {
                 }
             });
         },
-        getCount: function (data) {
-            objects.val(0);
+        getCount: function (data,reset) {
+            let _reset = typeof reset !== "undefined" ? 0 : -1;
+            objects.val(_reset);
+            form.addClass("loading");
 
             $.ajax({
                 url: "/",
@@ -70,6 +77,9 @@ jQuery(document).ready(function ($) {
                 success: function (result) {
                     let json = $.parseJSON(result);
                     service.changeCount(json.count);
+                    service.changeTypes(json.form);
+
+                    form.removeClass("loading");
                 },
                 error: function (jqXHR, textStatus, errorThrow) {
                     resultContainer.html('Ajax request - ' + textStatus + ': ' + errorThrow).fadeIn('fast');
@@ -79,9 +89,48 @@ jQuery(document).ready(function ($) {
         changeCount(input){
             countObj.html(input);
         },
+        changeTypes(formObjects){
+            $.each(formObjects,function(inputName,inputValues){
+                let _input = form.find('[name*="'+inputName+'"]');
+                if(_input.length > 0){
+                    let _type = _input[0].nodeName;
+                    switch(_type){
+                        case "SELECT":
+                            _input.find('option').attr('disabled', 'disabled');
+                            _input.find('option[value=""]').removeAttr('disabled');
+
+                            $.each(inputValues,function(pos,val){
+                                _input.find('option[value="'+val+'"]').removeAttr('disabled');
+                            });
+                            break;
+                        case "INPUT":
+                            switch(inputName){
+                                case "features":
+                                case "specifics":
+                                    _input.attr('disabled', 'disabled');
+                                    _input.closest('div').find('label').addClass("disabled");
+
+                                    let _that = form.find('[name*="'+inputName+'"][value=""]');
+                                    _that.closest('label').removeClass('disabled');
+                                    _that.removeAttr('disabled');
+
+                                    $.each(inputValues,function(pos,val){
+                                        let _that = form.find('[name*="'+inputName+'"][value="'+val+'"]');
+                                        _that.closest('label').removeClass('disabled');
+                                        _that.removeAttr('disabled');
+                                    });
+                                    break;
+                            }
+                            break;
+                    }
+                }
+            });
+            form.find('select').selectBox('destroy');
+            form.find('select').selectBox('create');
+        },
         getLastSearch(){
             var cookieName = "KfMobileDesearch",
-            _rawData = readCookie(cookieName) !== "" ? decodeURIComponent(readCookie(cookieName)) : {};
+                _rawData = readCookie(cookieName) !== "" ? decodeURIComponent(readCookie(cookieName)) : {};
 
             return $.parseJSON(_rawData);
         },
@@ -166,7 +215,7 @@ jQuery(document).ready(function ($) {
         changeByJson(form,field,firstField){
             let selected = form.find(field).val();
 
-                // elements
+            // elements
             $.each(search_json[selected], function (sortKey, values) {
                 if (sortKey !== firstField) {
                     let curField = $('#'+sortKey);

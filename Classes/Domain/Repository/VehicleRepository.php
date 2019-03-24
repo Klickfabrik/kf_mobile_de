@@ -348,6 +348,16 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             'offsets' => ceil($allCount / $options['limit']),
             'next_offset' => $options['offset'] + 1
         ];
+
+        // searchbox
+        if ($options['objects'] == false) {
+            $subQuery = $query;
+            $subResult = $subQuery->execute();
+            $results['form'] = $this->collectFilterData($subResult);
+            unset($subQuery);
+            unset($subResult);
+        }
+
         // Limits
         if (isset($options['offset']) && $options['offset'] > 0) {
             $query->setOffset($options['offset']);
@@ -365,6 +375,46 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
         $results['count'] = $allCount;
         return $results;
+    }
+
+    /**
+     * @param $subResult
+     * @return array
+     */
+    private function collectFilterData($subResult){
+        $form = [];
+        $allow = [
+            //'modelDescription',
+            'class', 'category', 'make', 'model',
+            'fuel', 'gearbox', 'color', 'seats',
+            'doors', 'power', 'emissionClass',
+            'consumerPriceAmount',
+            'features' => ['id'],
+            'specifics' => ['id'],
+        ];
+        foreach ($subResult as $pos => $vehicle){
+            foreach ($allow as $allowKey => $allowValue){
+
+                $name = is_array($allowValue) ? $allowKey : $allowValue;
+                $func = "get".ucfirst($name);
+                $data = $vehicle->$func();
+
+                if(is_string($allowValue)){
+                    if(!in_array($data,$form[$name])){
+                        $form[$name][] = $data;
+                    }
+                } else {
+                    foreach ($data as $refItem){
+                        $subData = $refItem->getUid();
+                        if(!in_array($subData,$form[$name])){
+                            $form[$name][] = $subData;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $form;
     }
 
     /** ======================================================================================== **/
