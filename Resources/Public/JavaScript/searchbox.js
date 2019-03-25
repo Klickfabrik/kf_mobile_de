@@ -5,7 +5,9 @@ var service,
     offset,
     countObj,
     loadingText = "Loading...",
-    init;
+    init,
+    kf_cookie = kf_cookie || new kf_mobile_cookie();
+
 
 jQuery(document).ready(function ($) {
 
@@ -59,6 +61,8 @@ jQuery(document).ready(function ($) {
                     } else {
                         resultContainer.html(result).fadeIn('fast');
                     }
+
+                    kf_cookie.update();
                 },
                 error: function (jqXHR, textStatus, errorThrow) {
                     resultContainer.html('Ajax request - ' + textStatus + ': ' + errorThrow).fadeIn('fast');
@@ -130,7 +134,7 @@ jQuery(document).ready(function ($) {
         },
         getLastSearch(){
             var cookieName = "KfMobileDesearch",
-                _rawData = readCookie(cookieName) !== "" ? decodeURIComponent(readCookie(cookieName)) : {};
+                _rawData = kf_cookie.getCookie(cookieName) !== "" ? decodeURIComponent(kf_cookie.getCookie(cookieName)) : {};
 
             return $.parseJSON(_rawData);
         },

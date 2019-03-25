@@ -557,6 +557,15 @@
 
           &.btn-list {
             border: 1px solid $color_grey;
+            span.active {display: none}
+            span.inactive {display: block}
+
+            &.btn-active {
+              background-color: $color_main;
+              color: $color_white;
+              span.active {display: block}
+              span.inactive {display: none}
+            }
           }
 
           @media(min-width: $tablet){
