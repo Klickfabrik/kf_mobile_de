@@ -219,9 +219,12 @@ page {
     }
 
     includeJSFooter {
-        jquery_easing	= {$plugin.tx_kfmobilede_kfmobileview.settings.javaScript.jquery_easing}
-        sly				= {$plugin.tx_kfmobilede_kfmobileview.settings.javaScript.sly}
-        googlemaps      = https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&signed_in=true&libraries=places&key={$plugin.tx_kfmobilede_kfmobileview.settings.googleMaps.key}
+        jquery_easing	    = {$plugin.tx_kfmobilede_kfmobileview.settings.javaScript.jquery_easing}
+        plugin_sly			= {$plugin.tx_kfmobilede_kfmobileview.settings.javaScript.plugin_sly}
+        plugin_events		= {$plugin.tx_kfmobilede_kfmobileview.settings.javaScript.plugin_events}
+        plugin_cookie		= {$plugin.tx_kfmobilede_kfmobileview.settings.javaScript.plugin_cookie}
+        plugin_searchbox	= {$plugin.tx_kfmobilede_kfmobileview.settings.javaScript.plugin_searchbox}
+        googlemaps          = https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&signed_in=true&libraries=places&key={$plugin.tx_kfmobilede_kfmobileview.settings.googleMaps.key}
         googlemaps.external = 1
     }
 }

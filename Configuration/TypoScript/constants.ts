@@ -48,13 +48,17 @@ plugin.tx_kfmobilede_kfmobileview {
 
         javaScript {
             # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=jQuery Script (1.11.2)
-            jQuery 	        = EXT:kf_mobile_de/Resources/Public/Vendor/jQuery/jquery-1.11.2.min.js
+            jQuery 	            = EXT:kf_mobile_de/Resources/Public/Vendor/jQuery/jquery-1.11.2.min.js
             # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=sly 1.6.1
-            sly	            = EXT:kf_mobile_de/Resources/Public/Vendor/Sly/sly.min.js
+            plugin_sly          = EXT:kf_mobile_de/Resources/Public/Vendor/Sly/sly.min.js
             # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=jQuery Easing
-            jquery_easing   = EXT:kf_mobile_de/Resources/Public/Vendor/Sly/jquery.easing.min.js
-            # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=Plugin Script
-            plugin	        = EXT:kf_mobile_de/Resources/Public/JavaScript/tx_kfmobilede.js
+            jquery_easing       = EXT:kf_mobile_de/Resources/Public/Vendor/Sly/jquery.easing.min.js
+            # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=Plugin Script (Events)
+            plugin_events       = EXT:kf_mobile_de/Resources/Public/JavaScript/events.js
+            # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=Plugin Script (Cookie)
+            plugin_cookie       = EXT:kf_mobile_de/Resources/Public/JavaScript/cookie.js
+            # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=Plugin Script (Searchbox)
+            plugin_searchbox    = EXT:kf_mobile_de/Resources/Public/JavaScript/searchbox.js
         }
         css {
             # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=Plugin Stylesheet

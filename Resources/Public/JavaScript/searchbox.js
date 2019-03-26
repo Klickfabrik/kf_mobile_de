@@ -12,6 +12,8 @@ var service,
 jQuery(document).ready(function ($) {
 
     service = {
+        _init : 0,
+
         init: function(){
             form = $('#ajaxselectlist-form');
             resultContainer = $('#ajaxCallResult');
@@ -19,31 +21,35 @@ jQuery(document).ready(function ($) {
             offset = $('[name="offset"]');
             countObj = $('.count_wrap .count,button .count');
 
-            if(form.hasClass("simple")){
-                service.sortByJson(form);
-            }
+            if(form.length > 0){
+                this._init = 1;
 
-            form.on('change', function (ev) {
-                ev.preventDefault();
-                service.changeCount(loadingText);
-                service.getCount($(this));
-            });
-            form.on('submit', function (ev) {
-                ev.preventDefault();
-
-                resultContainer.html(loadingText);
-                service.getVehicles($(this),false,0);
-                if( form.hasClass("simple") || form.hasClass("target")){
-                    setTimeout(function(){
-                        window.location = form.attr("action");
-                    },200);
+                if(form.hasClass("simple")){
+                    service.sortByJson(form);
                 }
-            });
 
-            form.on('reset', function (ev) {
-                service.changeCount(loadingText);
-                service.getCount($(this));
-            });
+                form.on('change', function (ev) {
+                    ev.preventDefault();
+                    service.changeCount(loadingText);
+                    service.getCount($(this));
+                });
+                form.on('submit', function (ev) {
+                    ev.preventDefault();
+
+                    resultContainer.html(loadingText);
+                    service.getVehicles($(this),false,0);
+                    if( form.hasClass("simple") || form.hasClass("target")){
+                        setTimeout(function(){
+                            window.location = form.attr("action");
+                        },200);
+                    }
+                });
+
+                form.on('reset', function (ev) {
+                    service.changeCount(loadingText);
+                    service.getCount($(this));
+                });
+            }
         },
         getVehicles: function (data,append,offsetPos) {
             objects.val(1);
@@ -65,6 +71,7 @@ jQuery(document).ready(function ($) {
                     kf_cookie.update();
                 },
                 error: function (jqXHR, textStatus, errorThrow) {
+                    resultContainer.find(".wrap_next").fadeOut();
                     resultContainer.html('Ajax request - ' + textStatus + ': ' + errorThrow).fadeIn('fast');
                 }
             });
@@ -86,6 +93,7 @@ jQuery(document).ready(function ($) {
                     form.removeClass("loading");
                 },
                 error: function (jqXHR, textStatus, errorThrow) {
+                    resultContainer.find(".wrap_next").fadeOut();
                     resultContainer.html('Ajax request - ' + textStatus + ': ' + errorThrow).fadeIn('fast');
                 }
             });
@@ -251,12 +259,14 @@ jQuery(document).ready(function ($) {
         init = true;
         service.init();
 
-        var lastSearch = service.getLastSearch();
-        if(lastSearch != null){
-            service.setCookieValues(lastSearch);
-        }
+        if(service._init){
+            var lastSearch = service.getLastSearch();
+            if(lastSearch != null){
+                service.setCookieValues(lastSearch);
+            }
 
-        service.getCount(form);
-        service.getVehicles(form,0,0);
+            service.getCount(form);
+            service.getVehicles(form,0,0);
+        }
     }
 });
