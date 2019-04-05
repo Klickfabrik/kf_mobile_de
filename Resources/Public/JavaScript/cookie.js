@@ -5,6 +5,7 @@ var kf_mobile_cookie = (function () {
         callback    : 0,
         debug       : 0,
         saveButton  : '[data-action="save"]',
+        clearButton : '[data-action="clear"]',
         cookieSplit : "|",
         cookieName  : "kf_mobile_de",
     };
@@ -66,6 +67,14 @@ var kf_mobile_cookie = (function () {
             cookieData = insertData.join(cookie.cookieSplit);
             createCookie(cookie.cookieName,cookieData,1);
         });
+
+        $(document).on('click',cookie.clearButton,function(){
+            // cookie reset
+            createCookie(cookie.cookieName,"",1);
+
+            // Update
+            displayCookieCount("");
+        });
     };
 
 
@@ -102,8 +111,15 @@ var kf_mobile_cookie = (function () {
     var displayCookieCount = function(insertData){
         display_function("displayCookieCount...");
 
+        var count = 0;
+        $.each(insertData,function(k,v){
+            if(v != ""){
+                count++;
+            }
+        });
+
         // write count
-        $('[data-count]').text(insertData.length);
+        $('[data-count]').text(count);
     };
 
     var createCookie = function(name, value, days) {

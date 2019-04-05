@@ -5,6 +5,13 @@
 			<f:variable name="goback" value="{vehicles.goback}" />
 		</f:if>
 		<div class="view--result">
+			<f:if condition="{settings.list.cookies}">
+				<div class="row">
+					<div class="col-xs-12 list--clear text-center">
+						<f:render partial="Vehicle/Button/ButtonClear" arguments="{_all}" />
+					</div>
+				</div>
+			</f:if>
 			<div class="row">
 				<f:for each="{vehicles.data}" as="vehicle">
 					<div class="col-xs-12 list--wrap">
@@ -16,6 +23,13 @@
 					</div>
 				</f:for>
 			</div>
+			<f:if condition="{settings.list.cookies}">
+				<div class="row">
+					<div class="col-xs-12 list--clear text-center">
+						<f:render partial="Vehicle/Button/ButtonClear" arguments="{_all}" />
+					</div>
+				</div>
+			</f:if>
 		</div>
 	</f:then>
 	<f:else>

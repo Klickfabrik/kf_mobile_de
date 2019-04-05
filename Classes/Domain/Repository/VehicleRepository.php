@@ -79,13 +79,20 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                             foreach ($jsonJquery['field'] as $jsonfield => $jsonvalues) {
                                 foreach (explode(',', $jsonvalues) as $value) {
                                     if (!empty($value)) {
-                                        $where[] = $queryBuilder->expr()->like($jsonfield, $queryBuilder->createNamedParameter($value));
+                                        #$where[] = $queryBuilder->expr()->like($jsonfield, $queryBuilder->createNamedParameter($value));
+                                        $where[] = $queryBuilder->expr()->like(
+                                            $jsonfield,
+                                            $queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards($value) . '%')
+                                        );
                                     }
                                 }
                             }
                         }
+
                         // Query
-                        $queryBuilder->select('uid')->from($table)->where(join(',', $where));
+                        $queryBuilder->select('uid')->from($table)->where(
+                            join(" AND ",$where)
+                        );
                         // ShowAll
                         if (!isset($settings['showAll']) || isset($settings['showAll']) && $settings['showAll'] == 0) {
                             // Limit
