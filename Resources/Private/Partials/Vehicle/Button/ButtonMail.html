@@ -1,6 +1,6 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-<f:if condition="{settings.detail.pid} && {settings.detail.use} == 1">
+<f:if condition="{settings.detail.powermail} && {settings.detail.pid} && {settings.detail.use} == 1">
 	<script>
         var item_{vehicle.importKey} = {
             "fahrzeug"		: '<f:format.htmlentitiesDecode>{vehicle.modelDescription}</f:format.htmlentitiesDecode>',
