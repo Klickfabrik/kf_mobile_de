@@ -98,10 +98,10 @@ jQuery(document).ready(function ($) {
                 }
             });
         },
-        changeCount(input){
+        changeCount: function(input){
             countObj.html(input);
         },
-        changeTypes(formObjects){
+        changeTypes: function(formObjects){
             $.each(formObjects,function(inputName,inputValues){
                 let _input = form.find('[name*="'+inputName+'"]');
                 if(_input.length > 0){
@@ -140,13 +140,13 @@ jQuery(document).ready(function ($) {
             form.find('select').selectBox('destroy');
             form.find('select').selectBox('create');
         },
-        getLastSearch(){
+        getLastSearch: function(){
             var cookieName = "KfMobileDesearch",
                 _rawData = kf_cookie.getCookie(cookieName) !== "" ? decodeURIComponent(kf_cookie.getCookie(cookieName)) : {};
 
             return $.parseJSON(_rawData);
         },
-        setCookieValues(data){
+        setCookieValues: function(data){
             var input, value;
 
             $.each(data,function(k,v){
@@ -169,7 +169,7 @@ jQuery(document).ready(function ($) {
                 }
             });
         },
-        setValue(input,value) {
+        setValue: function(input,value) {
             switch(input.attr('type')){
                 case "checkbox":
                 case "radio":
@@ -185,7 +185,7 @@ jQuery(document).ready(function ($) {
                     break;
             }
         },
-        encode_utf8(text) {
+        encode_utf8: function(text) {
             var entities = [
                 ['amp', '&'],
                 ['apos', '\''],
@@ -205,7 +205,7 @@ jQuery(document).ready(function ($) {
 
             return text;
         },
-        sortByJson(form){
+        sortByJson: function(form){
             if(typeof search_json !== "undefined"){
                 let firstField = "make";
 
@@ -224,7 +224,7 @@ jQuery(document).ready(function ($) {
                 });
             }
         },
-        changeByJson(form,field,firstField){
+        changeByJson: function(form,field,firstField){
             let selected = form.find(field).val();
 
             // elements
@@ -235,7 +235,7 @@ jQuery(document).ready(function ($) {
                 }
             });
         },
-        fillSelectField(field,data,type){
+        fillSelectField: function(field,data,type){
             let first = field.find('option').eq(0);
 
             field.html("");
