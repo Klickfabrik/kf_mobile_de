@@ -61,7 +61,7 @@ plugin.tx_kfmobilede_kfmobileview {
                 creationDate = Erstellungsdatum
                 modificationDate = Änderungsdatum
                 detailPage = Detailseite (Mobile.de)
-                importKey = Interne Nummer
+                importKey = Fahrzeugnummer
                 importClient = Import-Key (Verkäufer)
                 import = Importiert
                 #images = Bilder
@@ -125,7 +125,7 @@ plugin.tx_kfmobilede_kfmobileview {
                 seats       = Anzahl Sitzplätze
                 doors       = Anzahl Türen
                 color       = Außenfarbe
-                importKey   = Interne Nummer
+                importKey   = Fahrzeugnummer
                 emissionClass = Schadstoffklasse
             }
         }
@@ -172,7 +172,7 @@ plugin.tx_kfmobilede_kfmobileview {
                 mileage     = KM Stand
                 power       = PS/KW
                 fuel        = Kraftstoff
-                importKey   = Interne Nummer
+                importKey   = Fahrzeugnummer
                 gearbox     = Getriebe
                 category    = Karosserie
                 seller      = Standort

@@ -75,7 +75,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         'mileage' => 'KM Stand',
         'power' => 'PS/KW',
         'fuel' => 'Kraftstoff',
-        'importKey' => 'Interne Nummer',
+        'importKey' => 'Fahrzeugnummer',
         'gearbox' => 'Getriebe',
         'category' => 'Karosserie',
         'seller' => 'Standort',
