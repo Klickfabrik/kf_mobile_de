@@ -512,6 +512,12 @@
           flex-wrap: wrap;
           li {
             width: 33%;
+            @media(max-width: $tablet){
+              width: 50%;
+            }
+            @media(max-width: $mobile){
+              width: 100%;
+            }
             ul {
               width: 100%;
             }
@@ -565,6 +571,12 @@
               color: $color_white;
               span.active {display: block}
               span.inactive {display: none}
+            }
+          }
+
+          @media(max-width: $tablet){
+            &.btn {
+              margin-bottom: 10px;
             }
           }
 

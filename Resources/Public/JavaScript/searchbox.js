@@ -15,7 +15,7 @@ jQuery(document).ready(function ($) {
         _init : 0,
 
         init: function(){
-            form = $('#ajaxselectlist-form');
+            form = $('#ajaxselectlist-form,#ajaxselectlist-simple');
             resultContainer = $('#ajaxCallResult');
             objects = $('[name="objects"]');
             offset = $('[name="offset"]');

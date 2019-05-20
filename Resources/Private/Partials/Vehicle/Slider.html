@@ -1,13 +1,15 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:if condition="{vehicles.data}">
 	<f:then>
+		<f:variable name="slider_h" value="220" />
+		<f:variable name="slider_w" value="330" />
 		<f:render partial="Vehicle/Misc/SliderStyle" arguments="{_all}" />
 		<div class="view-slider">
 			<div class="sly_wrap">
 				<div class="sly" id="centered">
 					<div class="outer">
 						<f:for each="{vehicles.data}" as="vehicle">
-							<div class="inner">
+							<div class="inner" data-id="{vehicle.uid}">
 								<div class="item">
 									<f:if condition="{settings.list.images.limit}">
 										<div class="images">
