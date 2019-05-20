@@ -407,7 +407,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $data = $vehicle->$func();
 
                 if(is_string($allowValue)){
-                    if(!empty($data) && !in_array($data,$form[$name])){
+                    if(!empty($data) && isset($form[$name]) && !in_array($data,$form[$name])){
                         $form[$name][] = $data;
                     }
                 } else {
