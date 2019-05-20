@@ -413,7 +413,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 } else {
                     foreach ($data as $refItem){
                         $subData = $refItem->getUid();
-                        if(!empty($subData) && !in_array($subData,$form[$name])){
+                        if(!empty($subData) && isset($form[$name]) && !in_array($subData,$form[$name])){
                             $form[$name][] = $subData;
                         }
                     }
