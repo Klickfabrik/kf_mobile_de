@@ -82,7 +82,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         'first_registration' => 'Erstzulassung',
     ];
 
-    protected $kw = 0.735499;
+    protected $kwInPS = 1.36;
 
     private $goback = 'goback';
     private $specificsAllow = ['Gebrauchtfahrzeug', 'Tageszulassung', 'Elektro', 'Neufahrzeug', 'Vorführfahrzeug', 'Jahreswagen'];
@@ -163,7 +163,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         // Misc
         $this->view->assign('misc', [
             'layout' => 'detail',
-            'kw' => $this->kw,
+            'kw' => $this->kwInPS,
         ]);
     }
 
@@ -225,7 +225,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $data = [
             'translate' => $settings,
             'extensionName' => 'tx_' . strtolower($this->extensionName) . '_kfmobileview[search]',
-            'kw' => $this->kw
+            'kw' => $this->kwInPS
         ];
         foreach ($settings['data'] as $area => $setting_data) {
             if (!empty($setting_data)) {
