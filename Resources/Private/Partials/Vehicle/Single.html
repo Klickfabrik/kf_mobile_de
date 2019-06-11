@@ -96,7 +96,10 @@
 														<td><f:format.date format="%d.%m.%Y">{item}</f:format.date></td>
 													</f:case>
 													<f:case value="Leistung">
-														<td><f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{item*misc.kw}</f:format.number>kW ({item} PS)</td>
+														<td>
+															<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{item}</f:format.number> kW
+															(<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{item*misc.kw}</f:format.number> PS)
+														</td>
 													</f:case>
 													<f:case value="Laufleistung">
 														<td><f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{item}</f:format.number> km</td>

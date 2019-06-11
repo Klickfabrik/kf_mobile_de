@@ -114,19 +114,19 @@ plugin.tx_kfmobilede_kfmobileview {
             options {
                 use         = 1
 
-                model       = Model
-                make        = Marke
-                category    = Karosserie
-                firstRegistration = Erstzulassung
-                power       = Leistung
-                fuel        = Motor
-                gearbox     = Getriebe
-                mileage     = Laufleistung
-                seats       = Anzahl Sitzplätze
-                doors       = Anzahl Türen
-                color       = Außenfarbe
-                importKey   = Fahrzeugnummer
-                emissionClass = Schadstoffklasse
+                model               = Model
+                make                = Marke
+                category            = Karosserie
+                firstRegistration   = Erstzulassung
+                power               = Leistung
+                fuel                = Motor
+                gearbox             = Getriebe
+                mileage             = Laufleistung
+                seats               = Anzahl Sitzplätze
+                doors               = Anzahl Türen
+                color               = Außenfarbe
+                custom1             = Fahrzeugnummer
+                emissionClass       = Schadstoffklasse
             }
         }
 

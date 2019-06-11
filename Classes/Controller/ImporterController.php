@@ -670,7 +670,10 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                         ],
 
                         // Images
-                        'images'                => $xml::getTag($imageTag)
+                        'images'                => $xml::getTag($imageTag),
+
+                        // Custom
+                        'custom1'               => $xml::getTag('ad:seller-inventory-key'),
                     );
 
                     $cur = array(
