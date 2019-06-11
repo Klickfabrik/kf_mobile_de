@@ -16,14 +16,14 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'model_description,class,category,make,model,price,damage_and_unrepaired,accident_damaged,roadworthy,price_type,fuel,gearbox,color,mileage,seats,doors,power,emission_class,images,description,misc,consumer_price_amount,dealer_price_amount,first_registration,creation_date,modification_date,detail_page,import_key,import_client,import,features,specifics,seller',
+        'searchFields' => 'model_description,class,category,make,model,price,damage_and_unrepaired,accident_damaged,roadworthy,price_type,fuel,gearbox,color,mileage,seats,doors,power,emission_class,images,description,misc,consumer_price_amount,dealer_price_amount,first_registration,creation_date,modification_date,detail_page,import_key,import_client,import,custom1,custom2,custom3,custom4,custom5,features,specifics,seller',
         'iconfile' => 'EXT:kf_mobile_de/Resources/Public/Icons/tx_kfmobilede_domain_model_vehicle.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, features, specifics, seller',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, features, specifics, seller',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, features, specifics, seller, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, features, specifics, seller, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -462,6 +462,52 @@ return [
                 'default' => 0,
             ]
             
+        ],
+        'custom1' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.custom1',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'custom2' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.custom2',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'custom3' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.custom3',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'custom4' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.custom4',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'custom5' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.custom5',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim'
+            ]
         ],
         'features' => [
             'exclude' => true,

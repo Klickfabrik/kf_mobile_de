@@ -818,6 +818,131 @@ class VehicleTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getCustom1ReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getCustom1()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCustom1ForStringSetsCustom1()
+    {
+        $this->subject->setCustom1('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'custom1',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCustom2ReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getCustom2()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCustom2ForStringSetsCustom2()
+    {
+        $this->subject->setCustom2('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'custom2',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCustom3ReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getCustom3()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCustom3ForStringSetsCustom3()
+    {
+        $this->subject->setCustom3('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'custom3',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCustom4ReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getCustom4()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCustom4ForStringSetsCustom4()
+    {
+        $this->subject->setCustom4('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'custom4',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCustom5ReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getCustom5()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCustom5ForStringSetsCustom5()
+    {
+        $this->subject->setCustom5('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'custom5',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getFeaturesReturnsInitialValueForFeatures()
     {
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();

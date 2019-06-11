@@ -19,7 +19,7 @@
 
 		<f:render partial="FormErrors" />
 
-		<f:form action="create"  name="newVehicle" object="{newVehicle}">
+		<f:form action="create"  enctype="multipart/form-data"  name="newVehicle" object="{newVehicle}">
 		<f:render partial="Vehicle/FormFields" />
 			<f:form.submit value="Create new" />
 		</f:form>

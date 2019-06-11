@@ -462,6 +462,61 @@
                             "propertyName": "import",
                             "propertyType": "Boolean",
                             "uid": "1103148966528"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "20",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "custom1",
+                            "propertyType": "String",
+                            "uid": "1049473963536"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "20",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "custom2",
+                            "propertyType": "String",
+                            "uid": "1177673067729"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "20",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "custom3",
+                            "propertyType": "String",
+                            "uid": "542601388913"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "20",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "custom4",
+                            "propertyType": "String",
+                            "uid": "1253225854497"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "20",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "custom5",
+                            "propertyType": "Text",
+                            "uid": "1418878587463"
                         }
                     ]
                 },
@@ -880,9 +935,9 @@
         "plugins": [
             {
                 "actions": {
-                    "controllerActionCombinations": "Importer => list, show, new, create, checkImport\nVehicle => list, show, new, create, edit, update, delete, search, ajaxResult\nFeatures => list, new, create, edit, update, delete\nSpecifics => list, new, create, edit, update, delete\nSeller => places",
-                    "noncacheableActions": "",
-                    "switchableActions": "List \/ Detailview\nVehicle->list; Vehicle->show;\nListview\nVehicle->list;\nDetailview\nVehicle->show;\nSearchbox\nVehicle->search;\nSeller Maps\nSeller->places;"
+                    "controllerActionCombinations": "Importer => list, show, new, create, checkImport\nVehicle => list, show, new, create, edit, update, delete, search, ajaxResult\nFeatures => list, new, create, edit, update, delete\nSpecifics => list, new, create, edit, update, delete\nSeller => maps\nClients => places",
+                    "noncacheableActions": "Vehicle => create, update, delete\nFeatures => create, update, delete\nSpecifics => create, update, delete",
+                    "switchableActions": "List \/ Detailview\nVehicle->list; Vehicle->show;\nListview\nVehicle->list;\nDetailview\nVehicle->show;\nSearchbox\nVehicle->search;\nGoogle Maps\nSeller->maps;\nGoogle Reviews\nClients->places;"
                 },
                 "description": "Display a mobile.de data",
                 "key": "kfmobileview",
@@ -930,8 +985,8 @@
         }
     ],
     "log": {
-        "last_modified": "2018-12-10 05:08",
-        "extension_builder_version": "8.10.2",
+        "last_modified": "2019-06-11 06:02",
+        "extension_builder_version": "8.10.4",
         "be_user": "Marc Finnern (3)"
     }
 }

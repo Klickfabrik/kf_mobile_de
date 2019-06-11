@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-30T20:04:32Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-06-11T06:02:18Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
 			<trans-unit id="company_name.description">
@@ -30,7 +30,7 @@
 			<trans-unit id="seller_image.description">
 				<source>sellerImage</source>
 			</trans-unit>
-			<trans-unit id="seller_image.seller_info">
+			<trans-unit id="seller_info.description">
 				<source>sellerInfo</source>
 			</trans-unit>
 			<trans-unit id="url.description">

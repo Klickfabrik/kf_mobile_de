@@ -29,7 +29,7 @@ KF - Mobile.de
 		comma,separated,list,of,keywords
 
 	:Copyright:
-		2018
+		2019
 
 	:Author:
 		Marc Finnern

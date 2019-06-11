@@ -14,15 +14,13 @@ call_user_func(
                 'Features' => 'list, new, create, edit, update, delete',
                 'Specifics' => 'list, new, create, edit, update, delete',
                 'Seller' => 'maps',
-                'Clients' => 'places',
+                'Clients' => 'places'
             ],
             // non-cacheable actions
             [
                 'Vehicle' => 'create, update, delete',
                 'Features' => 'create, update, delete',
-                'Specifics' => 'create, update, delete',
-                'Seller' => '',
-                'Clients' => ''
+                'Specifics' => 'create, update, delete'
             ]
         );
 

@@ -29,14 +29,14 @@
 										<numIndex index="0">Searchbox</numIndex>
 										<numIndex index="1">Vehicle-&gt;search</numIndex>
 									</numIndex>
-                                    <numIndex index="4">
-                                        <numIndex index="0">Google Maps</numIndex>
-                                        <numIndex index="1">Seller-&gt;maps</numIndex>
-                                    </numIndex>
-                                    <numIndex index="5">
-                                        <numIndex index="0">Google Reviews</numIndex>
-                                        <numIndex index="1">Clients-&gt;places</numIndex>
-                                    </numIndex>
+									<numIndex index="4">
+										<numIndex index="0">Google Maps</numIndex>
+										<numIndex index="1">Seller-&gt;maps</numIndex>
+									</numIndex>
+									<numIndex index="5">
+										<numIndex index="0">Google Reviews</numIndex>
+										<numIndex index="1">Clients-&gt;places</numIndex>
+									</numIndex>
 								</items>
 							</config>
 						</TCEforms>

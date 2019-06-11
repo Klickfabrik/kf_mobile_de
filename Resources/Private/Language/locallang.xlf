@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-30T20:04:31Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-06-11T06:02:18Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
 			<trans-unit id="tx_kfmobilede_domain_model_clients">
@@ -114,6 +114,21 @@
 			<trans-unit id="tx_kfmobilede_domain_model_vehicle.import">
 				<source>Import</source>
 			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.custom1">
+				<source>Custom1</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.custom2">
+				<source>Custom2</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.custom3">
+				<source>Custom3</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.custom4">
+				<source>Custom4</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.custom5">
+				<source>Custom5</source>
+			</trans-unit>
 			<trans-unit id="tx_kfmobilede_domain_model_vehicle.features">
 				<source>Features</source>
 			</trans-unit>
@@ -170,6 +185,9 @@
 			</trans-unit>
 			<trans-unit id="tx_kfmobilede_domain_model_seller.seller_image">
 				<source>Seller Image</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_seller.seller_info">
+				<source>Seller Info</source>
 			</trans-unit>
 			<trans-unit id="tx_kfmobilede_domain_model_seller.url">
 				<source>Url</source>

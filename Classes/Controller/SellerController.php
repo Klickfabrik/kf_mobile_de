@@ -43,19 +43,15 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $this->googleMaps();
     }
 
-
     # ========================================================================================
     # Google Maps
     # ========================================================================================
-
     public function mapsAction()
     {
         #Debug
         $this->debug();
-
         # single seller
         $seller = $this->getCurrentSellers();
-
         $data = $this->getGoogleMaps($seller);
         $this->view->assign('sellers', $data['sellers']);
         $this->view->assign('phones', $data['phones']);
@@ -87,11 +83,11 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
                 'longitude' => $seller->getLongitude(),
                 'name' => $seller->getCompanyName(),
                 'address' => join(',<br/>', [
-                    "<strong>{$seller->getCompanyName()}</strong>",
-                    $seller->getStreet(),
-                    $seller->getZipcode() . ' ' . $seller->getCity(),
-                    join('<br/>', $phone['maps'])
-                ])
+                        "<strong>{$seller->getCompanyName()}</strong>",
+                        $seller->getStreet(),
+                        $seller->getZipcode() . ' ' . $seller->getCity(),
+                        join('<br/>', $phone['maps'])
+                    ])
             ];
             $phones[] = $phone['raw'];
             $sellers[] = $seller;
@@ -100,7 +96,7 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             'sellers' => $sellers,
             'phones' => $phones,
             'googleData' => $googleData,
-            'count' => count($_seller),
+            'count' => count($_seller)
         ];
         return $return;
     }
@@ -140,7 +136,6 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     # ========================================================================================
     # System helper
     # ========================================================================================
-
     private function debug()
     {
         if (isset($this->settings['debug']) && $this->settings['debug']) {
@@ -163,14 +158,12 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         } else {
             $seller = $this->sellerRepository->findAll();
         }
-
         return $seller;
     }
 
     # ========================================================================================
     # Helpers
     # ========================================================================================
-
     /**
      * @param $arr
      */
@@ -186,5 +179,15 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     {
         /** \TYPO3\CMS\Extbase\Utility\DebuggerUtility */
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($arr);
+    }
+
+    /**
+     * action places
+     *
+     * @return void
+     */
+    public function placesAction()
+    {
+
     }
 }

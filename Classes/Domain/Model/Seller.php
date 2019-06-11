@@ -83,6 +83,13 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $sellerImage = null;
 
     /**
+     * sellerInfo
+     *
+     * @var string
+     */
+    protected $sellerInfo = '';
+
+    /**
      * url
      *
      * @var string
@@ -117,13 +124,6 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var bool
      */
     protected $import = false;
-
-    /**
-     * sellerInfo
-     *
-     * @var string
-     */
-    protected $sellerInfo = '';
 
     /**
      * Returns the url

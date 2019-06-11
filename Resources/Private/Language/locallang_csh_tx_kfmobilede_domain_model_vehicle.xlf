@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-30T20:04:32Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-06-11T06:02:18Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
 			<trans-unit id="model_description.description">
@@ -92,6 +92,21 @@
 			</trans-unit>
 			<trans-unit id="import.description">
 				<source>import</source>
+			</trans-unit>
+			<trans-unit id="custom1.description">
+				<source>custom1</source>
+			</trans-unit>
+			<trans-unit id="custom2.description">
+				<source>custom2</source>
+			</trans-unit>
+			<trans-unit id="custom3.description">
+				<source>custom3</source>
+			</trans-unit>
+			<trans-unit id="custom4.description">
+				<source>custom4</source>
+			</trans-unit>
+			<trans-unit id="custom5.description">
+				<source>custom5</source>
 			</trans-unit>
 			<trans-unit id="features.description">
 				<source>features</source>

@@ -25,6 +25,41 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $hidden = false;
 
     /**
+     * custom1
+     *
+     * @var string
+     */
+    protected $custom1 = '';
+
+    /**
+     * custom2
+     *
+     * @var string
+     */
+    protected $custom2 = '';
+
+    /**
+     * custom3
+     *
+     * @var string
+     */
+    protected $custom3 = '';
+
+    /**
+     * custom4
+     *
+     * @var string
+     */
+    protected $custom4 = '';
+
+    /**
+     * custom5
+     *
+     * @var string
+     */
+    protected $custom5 = '';
+
+    /**
      * model description
      *
      * @var string
@@ -1094,5 +1129,110 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setFirstRegistration(\DateTime $firstRegistration)
     {
         $this->firstRegistration = $firstRegistration;
+    }
+
+    /**
+     * Returns the custom1
+     *
+     * @return string $custom1
+     */
+    public function getCustom1()
+    {
+        return $this->custom1;
+    }
+
+    /**
+     * Sets the custom1
+     *
+     * @param string $custom1
+     * @return void
+     */
+    public function setCustom1($custom1)
+    {
+        $this->custom1 = $custom1;
+    }
+
+    /**
+     * Returns the custom2
+     *
+     * @return string $custom2
+     */
+    public function getCustom2()
+    {
+        return $this->custom2;
+    }
+
+    /**
+     * Sets the custom2
+     *
+     * @param string $custom2
+     * @return void
+     */
+    public function setCustom2($custom2)
+    {
+        $this->custom2 = $custom2;
+    }
+
+    /**
+     * Returns the custom3
+     *
+     * @return string $custom3
+     */
+    public function getCustom3()
+    {
+        return $this->custom3;
+    }
+
+    /**
+     * Sets the custom3
+     *
+     * @param string $custom3
+     * @return void
+     */
+    public function setCustom3($custom3)
+    {
+        $this->custom3 = $custom3;
+    }
+
+    /**
+     * Returns the custom4
+     *
+     * @return string $custom4
+     */
+    public function getCustom4()
+    {
+        return $this->custom4;
+    }
+
+    /**
+     * Sets the custom4
+     *
+     * @param string $custom4
+     * @return void
+     */
+    public function setCustom4($custom4)
+    {
+        $this->custom4 = $custom4;
+    }
+
+    /**
+     * Returns the custom5
+     *
+     * @return string $custom5
+     */
+    public function getCustom5()
+    {
+        return $this->custom5;
+    }
+
+    /**
+     * Sets the custom5
+     *
+     * @param string $custom5
+     * @return void
+     */
+    public function setCustom5($custom5)
+    {
+        $this->custom5 = $custom5;
     }
 }
