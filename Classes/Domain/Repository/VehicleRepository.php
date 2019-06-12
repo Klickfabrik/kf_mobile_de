@@ -387,13 +387,13 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $func = 'get' . ucfirst($name);
                 $data = $vehicle->{$func}();
                 if (is_string($allowValue)) {
-                    if (!empty($data) && isset($form[$name]) && !in_array($data, $form[$name])) {
+                    if (!empty($data) && !in_array($data, $form[$name])) {
                         $form[$name][] = $data;
                     }
                 } else {
                     foreach ($data as $refItem) {
                         $subData = $refItem->getUid();
-                        if (!empty($subData) && isset($form[$name]) && !in_array($subData, $form[$name])) {
+                        if (!empty($subData) && !in_array($subData, $form[$name])) {
                             $form[$name][] = $subData;
                         }
                     }
