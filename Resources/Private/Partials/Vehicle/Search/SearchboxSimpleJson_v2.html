@@ -1,6 +1,13 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<div class="view--search simplev2">
-	<div class="view--search__simple">
+<div class="view--searchbox searchbox simple">
+	<div class="view--search__simple searchbox__relative">
+
+		<div class="ribbon ribbon--wrap ribbon--right ribbon--top">
+			<div class="ribbon--item count_wrap">
+				<span class="ribbon--item__box count">...</span>
+			</div>
+		</div>
+
 		<!-- Tab panes -->
 		<f:form id="ajaxselectlist-simple" class="simple" pageUid="{settings.list.pid}">
 			<input type="hidden" name="type" value="{settings.ajax.typeNum}">
@@ -10,20 +17,44 @@
 			<input type="hidden" name="goback" value="{goback}">
 
 			<div class="view--search__simple__fields">
-				<f:alias map="{specifics: {'15' : 'Neuwagen', '3' : 'Gebrauchtwagen', '13': 'Tageszulassungen'}}">
-					<f:for each="{specifics}" key="fieldName" as="trans" iteration="iterator">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" id="specifics_{fieldName}" name="_search[specifics][]" value="{fieldName}"> {trans}
+				<div class="checkbox-wrap">
+					<f:alias map="{specifics: {'15' : 'Neuwagen', '3' : 'Gebrauchtwagen', '13': 'Tageszulassungen'}}">
+						<f:for each="{specifics}" key="fieldName" as="trans" iteration="iterator">
+							<label class="label label--container checkbox">
+								<span class="label--text">{trans}</span>
+								<input class="label--input" type="checkbox" name="_search[specifics][]" value="{fieldName}">
+								<span class="label--checkmark"></span>
 							</label>
-						</div>
-					</f:for>
-				</f:alias>
+						</f:for>
+					</f:alias>
+				</div>
 
 				<f:for each="{vehicle.tabs.simple.fields}" as="fieldName" iteration="iterator">
 					<f:variable name="default" value="{f:if(condition:'{translate}', then: '{translate}' , else: '{vehicle.translate.data.select.{fieldName}}')}" />
 					<f:render partial="Vehicle/Form/Select" arguments="{_all}" />
 				</f:for>
+				<div class="range-wrap">
+					<label class="head-label">Preis</label>
+					<div class="row">
+						<div class="col-xs-6 col-sm-6">
+							<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'price][min', 'placeholder' : 'von' }" />
+						</div>
+						<div class="col-xs-6 col-sm-6">
+							<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'price][max', 'placeholder' : 'bis' }" />
+						</div>
+					</div>
+				</div>
+				<div class="range-wrap">
+					<label class="head-label">Erstzulassung</label>
+					<div class="row">
+						<div class="col-xs-6 col-sm-6">
+							<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'first_registration][min', 'placeholder' : 'von' }" />
+						</div>
+						<div class="col-xs-6 col-sm-6">
+							<f:render partial="Vehicle/Form/Input" arguments="{'fieldName' : 'first_registration][max', 'placeholder' : 'bis' }" />
+						</div>
+					</div>
+				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Suchen</button>
 				</div>
@@ -32,6 +63,6 @@
 	</div>
 </div>
 <script>
-    var search_json = <f:format.htmlentitiesDecode>{vehicle.data.json}</f:format.htmlentitiesDecode>;
+	var search_json = <f:format.htmlentitiesDecode>{vehicle.data.json}</f:format.htmlentitiesDecode>;
 </script>
 </html>

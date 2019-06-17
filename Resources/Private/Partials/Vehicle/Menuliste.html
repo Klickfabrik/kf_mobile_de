@@ -4,16 +4,28 @@
 		<div class="row">
 			<f:for each="{vehicles.data}" as="vehicle">
 				<div class="item_wrap col-xs-6">
-					<div class="images">
-						<f:for each="{vehicle.images}" as="image" iteration="iterator">
-							<f:if condition="{iterator.index} < 1">
-								<f:render partial="Vehicle/Image/Menu" arguments="{_all}" />
-							</f:if>
-						</f:for>
-					</div>
-					<div class="item">
-						<p>{vehicle.modelDescription}</p>
-					</div>
+					<f:if condition="{settings.detail.pid} && {settings.detail.use} == 1">
+						<f:link.action action="show" pageUid="{settings.detail.pid}" arguments="{vehicle : vehicle}">
+							<div class="images">
+								<f:for each="{vehicle.images}" as="image" iteration="iterator">
+									<f:if condition="{iterator.index} < 1">
+										<f:render partial="Vehicle/Image/Menu" arguments="{_all}" />
+									</f:if>
+								</f:for>
+							</div>
+							<div class="item">
+								<div class="item_inner">
+									<p>
+										{vehicle.make} <br/>
+										{vehicle.modelDescription -> f:format.crop(maxCharacters: 30, respectWordBoundaries: false, append: '...')}
+									</p>
+								</div>
+							</div>
+							<div class="price">
+								€ <f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.price}</f:format.number>,-
+							</div>
+						</f:link.action>
+					</f:if>
 				</div>
 			</f:for>
 		</div>
