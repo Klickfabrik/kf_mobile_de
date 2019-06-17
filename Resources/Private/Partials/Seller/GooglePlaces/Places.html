@@ -1,16 +1,14 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-
 <f:if condition="{google_places}">
     <h2>Google Rating</h2>
-    <div id="google-reviews">
-        ... loading ...
-    </div>
+    <div id="google-reviews{google_id}" style="display: flex"> ... loading ... </div>
     <script src="{f:uri.resource(path:'Vendor/google-places/google-places.js')}"></script>
     <link rel="stylesheet" href="{f:uri.resource(path:'Vendor/google-places/google-places.css')}">
     <script>
         var googlePlaces_key = '<f:format.htmlentitiesDecode>{google_places}</f:format.htmlentitiesDecode>';
+        var googlePlaceID = '#google-reviews{google_id}';
         $(document).ready(function() {
-            $("#google-reviews").googlePlaces({
+            $(googlePlaceID).googlePlaces({
                 placeId: googlePlaces_key
                 , render: ['reviews']
                 , min_rating: 3

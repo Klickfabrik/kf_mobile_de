@@ -651,6 +651,10 @@
     // images
     &--gallery {
       $padding: 5px;
+      &__large {
+        margin-bottom: 10px;
+      }
+
       &__small {
         > .row {
           margin: 0 -5px;
@@ -667,6 +671,29 @@
         min-height: 100px;
         &.act {
           border: 1px solid $color_mainhell;
+        }
+      }
+    }
+
+    &--buttons {
+      .btn {
+        width: 100%;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .btn-list {
+        border: 1px solid $color_grey;
+        span.active {display: none}
+        span.inactive {display: block}
+
+        &.btn-active {
+          background-color: $color_main;
+          color: $color_white;
+          span.active {display: block}
+          span.inactive {display: none}
         }
       }
     }
@@ -730,6 +757,7 @@
       }
     }
   }
+
 }
 
 
