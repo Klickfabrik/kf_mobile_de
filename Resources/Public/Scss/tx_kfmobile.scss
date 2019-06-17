@@ -439,7 +439,7 @@
                 position: absolute;
                 width: 100%;
                 bottom: 0;
-                background: transparentize($color_main,0.5);
+                background: transparentize($color_main,0.2);
                 p {
                   font-size: $fontSize;
                   line-height: $fontSize +3;
