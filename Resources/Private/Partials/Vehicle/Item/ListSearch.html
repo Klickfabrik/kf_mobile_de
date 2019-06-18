@@ -21,7 +21,9 @@
             <div class="row">
                 <div class="col-sm-9">
                     <div class="header">
-                        <h2>{vehicle.make} {vehicle.modelDescription}</h2>
+                        <f:link.action action="show" pageUid="{settings.detail.pid}" arguments="{vehicle : vehicle}">
+                            <h2>{vehicle.make} {vehicle.modelDescription}</h2>
+                        </f:link.action>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -41,7 +43,7 @@
                 <li><strong>Kilometerstand:</strong> {vehicle.mileage} km</li>
                 <li><strong>Farbe:</strong> {vehicle.color}</li>
                 <li><strong>Getriebe:</strong> {vehicle.gearbox}</li>
-                <li><strong>Erstzulassung:</strong> {vehicle.firstRegistration->f:format.date(format: 'Y.m.d')}</li>
+                <li><strong>Erstzulassung:</strong> {vehicle.firstRegistration->f:format.date(format: 'd.m.Y')}</li>
                 <li><strong>Aufbauart:</strong> {vehicle.category}</li>
                 <li><strong>Türen:</strong> {vehicle.doors}</li>
             </ul>

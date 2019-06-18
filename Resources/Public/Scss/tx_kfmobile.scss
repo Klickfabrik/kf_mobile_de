@@ -520,6 +520,7 @@
       }
 
       &--headerbox {
+        a {text-decoration: none}
         h2 {
           font-size: $fontSizeLarge;
           margin: 0;
