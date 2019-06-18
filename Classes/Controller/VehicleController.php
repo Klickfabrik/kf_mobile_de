@@ -239,6 +239,15 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         // ReOrder
         foreach ($data['data']['select'] as $key => $rep) {
             switch ($key) {
+                case 'class':
+                    $tmp = [];
+                    foreach ($rep as $pos => $value){
+                        $first = explode(" ",$value);
+                        $firstKey = strtolower(array_shift($first));
+                        $tmp[$firstKey] = $value;
+                    }
+                    $data['data']['select'][$key] = $tmp;
+                    break;
                 case 'specifics':
                     $count = count($rep);
                     for ($i = 0; $i < $count; $i++) {
