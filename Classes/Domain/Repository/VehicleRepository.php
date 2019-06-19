@@ -112,10 +112,8 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                     case 'features':
                     case 'specifics':
                     case 'seller':
-                        $constraints[] =  $query->matching(
-                            $query->in($field, $ids)
-                        );
-                        break;
+                        $constraints[] =  $query->equals("{$field}.uid", $filter[$key]);
+                    break;
                     default:
                         $constraints[] = $query->matching($query->in($field, $ids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
                         break;
@@ -130,11 +128,10 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->setLimit($settings['limit']);
             }
         }
-        /*
+
         if (!empty($constraints) && count($constraints) > 0) {
             $query->matching($query->logicalAnd($constraints));
         }
-        */
 
         $result = $query->execute();
         $this->setcurCount($result->count());

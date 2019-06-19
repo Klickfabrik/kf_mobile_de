@@ -93,11 +93,13 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function listAction()
     {
+        $settings = $this->getSettings();
+
         #Debug
         if (isset($this->settings['debug']) && $this->settings['debug']) {
             $this->showArray($this->settings);
+            $this->showArray($settings['filter']);
         }
-        $settings = $this->getSettings();
         if (isset($settings['filter']['uids']) && empty($settings['filter']['uids'])) {
             $this->view->assign('vehicles', ['data' => []]);
         } else {
