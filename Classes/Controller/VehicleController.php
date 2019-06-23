@@ -185,6 +185,10 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $data = json_decode($vehicle->getMisc(), true);
         }
         $return = $this->array_flatten($data);
+        if($this->isJson($return['energy-efficiency-class'])){
+            $return['energy-efficiency-class'] = '';
+        }
+
         $return['sticker_img'] = $this->get_numerics($return['emission-sticker']);
         return $return;
     }
@@ -324,6 +328,20 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     # ========================================================================================
     # Helper functions
     # ========================================================================================
+
+    /**
+     * @param $string
+     * @return bool
+     */
+    function isJson($string) {
+        if(is_string($string)){
+            json_decode($string);
+            return (json_last_error() == JSON_ERROR_NONE);
+        } else {
+            return false;
+        }
+    }
+
     /**
      * @param $str
      * @return mixed

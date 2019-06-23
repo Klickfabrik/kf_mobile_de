@@ -127,7 +127,8 @@
 				<div class="view--single--co2">
 					<h3>Umwelt-, Verbrauchs- und Emissionsdaten</h3>
 					<div class="row">
-						<div class="col-xs-12 col-sm-6">
+						<f:variable name="class_energy" value="{f:if(condition: '{energy_efficiency.sticker_img}', then: 'col-sm-8', else: 'col-sm-12')}"></f:variable>
+						<div class="col-xs-12 {class_energy}">
 							<table class="table table-size">
 								<tr>
 									<td>Kraftstoffverbr. innerorts</td>
@@ -160,16 +161,16 @@
 							</table>
 						</div>
 						<f:if condition="{energy_efficiency.sticker_img}">
-							<f:if condition="{energy_efficiency.energy-efficiency-class}">
+							<f:if condition="{energy_efficiency.energy-efficiency-class} != ''">
 								<f:then>
-									<div class="col-xs-12 col-sm-6">
+									<div class="col-xs-12 col-sm-4">
 										<f:variable name="image_class" value="Images/energy_efficiency_label_{energy_efficiency.energy-efficiency-class -> f:format.case(mode: 'lower')}.png" />
 										<f:image src="{f:uri.resource(path:'{image_class}')}" class="img-responsive" title="{energy_efficiency.emissionClass}" maxWidth="300" />
 									</div>
 								</f:then>
 								<f:else>
-									<div class="col-xs-12 col-sm-6">
-										<f:image src="{f:uri.resource(path:'Images/EURO{energy_efficiency.sticker_img}.png')}" class="img-responsive" title="{energy_efficiency.emissionClass}" maxWidth="300" />
+									<div class="col-xs-12 col-sm-4">
+										<f:image src="{f:uri.resource(path:'Images/{energy_efficiency.emissionClass}.png')}" class="img-responsive" title="{energy_efficiency.emissionClass}" maxWidth="300" />
 									</div>
 								</f:else>
 							</f:if>
