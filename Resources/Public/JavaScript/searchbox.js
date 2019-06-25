@@ -2,6 +2,7 @@ var service,
     resultContainer,
     form,
     objects,
+    autoload,
     offset,
     countObj,
     loadingText = "Loading...",
@@ -15,9 +16,12 @@ jQuery(document).ready(function ($) {
         _init : 0,
 
         init: function(){
+            var $form_autoload = $('[name="autoload"]');
+
             form = $('#ajaxselectlist-form,#ajaxselectlist-simple');
             resultContainer = $('#ajaxCallResult');
             objects = $('[name="objects"]');
+            autoload = $form_autoload.length ? $form_autoload.val() : 0;
             offset = $('[name="offset"]');
             countObj = $('.count_wrap .count,button .count');
 
@@ -97,6 +101,10 @@ jQuery(document).ready(function ($) {
                     resultContainer.html('Ajax request - ' + textStatus + ': ' + errorThrow).fadeIn('fast');
                 }
             });
+
+            if(autoload){
+                service.getVehicles(form,false,0);
+            }
         },
         changeCount: function(input){
             countObj.html(input);

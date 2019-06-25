@@ -74,6 +74,9 @@ var kf_mobile_cookie = (function () {
 
             // Update
             displayCookieCount("");
+
+            // Reload
+            window.location.reload();
         });
     };
 

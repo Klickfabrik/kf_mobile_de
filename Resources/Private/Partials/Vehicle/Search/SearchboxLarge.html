@@ -10,6 +10,7 @@
 
 		<f:form id="ajaxselectlist-form" class="{f:if(condition:'{settings.list.pid}', then: 'target', else: 'notarget')} complex" pageUid="{settings.list.pid}">
 			<input type="hidden" name="objects" value="0">
+			<input type="hidden" name="autoload" value="1">
 			<input type="hidden" name="type" value="{settings.ajax.typeNum}">
 			<input type="hidden" name="limit" value="{settings.ajax.limit}">
 			<input type="hidden" name="offset" value="0">
@@ -43,7 +44,7 @@
 				<f:for each="{vehicle.data.select.specifics}" as="spec">
 					<label class="label label--container radio-inline">
 						<span class="label--text">{spec.description}</span>
-						<input class="label--input" type="radio" name="_search[specifics]" value="{spec.uid}">
+						<input class="label--input" type="checkbox" name="_search[specifics][]" value="{spec.uid}">
 						<span class="label--checkmark"></span>
 					</label>
 				</f:for>

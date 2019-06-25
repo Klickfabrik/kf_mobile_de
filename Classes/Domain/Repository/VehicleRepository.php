@@ -115,7 +115,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                         $constraints[] =  $query->equals("{$field}.uid", $filter[$key]);
                     break;
                     default:
-                        $constraints[] = $query->matching($query->in($field, $ids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
+                        $query->matching($query->in($field, $ids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
                         break;
                 }
             }

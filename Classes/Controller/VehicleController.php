@@ -100,6 +100,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->showArray($this->settings);
             $this->showArray($settings['filter']);
         }
+
         if (isset($settings['filter']['uids']) && empty($settings['filter']['uids'])) {
             $this->view->assign('vehicles', ['data' => []]);
         } else {
@@ -404,20 +405,32 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     private function getSettings()
     {
         $ov = $this->settings['overwrite'];
+
         // Typoscript
         $limit = isset($this->settings['list']['items']) && $this->settings['list']['items'] != '' ? $this->settings['list']['items'] : 10;
         $offset = isset($_GET['page']) && $_GET['page'] > 0 ? ($_GET['page'] - 1) * $limit : 0;
         $filter = isset($this->settings['select']) ? $this->settings['select'] : [];
         $showAll = isset($this->settings['list']['showAll']) && $this->settings['list']['showAll'] != '' ? $this->settings['list']['showAll'] : 0;
+
         // overwrite
         $limit = isset($ov['list']['items']) && $ov['list']['items'] != '' ? $ov['list']['items'] : $limit;
         $offset = isset($_GET["{$this->extensionName}[page]"]) && !empty($_GET["{$this->extensionName}[page]"]) ? $_GET["{$this->extensionName}[page]"] : $offset;
         $showAll = isset($ov['list']['showAll']) && $ov['list']['showAll'] != '' ? $ov['list']['showAll'] : $showAll;
+
         // Cookie
         if (isset($this->settings['list']['cookies']) && $this->settings['list']['cookies'] == 1) {
             $filter['mode'] = 'cookie';
             $filter['uids'] = $this->getCookieData();
         }
+
+        if(isset($filter['uids']) && !empty($filter['uids'])){
+            $filter['mode'] = 'uids';
+        }
+
+        if(!isset($filter['mode'])){
+            $filter['mode'] = 'default';
+        }
+
         return [
             'limit' => intval($limit),
             'offset' => intval($offset),
@@ -448,7 +461,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if (!empty($data)) {
             $uids = explode('|', $data);
         }
-        return $uids;
+        return array_filter($uids);
     }
 
     /**
