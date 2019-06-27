@@ -50,8 +50,11 @@ jQuery(document).ready(function ($) {
                 });
 
                 form.on('reset', function (ev) {
-                    service.changeCount(loadingText);
-                    service.getCount($(this));
+                    var that = $(this);
+                    setTimeout(function(){
+                        service.changeCount(loadingText);
+                        service.getCount(that);
+                    },100);
                 });
             }
         },
