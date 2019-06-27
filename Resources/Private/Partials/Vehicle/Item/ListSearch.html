@@ -38,7 +38,11 @@
         <div class="list--data">
             <ul>
                 <li><strong>Typ:</strong> {typ}</li>
-                <li><strong>Leistung:</strong> {vehicle.power} kW</li>
+                <li><strong>Leistung:</strong>
+                    <f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.power}</f:format.number> kW
+                    (<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.power*misc.kw}</f:format.number> PS)
+
+                </li>
                 <li><strong>Kraftstoffart:</strong> {vehicle.fuel}</li>
                 <li><strong>Kilometerstand:</strong> {vehicle.mileage} km</li>
                 <li><strong>Farbe:</strong> {vehicle.color}</li>

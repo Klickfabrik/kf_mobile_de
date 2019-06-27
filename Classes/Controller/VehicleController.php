@@ -120,6 +120,12 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             ];
             $this->view->assign('vehicles', $data);
         }
+
+        // Misc
+        $this->view->assign('misc', [
+            'layout' => 'list',
+            'kw' => $this->kwInPS
+        ]);
     }
 
     /**
@@ -274,6 +280,12 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
         $this->view->assign('vehicle', $data);
         $this->view->assign('goback', $GLOBALS['TSFE']->id);
+
+        // Misc
+        $this->view->assign('misc', [
+            'layout' => 'search',
+            'kw' => $this->kwInPS
+        ]);
     }
 
     # ========================================================================================
@@ -311,6 +323,12 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             }
         }
         $this->view->assign('vehicles', $data['result']);
+
+        // Misc
+        $this->view->assign('misc', [
+            'layout' => 'ajaxResult',
+            'kw' => $this->kwInPS
+        ]);
     }
 
     /**
