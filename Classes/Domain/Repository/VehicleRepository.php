@@ -107,7 +107,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                         foreach ($result as $entry) {
                             $uids[] = array_shift($entry);
                         }
-                        $constraints[] = $query->matching($query->in($field, $uids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
+                        $query->matching($query->in($field, $uids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
                         break;
                     case 'features':
                     case 'specifics':
