@@ -19,7 +19,9 @@
 					</f:then>
 					<f:else if="{type} == 'power'">
 						<option value="{data}">
-							<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{data*vehicle.kw}kW</f:format.number> ({data} PS)
+							<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{data}</f:format.number> kW
+							(<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{data*misc.kw}</f:format.number> PS)
+
 						</option>
 					</f:else>
 					<f:else if="{type} == 'specifics'">
