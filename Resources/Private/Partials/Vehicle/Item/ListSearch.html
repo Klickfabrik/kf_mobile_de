@@ -44,7 +44,7 @@
 
                 </li>
                 <li><strong>Kraftstoffart:</strong> {vehicle.fuel}</li>
-                <li><strong>Kilometerstand:</strong> {vehicle.mileage} km</li>
+                <li><strong>Kilometerstand:</strong> <f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.mileage}</f:format.number> km</li>
                 <li><strong>Farbe:</strong> {vehicle.color}</li>
                 <li><strong>Getriebe:</strong> {vehicle.gearbox}</li>
                 <li><strong>Erstzulassung:</strong> {vehicle.firstRegistration->f:format.date(format: 'd.m.Y')}</li>
@@ -54,7 +54,7 @@
             <f:if condition="{energy_efficiency}">
                 <div class="list--data--energy">
                     <hr/>
-                    <p><strong>Verbrauch:</strong></p>
+                    <p><strong>Verbrauch*:</strong></p>
                     <ul>
                         <li>innerorts: {energy_efficiency.inner}</li>
                         <li>außerorts: {energy_efficiency.outer}</li>

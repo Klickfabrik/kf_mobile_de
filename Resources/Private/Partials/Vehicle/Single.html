@@ -147,16 +147,16 @@
 									<td>{energy_efficiency.co2-emission}</td>
 								</tr>
 								<tr>
+									<td>Effiziensklasse</td>
+									<td>{energy_efficiency.emission-sticker}</td>
+								</tr>
+								<tr>
 									<td>Schadstoffklasse</td>
 									<td>{energy_efficiency.emissionClass}</td>
 								</tr>
 								<tr>
 									<td>Partikelfilter</td>
 									<td>{f:if(condition: '{energy_efficiency.envkv-compliant} == 1', then: 'ja', else: 'nein')}</td>
-								</tr>
-								<tr>
-									<td>Effiziensklasse</td>
-									<td>{energy_efficiency.emission-sticker}</td>
 								</tr>
 							</table>
 						</div>
