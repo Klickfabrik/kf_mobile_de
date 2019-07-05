@@ -1,19 +1,7 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Controller;
 
-use InvalidArgumentException;
-use Klickfabrik\KfMobileDe\Domain\Model\Vehicle;
-use Klickfabrik\KfMobileDe\Domain\Repository\ClientsRepository;
-use Klickfabrik\KfMobileDe\Domain\Repository\FeaturesRepository;
-use Klickfabrik\KfMobileDe\Domain\Repository\SellerRepository;
-use Klickfabrik\KfMobileDe\Domain\Repository\SpecificsRepository;
-use Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /***
  *
@@ -29,42 +17,42 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /**
  * VehicleController
  */
-class VehicleController extends ActionController
+class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
      * vehicleRepository
      *
-     * @var VehicleRepository
+     * @var \Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository
      * @inject
      */
     protected $vehicleRepository = null;
 
     /**
-     * @var SellerRepository
+     * @var \Klickfabrik\KfMobileDe\Domain\Repository\SellerRepository
      * @inject
      */
     protected $sellerRepository = null;
 
     /**
-     * @var SpecificsRepository
+     * @var \Klickfabrik\KfMobileDe\Domain\Repository\SpecificsRepository
      * @inject
      */
     protected $specificsRepository = null;
 
     /**
-     * @var FeaturesRepository
+     * @var \Klickfabrik\KfMobileDe\Domain\Repository\FeaturesRepository
      * @inject
      */
     protected $featuresRepository = null;
 
     /**
-     * @var ClientsRepository
+     * @var \Klickfabrik\KfMobileDe\Domain\Repository\ClientsRepository
      * @inject
      */
     protected $clientsRepository = null;
 
     /**
-     * @var ConfigurationManagerInterface
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      * @inject
      */
     protected $configurationManager = null;
@@ -72,7 +60,7 @@ class VehicleController extends ActionController
     /**
      * The current request.
      *
-     * @var Request
+     * @var \TYPO3\CMS\Extbase\Mvc\Request
      * @api
      */
     protected $request = null;
@@ -100,8 +88,8 @@ class VehicleController extends ActionController
     private $specificsAllow = ['Gebrauchtfahrzeug', 'Tageszulassung', 'Elektro', 'Neufahrzeug', 'Vorführfahrzeug', 'Jahreswagen'];
 
     /**
-     * @throws InvalidArgumentException
-     * @throws InvalidQueryException
+     * @throws \InvalidArgumentException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function listAction()
     {
@@ -140,10 +128,10 @@ class VehicleController extends ActionController
     /**
      * action show
      *
-     * @param Vehicle $vehicle
+     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
      * @return void
      */
-    public function showAction(Vehicle $vehicle)
+    public function showAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
     {
         $this->settings['layout'] = 'detail';
         $data = [
@@ -180,10 +168,10 @@ class VehicleController extends ActionController
     }
 
     /**
-     * @param Vehicle $vehicle
+     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
      * @return array|bool
      */
-    private function getEfficiency(Vehicle $vehicle)
+    private function getEfficiency(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
     {
         $data = [
             'emissionClass' => '-',
@@ -229,7 +217,7 @@ class VehicleController extends ActionController
     # Searchbox
     # ========================================================================================
     /**
-     * @throws InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function searchAction()
     {
@@ -299,7 +287,7 @@ class VehicleController extends ActionController
     # Ajax Requests
     # ========================================================================================
     /**
-     * @throws InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function ajaxResultAction()
     {
@@ -515,7 +503,7 @@ class VehicleController extends ActionController
     public function showDebug($arr)
     {
         /** \TYPO3\CMS\Extbase\Utility\DebuggerUtility */
-        DebuggerUtility::var_dump($arr);
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($arr);
     }
 
     # ========================================================================================
@@ -552,12 +540,12 @@ class VehicleController extends ActionController
     /**
      * action create
      *
-     * @param Vehicle $newVehicle
+     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newVehicle
      * @return void
      */
-    public function createAction(Vehicle $newVehicle)
+    public function createAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newVehicle)
     {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', AbstractMessage::WARNING);
+        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->vehicleRepository->add($newVehicle);
         $this->redirect('list');
     }
@@ -565,11 +553,11 @@ class VehicleController extends ActionController
     /**
      * action edit
      *
-     * @param Vehicle $vehicle
+     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
      * @ignorevalidation $vehicle
      * @return void
      */
-    public function editAction(Vehicle $vehicle)
+    public function editAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
     {
         $this->view->assign('vehicle', $vehicle);
     }
@@ -577,12 +565,12 @@ class VehicleController extends ActionController
     /**
      * action update
      *
-     * @param Vehicle $vehicle
+     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
      * @return void
      */
-    public function updateAction(Vehicle $vehicle)
+    public function updateAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', AbstractMessage::WARNING);
+        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->vehicleRepository->update($vehicle);
         $this->redirect('list');
     }
@@ -590,12 +578,12 @@ class VehicleController extends ActionController
     /**
      * action delete
      *
-     * @param Vehicle $vehicle
+     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
      * @return void
      */
-    public function deleteAction(Vehicle $vehicle)
+    public function deleteAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', AbstractMessage::WARNING);
+        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->vehicleRepository->remove($vehicle);
         $this->redirect('list');
     }
