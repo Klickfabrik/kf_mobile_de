@@ -64,6 +64,7 @@ plugin.tx_kfmobilede_kfmobileview {
                 importKey = Fahrzeugnummer
                 importClient = Import-Key (Verkäufer)
                 import = Importiert
+                cubicCapacity = Hubraum
                 #images = Bilder
                 #features = FeaturesRepository
                 #specifics = SpecificsRepository
@@ -119,6 +120,7 @@ plugin.tx_kfmobilede_kfmobileview {
                 category            = Karosserie
                 firstRegistration   = Erstzulassung
                 power               = Leistung
+                cubicCapacity       = Hubraum
                 fuel                = Motor
                 gearbox             = Getriebe
                 mileage             = Laufleistung

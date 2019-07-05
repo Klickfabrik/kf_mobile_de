@@ -1,6 +1,32 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Controller;
 
+use DateTime;
+use DOMDocument;
+use InvalidArgumentException;
+use Klickfabrik\KfMobileDe\Domain\Model\Features;
+use Klickfabrik\KfMobileDe\Domain\Model\Seller;
+use Klickfabrik\KfMobileDe\Domain\Model\Specifics;
+use Klickfabrik\KfMobileDe\Domain\Model\Vehicle;
+use Klickfabrik\KfMobileDe\Domain\Repository\ClientsRepository;
+use Klickfabrik\KfMobileDe\Domain\Repository\FeaturesRepository;
+use Klickfabrik\KfMobileDe\Domain\Repository\ImporterRepository;
+use Klickfabrik\KfMobileDe\Domain\Repository\SellerRepository;
+use Klickfabrik\KfMobileDe\Domain\Repository\SpecificsRepository;
+use Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository;
+use Klickfabrik\KfMobileDe\Helper\Ads2Value;
+use Klickfabrik\KfMobileDe\Helper\Dom2Array;
+use Klickfabrik\KfMobileDe\Helper\MobileGetter;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
+use TYPO3\CMS\Core\Resource\Exception\ResourceDoesNotExistException;
+use TYPO3\CMS\Core\Resource\FileInterface;
+use TYPO3\CMS\Core\Resource\ResourceFactory;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Property\Exception;
+use TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException;
+use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /***
@@ -17,7 +43,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /**
  * ImporterController
  */
-class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class ImporterController extends ActionController
 {
 
     private $tmpDir         = PATH_site . "typo3temp/";
@@ -36,7 +62,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * Persistence Manager
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var PersistenceManager
      * @inject
      */
     protected $persistenceManager;
@@ -44,7 +70,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * vehicleRepository
      *
-     * @var \Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository
+     * @var VehicleRepository
      * @inject
      */
     protected $vehicleRepository = null;
@@ -52,31 +78,31 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * importerRepository
      *
-     * @var \Klickfabrik\KfMobileDe\Domain\Repository\ImporterRepository
+     * @var ImporterRepository
      * @inject
      */
     protected $importerRepository = null;
 
     /**
-     * @var \Klickfabrik\KfMobileDe\Domain\Repository\ClientsRepository
+     * @var ClientsRepository
      * @inject
      */
     protected $clientsRepository = null;
 
     /**
-     * @var \Klickfabrik\KfMobileDe\Domain\Repository\SellerRepository
+     * @var SellerRepository
      * @inject
      */
     protected $sellerRepository = null;
 
     /**
-     * @var \Klickfabrik\KfMobileDe\Domain\Repository\FeaturesRepository
+     * @var FeaturesRepository
      * @inject
      */
     protected $featuresRepository = null;
 
     /**
-     * @var \Klickfabrik\KfMobileDe\Domain\Repository\SpecificsRepository
+     * @var SpecificsRepository
      * @inject
      */
     protected $specificsRepository = null;
@@ -84,13 +110,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
     /**
-     * @var \Klickfabrik\KfMobileDe\Helper\Dom2Array
+     * @var Dom2Array
      * @inject
      */
     protected $Dom2Array = null;
 
     /**
-     * @var \Klickfabrik\KfMobileDe\Helper\Ads2Value
+     * @var Ads2Value
      * @inject
      */
     protected $Ads2Value = null;
@@ -126,12 +152,12 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * action create
      *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newVehicle
+     * @param Vehicle $newVehicle
      * @return void
      */
-    public function createVehicleAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newVehicle)
+    public function createVehicleAction(Vehicle $newVehicle)
     {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', AbstractMessage::WARNING);
         $this->vehicleRepository->add($newVehicle);
         $this->redirect('list');
     }
@@ -141,8 +167,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param bool $return
      * @param array $args
      * @return array
-     * @throws \InvalidArgumentException
-     * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+     * @throws InvalidArgumentException
+     * @throws InsufficientFolderAccessPermissionsException
      */
     public function checkImportAction($return=false, $args=array()){
         $status = array(
@@ -178,7 +204,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     "username" => $client->getUsername(),
                     "password" => $client->getPassword(),
                 );
-                $this->mobileGetter = new \Klickfabrik\KfMobileDe\Helper\MobileGetter($config);
+                $this->mobileGetter = new MobileGetter($config);
 
                 // clean up
                 $this->cleanTypo3temp();
@@ -294,13 +320,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         );
 
         if(file_exists($filename)) {
-            $xml = new \DOMDocument();
+            $xml = new DOMDocument();
             $xml->load($filename);
 
-            $xmlArray = \Klickfabrik\KfMobileDe\Helper\Dom2Array::xml_to_array($xml);
+            $xmlArray = Dom2Array::xml_to_array($xml);
 
             # XML Parsing
-            $xml = new \Klickfabrik\KfMobileDe\Helper\Ads2Value();
+            $xml = new Ads2Value();
             $xml->setXml($xmlArray);
 
             // $rep
@@ -324,10 +350,10 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     if($new){
                         switch($repKey){
                             case "features":
-                                $model = new \Klickfabrik\KfMobileDe\Domain\Model\Features();
+                                $model = new Features();
                                 break;
                             case "specifics":
-                                $model = new \Klickfabrik\KfMobileDe\Domain\Model\Specifics();
+                                $model = new Specifics();
                                 break;
                         }
                         $newElement     = $model;
@@ -374,13 +400,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         );
 
         if(file_exists($filename)){
-            $xml = new \DOMDocument();
+            $xml = new DOMDocument();
             $xml->load($filename);
 
-            $xmlArray  = \Klickfabrik\KfMobileDe\Helper\Dom2Array::xml_to_array($xml);
+            $xmlArray  = Dom2Array::xml_to_array($xml);
 
             # XML Parsing
-            $xml = new \Klickfabrik\KfMobileDe\Helper\Ads2Value();
+            $xml = new Ads2Value();
             $xml->setXml($xmlArray);
 
 
@@ -448,7 +474,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                 // Update Status
                 if($objNew){
-                    $newElement     = new \Klickfabrik\KfMobileDe\Domain\Model\Seller();
+                    $newElement     = new Seller();
                     $sellerUrls[]   = array(
                         "url"   => $later['_url'],
                         "key"   => $cur['importKey'],
@@ -462,7 +488,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 foreach ($cur as $key => $value){
                     switch($key){
                         case strpos(strtolower($key),"date") !== false:
-                            $value = new \DateTime($value);
+                            $value = new DateTime($value);
                             break;
                     }
 
@@ -543,8 +569,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param string $search
      * @param string $rep
      * @return array
-     * @throws \InvalidArgumentException
-     * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+     * @throws InvalidArgumentException
+     * @throws InsufficientFolderAccessPermissionsException
      */
     private function createVehicles($filename, $search="importKey", $rep="vehicleRepository"){
         $starttime = microtime(true);
@@ -555,13 +581,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         );
 
         if(file_exists($filename)){
-            $xml = new \DOMDocument();
+            $xml = new DOMDocument();
             $xml->load($filename);
 
-            $xmlArray  = \Klickfabrik\KfMobileDe\Helper\Dom2Array::xml_to_array($xml);
+            $xmlArray  = Dom2Array::xml_to_array($xml);
 
             # XML Parsing
-            $xml = new \Klickfabrik\KfMobileDe\Helper\Ads2Value();
+            $xml = new Ads2Value();
             $xml->setXml($xmlArray,true,$this->mode);
 
             # File Info
@@ -585,7 +611,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                 // object
                 $newElement = $objNew
-                    ? new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle()
+                    ? new Vehicle()
                     : $obj;
 
                 // data for later checks
@@ -595,7 +621,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                 // check update
                 $update = true;
-                if($newElement->getModificationDate() == new \DateTime($cur['modificationDate'])){
+                if($newElement->getModificationDate() == new DateTime($cur['modificationDate'])){
                     $status['skip']++;
                     $update = false;
                 }
@@ -646,6 +672,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                         'power'                 => $xml::getTag('ad:vehicle|ad:specifics|ad:power','key'),
                         'mileage'               => $xml::getTag('ad:vehicle|ad:specifics|ad:mileage'),
                         'seats'                 => $xml::getTag('ad:vehicle|ad:specifics|ad:num-seats'),
+                        'cubicCapacity'         => $xml::getTag('ad:vehicle|ad:specifics|ad:cubic-capacity'),
                         'doors'                 => $xml::getTag('ad:vehicle|ad:specifics|ad:door-count'),
                         'emissionClass'         => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-class'),
                         'firstRegistration'     => $xml::getTag('ad:vehicle|ad:specifics|ad:first-registration'),
@@ -759,10 +786,10 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     foreach ($cur as $key => $value){
                         switch($key){
                             case strpos(strtolower($key),"date") !== false:
-                                $value = new \DateTime($value);
+                                $value = new DateTime($value);
                                 break;
                             case "firstRegistration":
-                                $value = new \DateTime($value);
+                                $value = new DateTime($value);
                                 break;
                             case "features":
                                 if($value[$key] != null){
@@ -891,10 +918,10 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
     /**
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newElement
-     * @return \Klickfabrik\KfMobileDe\Domain\Model\Vehicle
+     * @param Vehicle $newElement
+     * @return Vehicle
      */
-    private function checkCredentials (\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newElement){
+    private function checkCredentials (Vehicle $newElement){
         $hidden = false;
         $checks = [
             "misc" => [
@@ -927,7 +954,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             catch(\Exception $exception) {
                 // If the property mapper did throw a \TYPO3\CMS\Extbase\Property\Exception, because it was unable to find the requested entity, call the page-not-found handler.
                 $previousException = $exception->getPrevious();
-                if (($exception instanceof \TYPO3\CMS\Extbase\Property\Exception) && (($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) || ($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException))) {
+                if (($exception instanceof Exception) && (($previousException instanceof TargetNotFoundException) || ($previousException instanceof InvalidSourceException))) {
                     $GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
                 }
                 throw $exception;
@@ -1001,10 +1028,10 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     private function createSingleCalls($filename){
         $fileInfo = pathinfo($filename);
 
-        $xml = new \DOMDocument();
+        $xml = new DOMDocument();
         $xml->load($filename);
 
-        $xmlArray  = \Klickfabrik\KfMobileDe\Helper\Dom2Array::xml_to_array($xml);
+        $xmlArray  = Dom2Array::xml_to_array($xml);
         foreach ($xmlArray['ads']['ad:ad'] as $vehicle){
             $url    = $vehicle['@attributes']['url'];
             $id     = $vehicle['@attributes']['key'];
@@ -1154,7 +1181,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $loops  = ceil($count / $this->pageSize);
 
             # Main DOM
-            $xml = new \DOMDocument('1.0', 'UTF-8');
+            $xml = new DOMDocument('1.0', 'UTF-8');
             $xml->formatOutput = true;
             $xml->loadXML('<ads />');
 
@@ -1170,7 +1197,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 }
 
                 if($result){
-                    $child = new \DOMDocument();
+                    $child = new DOMDocument();
                     $child->loadXML($result);
                     $ads = $child->getElementsByTagName( "ad" );
 
@@ -1224,7 +1251,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     public function getSellerCount($MobileGetter){
         $result = $MobileGetter->execute("/search-api/search?page.size=1&page.number=");
-        $xml = new \DOMDocument();
+        $xml = new DOMDocument();
         $xml->loadXML($result);
 
         $total = $xml->getElementsByTagName( "total" )->item(0)->nodeValue;
@@ -1237,17 +1264,17 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param $MobileGetter
      * @param $execute
      * @param bool $raw
-     * @return array|bool|\Klickfabrik\KfMobileDe\Helper\Ads2Value
+     * @return array|bool|Ads2Value
      */
     public function getCurlInformation($MobileGetter, $execute, $raw = false){
         $result = $MobileGetter->execute($execute,true);
 
         if(!empty($result)){
-            $xmlCurl = new \DOMDocument();
+            $xmlCurl = new DOMDocument();
             $xmlCurl->formatOutput = true;
             $xmlCurl->loadXML($result);
 
-            $xmlHelper = new \Klickfabrik\KfMobileDe\Helper\Dom2Array();
+            $xmlHelper = new Dom2Array();
             $xmlArrayCurl = $xmlHelper::xml_to_array($xmlCurl);
 
             if($raw){
@@ -1255,7 +1282,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             }
 
             # XML Parsing (overwrite old XML!!!)
-            $xmlAds = new \Klickfabrik\KfMobileDe\Helper\Ads2Value();
+            $xmlAds = new Ads2Value();
             $xmlAds->setXml($xmlArrayCurl,false);
 
             return $xmlAds;
@@ -1269,9 +1296,9 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param $tmpFile
      * @param string $targetFolder
      * @param null $filename
-     * @return \TYPO3\CMS\Core\Resource\FileInterface
-     * @throws \InvalidArgumentException
-     * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+     * @return FileInterface
+     * @throws InvalidArgumentException
+     * @throws InsufficientFolderAccessPermissionsException
      */
     private function uploadImageToDefaultFolder($tmpFile, $targetFolder="", $filename=null){
 
@@ -1279,7 +1306,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $fileInfo   = pathinfo($tmpFile, PATHINFO_BASENAME);
         $tarFolder  = !empty($targetFolder) ? $targetFolder : $this->uploadFolder;
 
-        $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
+        $resourceFactory = ResourceFactory::getInstance();
         $storage    = $resourceFactory->getStorageObject($storageUid);
         $folder     = $storage->getFolder($tarFolder);
         $fileExist  = $folder->hasFile($fileInfo);
@@ -1298,13 +1325,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * @param $file
      * @return bool
-     * @throws \InvalidArgumentException
-     * @throws \TYPO3\CMS\Core\Resource\Exception\ResourceDoesNotExistException
+     * @throws InvalidArgumentException
+     * @throws ResourceDoesNotExistException
      *
      * @url: http://blog.typo3servers.info/show/typo3-extbase-fal-removedelete-image/
      */
     private function deleteImage($file){
-        $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
+        $resourceFactory = ResourceFactory::getInstance();
         $fileReferenceObject = $resourceFactory->getFileReferenceObject($file->getUid());
         $fileWasDeleted = $fileReferenceObject->getOriginalFile()->delete();
 
@@ -1389,8 +1416,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param bool $return
      * @param array $args
      * @return array
-     * @throws \InvalidArgumentException
-     * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+     * @throws InvalidArgumentException
+     * @throws InsufficientFolderAccessPermissionsException
      */
     public function runAutoImport($return=true, $args=array()){
         $result = [];

@@ -1,8 +1,13 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Domain\Repository;
 
+use DateTime;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -20,7 +25,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * The repository for Vehicles
  */
-class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class VehicleRepository extends Repository
 {
     private $tableKey = 'tx_kfmobilede';
 
@@ -49,9 +54,9 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * @param array $settings
      * @param array $filter
+     * @return array|QueryResultInterface
+     *@throws InvalidQueryException
      * @throws \InvalidArgumentException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findAll($settings = ['limit' => 0, 'offset' => 0], $filter = [])
     {
@@ -128,11 +133,9 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->setLimit($settings['limit']);
             }
         }
-
         if (!empty($constraints) && count($constraints) > 0) {
             $query->matching($query->logicalAnd($constraints));
         }
-
         $result = $query->execute();
         $this->setcurCount($result->count());
         return $result;
@@ -169,7 +172,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     {
         $orderings = [];
         foreach ($values as $value) {
-            $orderings["{$field}={$value}"] = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+            $orderings["{$field}={$value}"] = QueryInterface::ORDER_DESCENDING;
         }
         return $orderings;
     }
@@ -212,7 +215,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
     /**
      * @param array $storageIds
-     * @return \TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface
+     * @return QuerySettingsInterface
      */
     public function setDefaultStorage(array $storageIds)
     {
@@ -226,7 +229,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * @param $request
      * @param array $options
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws InvalidQueryException
      * @return array
      */
     public function getSearchResults($request, $options = [])
@@ -403,8 +406,6 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     # ========================================================================================
     # Searchbox
     # ========================================================================================
-
-
     /**
      * @param array $fields
      * @return array
@@ -473,15 +474,15 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * @param $name
      * @param $order
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @return \DateTime|int
+     * @throws InvalidQueryException
+     * @return DateTime|int
      */
     public function getByDate($name, $order)
     {
-        $timestamp = new \DateTime('now');
+        $timestamp = new DateTime('now');
         $timestamp = $timestamp->getTimestamp();
         $query = $this->createQuery();
-        $date = new \DateTime('1970');
+        $date = new DateTime('1970');
         $query->matching($query->greaterThanOrEqual($name, $date->format('Y-m-d')));
         $query->setOrderings([$name => $order == 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING]);
         $result = $query->execute()->getFirst();
@@ -499,7 +500,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     private function debugQuery($query, $request = [])
     {
         if (isset($_GET['debug']) && $_GET['debug'] == 1) {
-            $queryParser = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::class);
+            $queryParser = $this->objectManager->get(Typo3DbQueryParser::class);
             $sqlStatement = $queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL();
             if (!empty($request)) {
                 DebuggerUtility::var_dump($request);

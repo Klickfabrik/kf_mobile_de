@@ -327,6 +327,17 @@
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
+                            "propertyName": "cubicCapacity",
+                            "propertyType": "String",
+                            "uid": "978092417177"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "20",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
                             "propertyName": "emissionClass",
                             "propertyType": "String",
                             "uid": "725818615224"
@@ -916,9 +927,9 @@
             "disableVersioning": false,
             "skipGenerateDocumentationTemplate": false,
             "sourceLanguage": "en",
-            "state": "alpha",
+            "state": "stable",
             "targetVersion": "8.7.0-8.7.99",
-            "version": "1.0.0"
+            "version": "1.4.0"
         },
         "extensionKey": "kf_mobile_de",
         "name": "KF - Mobile.de",
@@ -985,7 +996,7 @@
         }
     ],
     "log": {
-        "last_modified": "2019-06-11 06:02",
+        "last_modified": "2019-07-05 07:42",
         "extension_builder_version": "8.10.4",
         "be_user": "Marc Finnern (3)"
     }

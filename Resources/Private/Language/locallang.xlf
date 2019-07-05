@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-06-11T06:02:18Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-05T19:24:04Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
 			<trans-unit id="tx_kfmobilede_domain_model_clients">
@@ -74,6 +74,9 @@
 			</trans-unit>
 			<trans-unit id="tx_kfmobilede_domain_model_vehicle.power">
 				<source>Power</source>
+			</trans-unit>
+			<trans-unit id="tx_kfmobilede_domain_model_vehicle.cubic_capacity">
+				<source>Cubic Capacity</source>
 			</trans-unit>
 			<trans-unit id="tx_kfmobilede_domain_model_vehicle.emission_class">
 				<source>Emission Class</source>

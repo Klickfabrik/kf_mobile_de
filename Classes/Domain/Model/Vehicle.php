@@ -1,6 +1,10 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Domain\Model;
 
+use DateTime;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -15,7 +19,7 @@ namespace Klickfabrik\KfMobileDe\Domain\Model;
 /**
  * Vehicle
  */
-class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Vehicle extends AbstractEntity
 {
     /**
      * hidden
@@ -23,41 +27,6 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var boolean
      */
     protected $hidden = false;
-
-    /**
-     * custom1
-     *
-     * @var string
-     */
-    protected $custom1 = '';
-
-    /**
-     * custom2
-     *
-     * @var string
-     */
-    protected $custom2 = '';
-
-    /**
-     * custom3
-     *
-     * @var string
-     */
-    protected $custom3 = '';
-
-    /**
-     * custom4
-     *
-     * @var string
-     */
-    protected $custom4 = '';
-
-    /**
-     * custom5
-     *
-     * @var string
-     */
-    protected $custom5 = '';
 
     /**
      * model description
@@ -180,6 +149,13 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $power = false;
 
     /**
+     * cubicCapacity
+     *
+     * @var string
+     */
+    protected $cubicCapacity = '';
+
+    /**
      * emissionClass
      *
      * @var string
@@ -189,7 +165,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * images
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @var ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      * @cascade remove
      */
     protected $images = null;
@@ -225,21 +201,21 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * firstRegistration
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $firstRegistration = null;
 
     /**
      * creationDate
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $creationDate = null;
 
     /**
      * modificationDate
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $modificationDate = null;
 
@@ -272,23 +248,58 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $import = false;
 
     /**
+     * custom1
+     *
+     * @var string
+     */
+    protected $custom1 = '';
+
+    /**
+     * custom2
+     *
+     * @var string
+     */
+    protected $custom2 = '';
+
+    /**
+     * custom3
+     *
+     * @var string
+     */
+    protected $custom3 = '';
+
+    /**
+     * custom4
+     *
+     * @var string
+     */
+    protected $custom4 = '';
+
+    /**
+     * custom5
+     *
+     * @var string
+     */
+    protected $custom5 = '';
+
+    /**
      * features
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Features>
+     * @var ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Features>
      */
     protected $features = null;
 
     /**
      * specifics
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Specifics>
+     * @var ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Specifics>
      */
     protected $specifics = null;
 
     /**
      * seller
      *
-     * @var \Klickfabrik\KfMobileDe\Domain\Model\Seller
+     * @var Seller
      */
     protected $seller = null;
 
@@ -327,9 +338,9 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->images = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->features = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->specifics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->images = new ObjectStorage();
+        $this->features = new ObjectStorage();
+        $this->specifics = new ObjectStorage();
     }
 
     /**
@@ -492,7 +503,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the images
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
+     * @return ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
      */
     public function getImages()
     {
@@ -502,10 +513,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the images
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
+     * @param ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
      * @return void
      */
-    public function setImages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $images)
+    public function setImages(ObjectStorage $images)
     {
         $this->images = $images;
     }
@@ -534,7 +545,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the creationDate
      *
-     * @return \DateTime $creationDate
+     * @return DateTime $creationDate
      */
     public function getCreationDate()
     {
@@ -544,10 +555,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the creationDate
      *
-     * @param \DateTime $creationDate
+     * @param DateTime $creationDate
      * @return void
      */
-    public function setCreationDate(\DateTime $creationDate)
+    public function setCreationDate(DateTime $creationDate)
     {
         $this->creationDate = $creationDate;
     }
@@ -555,7 +566,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the modificationDate
      *
-     * @return \DateTime $modificationDate
+     * @return DateTime $modificationDate
      */
     public function getModificationDate()
     {
@@ -565,10 +576,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the modificationDate
      *
-     * @param \DateTime $modificationDate
+     * @param DateTime $modificationDate
      * @return void
      */
-    public function setModificationDate(\DateTime $modificationDate)
+    public function setModificationDate(DateTime $modificationDate)
     {
         $this->modificationDate = $modificationDate;
     }
@@ -964,10 +975,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Features
      *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Features $feature
+     * @param Features $feature
      * @return void
      */
-    public function addFeature(\Klickfabrik\KfMobileDe\Domain\Model\Features $feature)
+    public function addFeature(Features $feature)
     {
         $this->features->attach($feature);
     }
@@ -975,10 +986,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Features
      *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Features $featureToRemove The Features to be removed
+     * @param Features $featureToRemove The Features to be removed
      * @return void
      */
-    public function removeFeature(\Klickfabrik\KfMobileDe\Domain\Model\Features $featureToRemove)
+    public function removeFeature(Features $featureToRemove)
     {
         $this->features->detach($featureToRemove);
     }
@@ -986,7 +997,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the features
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Features> features
+     * @return ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Features> features
      */
     public function getFeatures()
     {
@@ -996,10 +1007,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the features
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Features> $features
+     * @param ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Features> $features
      * @return void
      */
-    public function setFeatures(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $features)
+    public function setFeatures(ObjectStorage $features)
     {
         $this->features = $features;
     }
@@ -1007,10 +1018,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Specifics
      *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Specifics $specific
+     * @param Specifics $specific
      * @return void
      */
-    public function addSpecific(\Klickfabrik\KfMobileDe\Domain\Model\Specifics $specific)
+    public function addSpecific(Specifics $specific)
     {
         $this->specifics->attach($specific);
     }
@@ -1018,10 +1029,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Specifics
      *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Specifics $specificToRemove The Specifics to be removed
+     * @param Specifics $specificToRemove The Specifics to be removed
      * @return void
      */
-    public function removeSpecific(\Klickfabrik\KfMobileDe\Domain\Model\Specifics $specificToRemove)
+    public function removeSpecific(Specifics $specificToRemove)
     {
         $this->specifics->detach($specificToRemove);
     }
@@ -1029,7 +1040,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the specifics
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Specifics> specifics
+     * @return ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Specifics> specifics
      */
     public function getSpecifics()
     {
@@ -1039,10 +1050,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the specifics
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Specifics> $specifics
+     * @param ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Specifics> $specifics
      * @return void
      */
-    public function setSpecifics(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $specifics)
+    public function setSpecifics(ObjectStorage $specifics)
     {
         $this->specifics = $specifics;
     }
@@ -1050,7 +1061,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the seller
      *
-     * @return \Klickfabrik\KfMobileDe\Domain\Model\Seller seller
+     * @return Seller seller
      */
     public function getSeller()
     {
@@ -1060,10 +1071,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the seller
      *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Seller $seller
+     * @param Seller $seller
      * @return void
      */
-    public function setSeller(\Klickfabrik\KfMobileDe\Domain\Model\Seller $seller)
+    public function setSeller(Seller $seller)
     {
         $this->seller = $seller;
     }
@@ -1113,7 +1124,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the firstRegistration
      *
-     * @return \DateTime $firstRegistration
+     * @return DateTime $firstRegistration
      */
     public function getFirstRegistration()
     {
@@ -1123,10 +1134,10 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the firstRegistration
      *
-     * @param \DateTime $firstRegistration
+     * @param DateTime $firstRegistration
      * @return void
      */
-    public function setFirstRegistration(\DateTime $firstRegistration)
+    public function setFirstRegistration(DateTime $firstRegistration)
     {
         $this->firstRegistration = $firstRegistration;
     }
@@ -1234,5 +1245,26 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setCustom5($custom5)
     {
         $this->custom5 = $custom5;
+    }
+
+    /**
+     * Returns the cubicCapacity
+     *
+     * @return string $cubicCapacity
+     */
+    public function getCubicCapacity()
+    {
+        return $this->cubicCapacity;
+    }
+
+    /**
+     * Sets the cubicCapacity
+     *
+     * @param string $cubicCapacity
+     * @return void
+     */
+    public function setCubicCapacity($cubicCapacity)
+    {
+        $this->cubicCapacity = $cubicCapacity;
     }
 }

@@ -67,6 +67,7 @@ CREATE TABLE tx_kfmobilede_domain_model_vehicle (
 	seats varchar(255) DEFAULT '' NOT NULL,
 	doors varchar(255) DEFAULT '' NOT NULL,
 	power varchar(255) DEFAULT '' NOT NULL,
+	cubic_capacity varchar(255) DEFAULT '' NOT NULL,
 	emission_class varchar(255) DEFAULT '' NOT NULL,
 	images int(11) unsigned DEFAULT '0' NOT NULL,
 	description text,

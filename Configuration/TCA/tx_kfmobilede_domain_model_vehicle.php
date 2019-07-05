@@ -1,4 +1,8 @@
 <?php
+
+use TYPO3\CMS\Core\Resource\File;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle',
@@ -16,14 +20,14 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'model_description,class,category,make,model,price,damage_and_unrepaired,accident_damaged,roadworthy,price_type,fuel,gearbox,color,mileage,seats,doors,power,emission_class,images,description,misc,consumer_price_amount,dealer_price_amount,first_registration,creation_date,modification_date,detail_page,import_key,import_client,import,custom1,custom2,custom3,custom4,custom5,features,specifics,seller',
+        'searchFields' => 'model_description,class,category,make,model,price,damage_and_unrepaired,accident_damaged,roadworthy,price_type,fuel,gearbox,color,mileage,seats,doors,power,cubic_capacity,emission_class,images,description,misc,consumer_price_amount,dealer_price_amount,first_registration,creation_date,modification_date,detail_page,import_key,import_client,import,custom1,custom2,custom3,custom4,custom5,features,specifics,seller',
         'iconfile' => 'EXT:kf_mobile_de/Resources/Public/Icons/tx_kfmobilede_domain_model_vehicle.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, features, specifics, seller',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, cubic_capacity, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, features, specifics, seller',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, features, specifics, seller, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, cubic_capacity, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, features, specifics, seller, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -283,6 +287,15 @@ return [
                 'eval' => 'trim'
             ],
         ],
+        'cubic_capacity' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.cubic_capacity',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
         'emission_class' => [
             'exclude' => true,
             'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.emission_class',
@@ -296,7 +309,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.images',
             'config' => 
-            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+            ExtensionManagementUtility::getFileFieldTCAConfig(
                 'images',
                 [
                     'appearance' => [
@@ -308,27 +321,27 @@ return [
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+                        File::FILETYPE_TEXT => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                        File::FILETYPE_IMAGE => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+                        File::FILETYPE_AUDIO => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+                        File::FILETYPE_VIDEO => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+                        File::FILETYPE_APPLICATION => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
