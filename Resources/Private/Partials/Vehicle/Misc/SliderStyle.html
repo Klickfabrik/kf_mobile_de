@@ -1,8 +1,10 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
+<f:variable name="slider_width" value="{settings.slider.images.maxW}" />
+<f:variable name="slider_height" value="{settings.slider.images.maxH}" />
 <style>
-	.slider--item {height: 140px;width: 168px;}
-	<f:for each="{vehicles.data}" as="vehicle"><f:for each="{vehicle.images}" as="image" iteration="iterator"><f:if condition="{iterator.index} < {settings.list.images.limit}">
-		.slider--uid{vehicle.uid} {background: url("<f:uri.image image="{image}" height="{settings.slider.images.maxH}" width="{settings.slider.images.maxW}" />") center center / cover transparent;}</f:if></f:for></f:for>
+    .slider--item {height: {slider_height}px;width: {slider_width}px;}
+    <f:for each="{vehicles.data}" as="vehicle"><f:for each="{vehicle.images}" as="image" iteration="iterator"><f:if condition="{iterator.index} < {settings.list.images.limit}">
+        .slider--uid{vehicle.uid} {background: url("<f:uri.image image="{image}" height="{slider_height}" width="{slider_width}" />") center center / cover transparent;}</f:if></f:for></f:for>
 </style>
 </html>

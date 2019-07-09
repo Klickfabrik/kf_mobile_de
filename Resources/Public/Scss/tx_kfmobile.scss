@@ -79,6 +79,12 @@
           .features,
           .options,
           .energy {
+            p {
+              display: inline-block;
+              font-size: $fontSizeXS;
+              line-height: $fontSizeXS + 3px;
+              color: $color_black;
+            }
             ul {
               list-style: none;margin: 0;padding: 0;
               line-height: 0.8em;
