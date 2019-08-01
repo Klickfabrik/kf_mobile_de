@@ -1,9 +1,4 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:for each="{vehicle.specifics}" as="specific">
-    <f:if condition="{specific.name} == 'USED' || {specific.name} == 'NEW'">
-        <f:variable name="typ" value="{specific.description}" />
-    </f:if>
-</f:for>
 <div class="list--item" data-uid="{vehicle.uid}">
     <div class="col-xs-12 col-sm-3">
         <f:if condition="{settings.list.images.limit}">
@@ -37,7 +32,7 @@
 
         <div class="list--data">
             <ul>
-                <li><strong>Typ:</strong> {typ}</li>
+                <li><strong>Typ:</strong> <f:render partial="Vehicle/Misc/calcTyp" arguments="{_all}" /></li>
                 <li><strong>Leistung:</strong>
                     <f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.power}</f:format.number> kW
                     (<f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{vehicle.power*misc.kw}</f:format.number> PS)
@@ -51,16 +46,14 @@
                 <li><strong>Aufbauart:</strong> {vehicle.category}</li>
                 <li><strong>Türen:</strong> {vehicle.doors}</li>
             </ul>
-            <f:if condition="{energy_efficiency}">
-                <div class="list--data--energy">
-                    <hr/>
-                    <p><strong>Verbrauch*:</strong></p>
-                    <ul>
-                        <li>innerorts: {energy_efficiency.inner}</li>
-                        <li>außerorts: {energy_efficiency.outer}</li>
-                        <li>kombinert: {energy_efficiency.combined}</li>
-                    </ul>
-                </div>
+            <f:if condition="{f:format.case(mode: 'lower', value: vehicle.class)} == pkw">
+                <f:if condition="{energy_efficiency}">
+                    <div class="list--data--energy">
+                        <hr/>
+                        <p><strong>Kraftstoffverbrauch (in l/100 km)<span class="anchor_link" data-target="#c219">*</span></strong></p>
+                        <p><strong>{energy_efficiency.inner} (innerorts), {energy_efficiency.outer} (außerorts), {energy_efficiency.combined} (kombiniert); CO2-Emissionen<span class="anchor_link" data-target="#c219">*</span>: {energy_efficiency.co2-emission} g/km (kombiniert)</strong></p>
+                    </div>
+                </f:if>
             </f:if>
         </div>
 
@@ -88,8 +81,10 @@
             <f:switch expression="{type}">
                 <f:case value="search">
                     <f:render partial="Vehicle/Button/ButtonDetail" arguments="{_all}" />
-                    <f:render partial="Vehicle/Button/ButtonSave" arguments="{_all}" />
-                    <f:render partial="Vehicle/Button/ButtonMail" arguments="{_all}" />
+                    <f:comment>
+                        <f:render partial="Vehicle/Button/ButtonSave" arguments="{_all}" />
+                        <f:render partial="Vehicle/Button/ButtonMail" arguments="{_all}" />
+                    </f:comment>
                 </f:case>
                 <f:defaultCase>
                     <f:render partial="Vehicle/Button/ButtonDetail" arguments="{_all}" />

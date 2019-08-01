@@ -1,0 +1,27 @@
+<f:variable name="hasUsed" value="0" />
+<f:for each="{vehicle.specifics}" as="specific">
+    <f:if condition="{specific.name} == 'USED'">
+        <f:variable name="typ" value="{specific.description}" />
+        <f:variable name="hasUsed" value="1" />
+    </f:if>
+</f:for>
+
+<f:if condition="{hasUsed} == 1">
+    <f:then>
+        <f:for each="{vehicle.specifics}" as="specific">
+            <f:if condition="{specific.name} == 'NEW' || {specific.name} == 'DEMONSTRATION' || {specific.name} == 'PRE_REGISTRATION'">
+                <f:variable name="typ" value="{specific.description}" />
+            </f:if>
+        </f:for>
+    </f:then>
+    <f:else>
+        <f:if condition="{typ} == ''">
+            <f:for each="{vehicle.specifics}" as="specific">
+                <f:if condition="{specific.name} == 'NEW' || {specific.name} == 'DEMONSTRATION' || {specific.name} == 'PRE_REGISTRATION'">
+                    <f:variable name="typ" value="{specific.description}" />
+                </f:if>
+            </f:for>
+        </f:if>
+    </f:else>
+</f:if>
+{typ}

@@ -51,10 +51,12 @@
 										<f:if condition="{vehicles.energy_efficiency.{vehicle.importKey}}">
 											<f:variable name="energy_efficiency">{vehicles.energy_efficiency.{vehicle.importKey}}</f:variable>
 											<div class="energy">
+												<p style="margin-bottom: 0"><strong>Kraftstoffverbrauch (in l/100 km)<span class="anchor_link" data-target="#c219">*</span></strong></p>
 												<ul>
 													<li>innerorts: {energy_efficiency.inner}</li>
 													<li>außerorts: {energy_efficiency.outer}</li>
-													<li>kombinert: {energy_efficiency.combined}</li>
+													<li>kombiniert: {energy_efficiency.combined}</li>
+													<li>CO2-Emissionen<span class="anchor_link" data-target="#c219">*</span>: {energy_efficiency.co2-emission} g/km</li>
 												</ul>
 											</div>
 										</f:if>
@@ -81,33 +83,33 @@
 			</div>
 
 			<script>
-                $(document).ready(function(){
-                    var $frame = $('#centered');
-                    var $wrap  = $frame.parent();
+				$(document).ready(function(){
+					var $frame = $('#centered');
+					var $wrap  = $frame.parent();
 
-                    // Call Sly on frame
-                    $frame.sly({
-                        horizontal: 1,
-                        itemNav: 'centered',
-                        smart: 1,
-                        activateOn: 'click',
-                        mouseDragging: 1,
-                        touchDragging: 1,
-                        releaseSwing: 1,
-                        scrollBar: $wrap.find('.scrollbar'),
-                        scrollBy: 1,
-                        speed: 300,
-                        elasticBounds: 1,
-                        easing: 'easeOutExpo',
-                        dragHandle: 1,
-                        dynamicHandle: 1,
-                        clickBar: 1,
+					// Call Sly on frame
+					$frame.sly({
+						horizontal: 1,
+						itemNav: 'centered',
+						smart: 1,
+						activateOn: 'click',
+						mouseDragging: 1,
+						touchDragging: 1,
+						releaseSwing: 1,
+						scrollBar: $wrap.find('.scrollbar'),
+						scrollBy: 1,
+						speed: 300,
+						elasticBounds: 1,
+						easing: 'easeOutExpo',
+						dragHandle: 1,
+						dynamicHandle: 1,
+						clickBar: 1,
 
-                        // Buttons
-                        prevPage: $wrap.find('.prev'),
-                        nextPage: $wrap.find('.next')
-                    });
-                });
+						// Buttons
+						prevPage: $wrap.find('.prev'),
+						nextPage: $wrap.find('.next')
+					});
+				});
 			</script>
 		</div>
 	</f:then>

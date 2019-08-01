@@ -185,14 +185,39 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 'energy-efficiency-class' => ''
             ]
         ];
-        if ($vehicle->getEmissionClass()) {
-            $data = json_decode($vehicle->getMisc(), true);
+
+        if ($vehicle->getMisc()) {
+            $dataTemp = json_decode($vehicle->getMisc(), true);
+            foreach ($dataTemp as $key => $value){
+
+                if(empty($value)){ continue; }
+
+                if(is_array($value)){
+                    foreach ($value as $subKey => $subValue){
+                        if(empty($subValue)){ continue; }
+
+                        $data[$key][$subKey] = $subValue;
+                    }
+                } else {
+                    $data[$key] = $value;
+                }
+            }
         }
+
         $return = $this->array_flatten($data);
         if ($this->isJson($return['energy-efficiency-class'])) {
             $return['energy-efficiency-class'] = '';
         }
-        $return['sticker_img'] = $this->get_numerics($return['emission-sticker']);
+        $return['sticker_img'] = $return['emission-sticker'] != "" ? $this->get_numerics($return['emission-sticker']) : "";
+
+        /*
+        if($vehicle->getUid() == 75){
+            $this->showDebug($data);
+            $this->showDebug($vehicle->getEmissionClass());
+            $this->showDebug($return);
+        }
+        */
+
         return $return;
     }
 

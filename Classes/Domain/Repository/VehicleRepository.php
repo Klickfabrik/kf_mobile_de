@@ -346,7 +346,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
         // Limits
         if (isset($options['offset']) && $options['offset'] > 0) {
-            $query->setOffset($options['offset']);
+            $query->setOffset($options['offset'] * $options['limit']);
         }
         if (isset($options['limit']) && $options['limit'] > 0) {
             $query->setLimit($options['limit']);

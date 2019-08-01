@@ -115,37 +115,45 @@ jQuery(document).ready(function ($) {
         changeTypes: function(formObjects){
             $.each(formObjects,function(inputName,inputValues){
                 let _input = form.find('[name*="'+inputName+'"]');
-                if(_input.length > 0){
-                    let _type = _input[0].nodeName;
-                    switch(_type){
-                        case "SELECT":
-                            _input.find('option').attr('disabled', 'disabled');
-                            _input.find('option[value=""]').removeAttr('disabled');
+                let _type = _input[0] ? _input[0].nodeName : null;
 
-                            $.each(inputValues,function(pos,val){
-                                _input.find('option[value="'+val+'"]').removeAttr('disabled');
-                            });
-                            break;
-                        case "INPUT":
-                            switch(inputName){
-                                case "features":
-                                case "specifics":
-                                    _input.attr('disabled', 'disabled');
-                                    _input.closest('div').find('label').addClass("disabled");
-
-                                    let _that = form.find('[name*="'+inputName+'"][value=""]');
-                                    _that.closest('label').removeClass('disabled');
-                                    _that.removeAttr('disabled');
+                switch(inputName){
+                    case "make":
+                    case "model":
+                        break;
+                    default:
+                        if(_input.length > 0){
+                            switch(_type){
+                                case "SELECT":
+                                    _input.find('option').attr('disabled', 'disabled');
+                                    _input.find('option[value=""]').removeAttr('disabled');
 
                                     $.each(inputValues,function(pos,val){
-                                        let _that = form.find('[name*="'+inputName+'"][value="'+val+'"]');
-                                        _that.closest('label').removeClass('disabled');
-                                        _that.removeAttr('disabled');
+                                        _input.find('option[value="'+val+'"]').removeAttr('disabled');
                                     });
                                     break;
+                                case "INPUT":
+                                    switch(inputName){
+                                        case "features":
+                                        case "specifics":
+                                            _input.attr('disabled', 'disabled');
+                                            _input.closest('div').find('label').addClass("disabled");
+
+                                            let _that = form.find('[name*="'+inputName+'"][value=""]');
+                                            _that.closest('label').removeClass('disabled');
+                                            _that.removeAttr('disabled');
+
+                                            $.each(inputValues,function(pos,val){
+                                                let _that = form.find('[name*="'+inputName+'"][value="'+val+'"]');
+                                                _that.closest('label').removeClass('disabled');
+                                                _that.removeAttr('disabled');
+                                            });
+                                            break;
+                                    }
+                                    break;
                             }
-                            break;
-                    }
+                        }
+                        break;
                 }
             });
             form.find('select').selectBox('destroy');

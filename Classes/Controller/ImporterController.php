@@ -32,6 +32,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     private $mode           = "single";
     private $pid            = null;
     private $importClient   = 0;
+    private $importFilter   = true;
 
     /**
      * Persistence Manager
@@ -682,6 +683,9 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                         'importClient'      => $this->importClient,
                     );
 
+                    // remove old specs
+                    $this->removeSpecs($newElement);
+
                     foreach ($xmlResult as $name => $data){
                         $firstData  = $this->getValue($xmlResult,$name);
                         switch($name){
@@ -847,6 +851,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                     // Check Import-Credentials
                     $newElement = $this->checkCredentials($newElement);
+                    $newElement = $this->checkCarCredentials($newElement);
 
                     // Update & Insert
                     $objNew
@@ -872,6 +877,24 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         if ($this->debug)
             return $return;
+    }
+
+
+    /**
+     * @param $newElement
+     * @return mixed
+     */
+    private function removeSpecs($newElement){
+        $specs = $newElement->getSpecifics();
+        foreach ($specs as $spec){
+            $newElement->removeSpecific($spec);
+        }
+
+        if(count($newElement->getSpecifics())>0){
+            $newElement = $this->removeSpecs($newElement);
+        }
+
+        return $newElement;
     }
 
     private function parseArrayValues(array $array){
@@ -945,6 +968,58 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         return $newElement;
     }
 
+    private function checkCarCredentials(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newElement){
+
+        $checkCount = 0;
+        $class      = 'pkw';
+        $curClass   = $newElement->getClass();
+        $checks     = [
+            'mileage' => [
+                'type' => 'min_count',
+                'value' => 5000,
+            ],
+            'misc' => [
+                'type' => 'contains',
+                'value' => 'emission',
+            ]
+        ];
+
+        // wrong type
+        if(is_null($curClass) || empty($curClass) || $class != $curClass){
+            return $newElement;
+        }
+
+        // Checks
+        foreach ($checks as $name => $options){
+            $get = 'get' . ucfirst($name);
+            $value = $newElement->$get();
+
+            if(is_null($value) || empty($value)){
+                $checkCount++;
+                continue;
+            }
+
+            switch($options['type']){
+                case 'match':
+                    if(strtolower($options['value']) == strtolower($value)){ $checkCount++; }
+                    break;
+                case 'min_count':
+                    if(intval($options['value']) >= intval($value)){ $checkCount++; }
+                    break;
+                case 'contains':
+                    if(strpos($value,$options['value']) === false ){ $checkCount++; }
+                    break;
+            }
+        }
+
+        if($checkCount == count($checks)){
+            $newElement->setHidden(true);
+        } else {
+            $newElement->setHidden(false);
+        }
+
+        return $newElement;
+    }
 
     /**
      * @param array $imageData
