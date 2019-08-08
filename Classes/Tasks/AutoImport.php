@@ -83,11 +83,12 @@ class AutoImport extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     }
 
     private function sendMail($message="ImportCommandController::sendMail()"){
+        $currentDomain = preg_replace('/www\./i', '', $_SERVER['SERVER_NAME']);
+
         $empfaenger = 'marc@klickfabrik.net';
-        $betreff = 'Der Betreff';
-        $nachricht = $message;
-        $header = 'From: typo3@klickfabrik.net' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
+        $betreff    = 'Der Betreff';
+        $nachricht  = $message;
+        $header     = sprintf("From: typo3@%s\r\nX-Mailer: PHP/%s", $currentDomain, phpversion());
         mail($empfaenger, $betreff, $nachricht, $header);
     }
 }

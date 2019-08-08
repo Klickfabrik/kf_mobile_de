@@ -45,17 +45,22 @@ class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandC
      */
     public function ImportCommand($storageID = 0, $sendMail = 0, $to = "admin@typo3.de") {
 
-        $res = $this->importService->runAutoImport(true,[
-            "storageID" => $storageID,
-            "tasks" => [
-                ["import" => 1],
-                ["status" => 1],
-                ["update_force" => 1],
-            ]
-        ]);
+        try {
+            $res = $this->importService->runAutoImport(true,[
+                "storageID" => $storageID,
+                "tasks" => [
+                    ["import" => 1],
+                    ["status" => 1],
+                    ["update_force" => 1],
+                ]
+            ]);
+        } catch (Exception $e) {
+            $res = sprintf("Exception abgefangen:%s\n", $e->getMessage());
+        }
 
-        if($sendMail)
+        if($sendMail){
             $this->sendMail($res,$to);
+        }
     }
 
     /**
