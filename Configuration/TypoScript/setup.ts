@@ -65,6 +65,8 @@ plugin.tx_kfmobilede_kfmobileview {
                 importClient = Import-Key (Verkäufer)
                 import = Importiert
                 cubicCapacity = Hubraum
+                custom1 = Angebotsnummer
+                custom2 = Fahrgestellnummer
                 #images = Bilder
                 #features = FeaturesRepository
                 #specifics = SpecificsRepository

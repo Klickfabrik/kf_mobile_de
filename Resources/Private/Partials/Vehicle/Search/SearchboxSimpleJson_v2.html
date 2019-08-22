@@ -18,15 +18,15 @@
 
 			<div class="view--search__simple__fields">
 				<div class="checkbox-wrap">
-					<f:alias map="{specifics: {'15' : 'Neuwagen', '3' : 'Gebrauchtwagen', '13': 'Tageszulassungen'}}">
-						<f:for each="{specifics}" key="fieldName" as="trans" iteration="iterator">
+					<f:for each="{vehicle.data.select.specifics}" key="fieldName" as="spec" iteration="iterator">
+						<f:if condition="{spec.name} == 'USED' || {spec.name} == 'NEW' || {spec.name} == 'DEMONSTRATION'">
 							<label class="label label--container checkbox">
-								<span class="label--text">{trans}</span>
-								<input class="label--input" type="checkbox" name="_search[specifics][]" value="{fieldName}">
+								<span class="label--text">{spec.description}</span>
+								<input class="label--input" type="checkbox" name="_search[specifics][]" value="{spec.uid}">
 								<span class="label--checkmark"></span>
 							</label>
-						</f:for>
-					</f:alias>
+						</f:if>
+					</f:for>
 				</div>
 
 				<f:for each="{vehicle.tabs.simple.fields}" as="fieldName" iteration="iterator">
