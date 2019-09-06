@@ -1,21 +1,27 @@
 (function( $ ){
     $('body').on('click','.kf_send_mail',function(e){
+        e.preventDefault();
+
         var that = $(this),
+            base = $('base').attr("href"),
             url = that.attr("href"),
             param = url.indexOf("?") == -1 ? "?" : "&",
             data = window[that.data("item")],
             powermail = "tx_powermail_pi1",
-            urlData = "";
+            urlData = "",
+            urlkey,
+            urlvalue,
+            redirect_url;
 
         $.each(data,function(key,value){
-            urlData += powermail + "[" + key + "]=" + encodeURIComponent(value) + "&"
+            urlkey      = powermail + "[" + key + "]=";
+            urlvalue    = encodeURIComponent(value) + "&";
+
+            urlData += urlkey + urlvalue
         });
 
-        url = url + param + urlData;
-
-        window.location.href = url;
-
-        return false;
+        redirect_url = base + url + param + urlData;
+        window.location.href = redirect_url;
     });
 
 })( jQuery );
