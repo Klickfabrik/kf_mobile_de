@@ -25,15 +25,15 @@ class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandC
      */
     protected $importService;
 
-    private $mailFrom       = "";
-    private $mailSubject    = "Typo3: ImporterController";
+    private $mailFrom;
+    private $mailSubject = 'Typo3: ImporterController';
 
 
     /**
      * ImportCommandController constructor.
      */
     public function __construct() {
-        $this->mailFrom = "typo3@" . $_SERVER['HTTP_HOST'];
+        $this->mailFrom = sprintf('typo3@%s', $_SERVER['HTTP_HOST']);
     }
 
     /**
@@ -43,15 +43,15 @@ class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandC
      * @throws \InvalidArgumentException
      * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
      */
-    public function ImportCommand($storageID = 0, $sendMail = 0, $to = "admin@typo3.de") {
+    public function ImportCommand($storageID = 0, $sendMail = 0, $to = 'admin@typo3.de') {
 
         try {
             $res = $this->importService->runAutoImport(true,[
-                "storageID" => $storageID,
-                "tasks" => [
-                    ["import" => 1],
-                    ["status" => 1],
-                    ["update_force" => 1],
+                'storageID' => $storageID,
+                'tasks' => [
+                    ['import' => 1],
+                    ['status' => 1],
+                    ['update_force' => 1],
                 ]
             ]);
         } catch (Exception $e) {
@@ -67,7 +67,7 @@ class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandC
      * @param string $message
      * @param string $to
      */
-    private function sendMail($message="ImportCommandController::sendMail()", $to = "marc@klickfabrik.net"){
+    private function sendMail($message= 'ImportCommandController::sendMail()', $to = 'marc@klickfabrik.net'){
         $empfaenger = $to;
         $betreff    = $this->mailSubject;
         $nachricht  = $this->checkMessage($message);
@@ -75,7 +75,7 @@ class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandC
         $header  = "MIME-Version: 1.0\r\n";
         $header .= "Content-type: text/html; charset=utf-8\r\n";
         $header .= "From: {$this->mailFrom}" . "\r\n";
-        $header .= 'X-Mailer: PHP/' . phpversion() . "\r\n";
+        $header .= 'X-Mailer: PHP/' . PHP_VERSION . "\r\n";
 
         mail($empfaenger, $betreff, $nachricht, $header);
     }
@@ -96,25 +96,25 @@ class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandC
      * @param array $message
      * @return string
      */
-    function arrayToTable(array $message) {
-        $table[] = "<table>";
+    private function arrayToTable(array $message) {
+        $table[] = '<table>';
         foreach ($message as $key => $value) {
-            $table[] = "<tr>";
+            $table[] = '<tr>';
             if (!is_array($value)) {
-                $table[] = "<td>";
+                $table[] = '<td>';
                 $table[] = "{$key}: {$value}";
-                $table[] = "</td>";
+                $table[] = '</td>';
             } else {
-                $table[] = "<td>";
+                $table[] = '<td>';
                 if(!is_int($key))
                     $table[] = "<h3>{$key}</h3>";
                 $table[] = $this->arrayToTable($value);
-                $table[] = "</td>";
+                $table[] = '</td>';
             }
-            $table[] = "</tr>";
+            $table[] = '</tr>';
         }
-        $table[] = "</table>";
+        $table[] = '</table>';
 
-        return join("\n", $table);
+        return implode("\n", $table);
     }
 }
