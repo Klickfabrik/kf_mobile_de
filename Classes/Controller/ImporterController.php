@@ -20,16 +20,16 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 
-    private $tmpDir         = PATH_site . "typo3temp/";
-    private $tmpImageDir    = PATH_site . "fileadmin/user_upload/_temp_/";
-    private $uploadFolder   = "user_upload/kf_mobile/";
+    private $tmpDir         = PATH_site . 'typo3temp/';
+    private $tmpImageDir    = PATH_site . 'fileadmin/user_upload/_temp_/';
+    private $uploadFolder   = 'user_upload/kf_mobile/';
     private $pageSize       = 50;
     private $checks         = array();
     private $mobileGetter   = null;
     private $debug          = 0;
     private $force_update   = 0;
     private $singleList     = array();
-    private $mode           = "single";
+    private $mode           = 'single';
     private $pid            = null;
     private $importClient   = 0;
     private $importFilter   = true;
@@ -167,8 +167,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             foreach ($clientsArray as $pos => $client){
                 $status['clients'][$pos] = array(
-                    "name"  => $client->getName(),
-                    "id"    => $client->getId(),
+                    'name' => $client->getName(),
+                    'id' => $client->getId(),
                 );
 
                 // clientID
@@ -176,8 +176,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                 // inital Getter
                 $config = array(
-                    "username" => $client->getUsername(),
-                    "password" => $client->getPassword(),
+                    'username' => $client->getUsername(),
+                    'password' => $client->getPassword(),
                 );
                 $this->mobileGetter = new \Klickfabrik\KfMobileDe\Helper\MobileGetter($config);
 
@@ -188,7 +188,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                  * Status all elements
                  */
                 if(isset($args['status']) && $args['status'] == 1){
-                    $status['clients'][$pos]['count'] = self::getSellerCount($this->mobileGetter);
+                    $status['clients'][$pos]['count'] = $this->getSellerCount($this->mobileGetter);
                 }
 
                 /**
@@ -196,32 +196,32 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                  * Force update all items
                  */
                 if(
-                    isset($args['update']) && $args['update'] == 1 ||
-                    isset($args['update_force']) && $args['update_force'] == 1
+                    (isset($args['update']) && $args['update'] == 1) ||
+                    (isset($args['update_force']) && $args['update_force'] == 1)
                 ){
                     $filename = "{$client->getId()}.xml";
                     if(isset($args['update_force']) && $args['update_force'] == 1){
                         $this->force_update = 1;
                     }
 
-                    if($this->mode == "single"){
-                        self::createSingleCalls($this->tmpDir . $filename);
+                    if($this->mode == 'single'){
+                        $this->createSingleCalls($this->tmpDir . $filename);
                         foreach ($this->singleList[$filename] as $singleFile){
                             $file = $singleFile['file'];
 
-                            $status['seller'][]     = self::createSeller($file);
-                            $status['features'][]   = self::createTags($file, "name", "features");
-                            $status['specifics'][]  = self::createTags($file, "name", "specifics");
-                            $status['vehicles'][]   = self::createVehicles($file);
+                            $status['seller'][]     = $this->createSeller($file);
+                            $status['features'][]   = $this->createTags($file, 'name', 'features');
+                            $status['specifics'][]  = $this->createTags($file, 'name', 'specifics');
+                            $status['vehicles'][]   = $this->createVehicles($file);
 
                         }
                     } else {
                         $file = $this->tmpDir . $filename;
 
-                        $status['seller'][]     = self::createSeller($file);
-                        $status['features'][]   = self::createTags($file, "name", "features");
-                        $status['specifics'][]  = self::createTags($file, "name", "specifics");
-                        $status['vehicles'][]   = self::createVehicles($file);
+                        $status['seller'][]     = $this->createSeller($file);
+                        $status['features'][]   = $this->createTags($file, 'name', 'features');
+                        $status['specifics'][]  = $this->createTags($file, 'name', 'specifics');
+                        $status['vehicles'][]   = $this->createVehicles($file);
                     }
                 }
 
@@ -262,13 +262,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 // inital Import
                 if(isset($args['import']) && $args['import'] == 1){
                     $filename = "{$client->getId()}.xml";
-                    self::unlinkUploadTmpFile($filename);
+                    $this->unlinkUploadTmpFile($filename);
 
-                    $status['clients'][$pos]['download'] = self::downloadXML($this->mobileGetter,$client);
+                    $status['clients'][$pos]['download'] = $this->downloadXML($this->mobileGetter,$client);
                 }
             }
 
-            self::checkInvalideData();
+            $this->checkInvalideData();
         }
 
         if($return){
@@ -285,13 +285,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param string $repKey
      * @return array
      */
-    private function createTags($filename, $search="name", $repKey="specifics"){
+    private function createTags($filename, $search= 'name', $repKey= 'specifics'){
 
         $status  = array(
-            "type"  => "createTags",
-            "mode"  => $this->mode,
-            "rep"   => $repKey,
-            "count" => 0,
+            'type' => 'createTags',
+            'mode' => $this->mode,
+            'rep' => $repKey,
+            'count' => 0,
         );
 
         if(file_exists($filename)) {
@@ -302,11 +302,11 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             # XML Parsing
             $xml = new \Klickfabrik\KfMobileDe\Helper\Ads2Value();
-            $xml->setXml($xmlArray);
+            $xml::setXml($xmlArray);
 
             // $rep
-            $getFunc= "get" . ucfirst($repKey);
-            $rep    = $repKey . "Repository";
+            $getFunc= 'get' . ucfirst($repKey);
+            $rep    = $repKey . 'Repository';
 
             $tags = $xml->$getFunc($this->mode);
             foreach ($tags['all'] as $tag){
@@ -317,17 +317,17 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     $desc = $tag['value'];
 
                     // Prüfen ob die Daten schon vorhanden sind
-                    $find   = "findOneBy" . ucfirst($search);
+                    $find   = 'findOneBy' . ucfirst($search);
                     $check  = $this->$rep->$find($name);
 
                     // Update Status
                     $new = empty($check);
                     if($new){
                         switch($repKey){
-                            case "features":
+                            case 'features':
                                 $model = new \Klickfabrik\KfMobileDe\Domain\Model\Features();
                                 break;
-                            case "specifics":
+                            case 'specifics':
                                 $model = new \Klickfabrik\KfMobileDe\Domain\Model\Specifics();
                                 break;
                         }
@@ -366,12 +366,12 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @return array
      * @throws \Exception
      */
-    private function createSeller($filename, $search="importKey", $rep="sellerRepository"){
+    private function createSeller($filename, $search= 'importKey', $rep= 'sellerRepository'){
         $status  = array(
-            "type"  => "createSeller",
-            "mode"  => $this->mode,
-            "rep"   => $rep,
-            "count" => 0,
+            'type' => 'createSeller',
+            'mode' => $this->mode,
+            'rep' => $rep,
+            'count' => 0,
         );
 
         if(file_exists($filename)){
@@ -382,7 +382,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             # XML Parsing
             $xml = new \Klickfabrik\KfMobileDe\Helper\Ads2Value();
-            $xml->setXml($xmlArray);
+            $xml::setXml($xmlArray);
 
 
             # File Info
@@ -394,25 +394,25 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             for ($i = 0; $i < $count;){
                 $status['count']++;
 
-                if($this->mode != "single")
+                if($this->mode != 'single')
                     $xml::setPos($i);
 
                 // Daten sammeln
                 $xmlResult = array(
-                    "_url"          => $xml::getTag('','url'),
+                    '_url' => $xml::getTag('','url'),
 
-                    "importKey"     => $xml::getTag('seller:seller','key'),
-                    "url"           => $xml::getTag('seller:seller','url'),
-                    "zipcode"       => $xml::getTag('seller:seller|seller:address|seller:zipcode'),
-                    "city"          => $xml::getTag('seller:seller|seller:address|seller:city'),
-                    "countryCode"   => $xml::getTag('seller:seller|seller:address|seller:country-code'),
-                    "commercial"    => $xml::getTag('seller:seller|seller:type','commercial'),
-                    "latitude"      => $xml::getTag('seller:seller|seller:coordinates|seller:latitude'),
-                    "longitude"     => $xml::getTag('seller:seller|seller:coordinates|seller:longitude'),
+                    'importKey' => $xml::getTag('seller:seller','key'),
+                    'url' => $xml::getTag('seller:seller','url'),
+                    'zipcode' => $xml::getTag('seller:seller|seller:address|seller:zipcode'),
+                    'city' => $xml::getTag('seller:seller|seller:address|seller:city'),
+                    'countryCode' => $xml::getTag('seller:seller|seller:address|seller:country-code'),
+                    'commercial' => $xml::getTag('seller:seller|seller:type','commercial'),
+                    'latitude' => $xml::getTag('seller:seller|seller:coordinates|seller:latitude'),
+                    'longitude' => $xml::getTag('seller:seller|seller:coordinates|seller:longitude'),
                 );
 
                 $cur = array(
-                    "import"            => true,
+                    'import' => true,
                 );
 
                 $later = array(
@@ -422,7 +422,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 foreach ($xmlResult as $name => $data){
                     $firstData  = array_shift($xmlResult[$name]['data']);
                     switch($name){
-                        case substr($name,0,1) == "_":
+                        case substr($name,0,1) == '_':
                             $later[$name] = $firstData['value'];
                             break;
                         default:
@@ -431,14 +431,14 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     }
 
                     // false / true string to bool
-                    $value = in_array($value,array("false","true")) ? filter_var($value, FILTER_VALIDATE_BOOLEAN) : $value;
+                    $value = in_array($value,array('false', 'true')) ? filter_var($value, FILTER_VALIDATE_BOOLEAN) : $value;
 
-                    if($value != "")
+                    if($value != '')
                         $cur[$name] = $value;
                 }
 
                 // Prüfen ob die Daten schon vorhanden sind
-                $find   = "findOneBy" . ucfirst($search);
+                $find   = 'findOneBy' . ucfirst($search);
                 $obj    = $this->$rep->$find($cur[$search]);
                 $objNew = empty($obj);
 
@@ -451,9 +451,9 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 if($objNew){
                     $newElement     = new \Klickfabrik\KfMobileDe\Domain\Model\Seller();
                     $sellerUrls[]   = array(
-                        "url"   => $later['_url'],
-                        "key"   => $cur['importKey'],
-                        "obj"   => $newElement,
+                        'url' => $later['_url'],
+                        'key' => $cur['importKey'],
+                        'obj' => $newElement,
                     );
                 } else {
                     $newElement     = $obj;
@@ -462,7 +462,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 // Daten
                 foreach ($cur as $key => $value){
                     switch($key){
-                        case strpos(strtolower($key),"date") !== false:
+                        case strpos(strtolower($key), 'date') !== false:
                             $value = new \DateTime($value);
                             break;
                     }
@@ -487,7 +487,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             if(!empty($sellerUrls)){
                 foreach ($sellerUrls as $seller){
                     $sellerXML  = $this->getCurlInformation($this->mobileGetter,$seller['url']);
-                    self::updateSeller($seller,$sellerXML,$this->$rep);
+                    $this->updateSeller($seller,$sellerXML,$this->$rep);
                 }
             }
             $this->saveData();
@@ -515,13 +515,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
 
         $updateData = array(
-            "companyName"   => "seller:seller|seller:company-name",
-            "email"         => "seller:seller|seller:email",
-            "street"        => "seller:seller|seller:address|seller:street",
-            "phone"         => "seller:seller|seller:phone",
+            'companyName' => 'seller:seller|seller:company-name',
+            'email' => 'seller:seller|seller:email',
+            'street' => 'seller:seller|seller:address|seller:street',
+            'phone' => 'seller:seller|seller:phone',
         );
 
-        $xmlData::setPos("ad:ad");
+        $xmlData::setPos('ad:ad');
         foreach ($updateData as $name => $data){
             $value = $xmlData::getTagValue($data);
             call_user_func_array(array($newElement, 'set' . ucfirst($name) ), array($value));
@@ -547,12 +547,12 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @throws \InvalidArgumentException
      * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
      */
-    private function createVehicles($filename, $search="importKey", $rep="vehicleRepository"){
+    private function createVehicles($filename, $search= 'importKey', $rep= 'vehicleRepository'){
         $starttime = microtime(true);
         $status = array(
-            "new"   => 0,
-            "update"=> 0,
-            "skip"  => 0,
+            'new' => 0,
+            'update' => 0,
+            'skip' => 0,
         );
 
         if(file_exists($filename)){
@@ -563,7 +563,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             # XML Parsing
             $xml = new \Klickfabrik\KfMobileDe\Helper\Ads2Value();
-            $xml->setXml($xmlArray,true,$this->mode);
+            $xml::setXml($xmlArray,true,$this->mode);
 
             # File Info
             $fileInfo = pathinfo($filename);
@@ -575,8 +575,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                 // smart check for update
                 $cur = array(
-                    "importKey"             => $this->getValue($xml::getTag('','key'),"importKey"),
-                    "modificationDate"      => $this->getValue($xml::getTag('ad:modification-date'),"modificationDate"),
+                    'importKey' => $this->getValue($xml::getTag('','key'), 'importKey'),
+                    'modificationDate' => $this->getValue($xml::getTag('ad:modification-date'), 'modificationDate'),
                 );
 
                 // check for data
@@ -611,7 +611,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                         $status['update']++;
                     }
 
-                    $imageTag = $this->mode == "single" ? 'ad:images|ad:image' : 'ad:images|ad:image|ad:representation';
+                    $imageTag = $this->mode == 'single' ? 'ad:images|ad:image' : 'ad:images|ad:image|ad:representation';
 
                     // specs
                     $specs = $xml::getSpecifics();
@@ -689,12 +689,12 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     foreach ($xmlResult as $name => $data){
                         $firstData  = $this->getValue($xmlResult,$name);
                         switch($name){
-                            case "seller":
-                                $find   = "findOneBy" . ucfirst($search);
+                            case 'seller':
+                                $find   = 'findOneBy' . ucfirst($search);
                                 $value  = $this->sellerRepository->$find($firstData);
                                 break;
-                            case "features":
-                            case "specifics":
+                            case 'features':
+                            case 'specifics':
                                 $value = array();
                                 if($data != null){
                                     foreach ($data as $relValue){
@@ -707,7 +707,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                     }
                                 }
                                 break;
-                            case "images":
+                            case 'images':
                                 $json = $this->isJson($firstData);
                                 if($json){
                                     $data = json_decode($firstData,true);
@@ -739,12 +739,12 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                     $value = $firstData;
                                 }
                                 break;
-                            case "misc":
+                            case 'misc':
                                 $value = $this->parseArrayValues($data);
                                 if(!empty($value) && is_array($value)){
                                     $value = json_encode($value);
                                 } else {
-                                    $value = "";
+                                    $value = '';
                                 }
                                 break;
                             default:
@@ -752,9 +752,9 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                 break;
                         }
 
-                        if($value != ""){
+                        if($value != ''){
                             // false / true string to bool
-                            $value = in_array($value,array("false","true")) ? filter_var($value, FILTER_VALIDATE_BOOLEAN) : $value;
+                            $value = in_array($value,array('false', 'true')) ? filter_var($value, FILTER_VALIDATE_BOOLEAN) : $value;
 
                             $cur[$name] = $value;
                         }
@@ -763,13 +763,11 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     // Daten
                     foreach ($cur as $key => $value){
                         switch($key){
-                            case strpos(strtolower($key),"date") !== false:
+                            case strpos(strtolower($key), 'date') !== false:
+                            case 'firstRegistration':
                                 $value = new \DateTime($value);
                                 break;
-                            case "firstRegistration":
-                                $value = new \DateTime($value);
-                                break;
-                            case "features":
+                            case 'features':
                                 if($value[$key] != null){
                                     foreach ($value[$key] as $obj){
                                         $newElement->addFeature($obj);
@@ -777,20 +775,20 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                 }
 
                                 // clear
-                                $value = "";
+                                $value = '';
                                 break;
-                            case "specifics":
+                            case 'specifics':
                                 if($value[$key] != null){
                                     foreach ($value[$key] as $obj){
                                         $newElement->addSpecific($obj);
                                     }
                                 }
                                 // clear
-                                $value = "";
+                                $value = '';
                                 break;
-                            case "image":
-                            case "images":
-                                $subFolder  = ""; //$this->checks[$rep]['file'];
+                            case 'image':
+                            case 'images':
+                                $subFolder  = ''; //$this->checks[$rep]['file'];
                                 $target     = $this->uploadFolder . $subFolder . DIRECTORY_SEPARATOR;
 
                                 $this->createDefaultFolder($subFolder);
@@ -804,7 +802,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                     $pos = 1;
                                     $data = json_decode($value,true);
                                     $imageData = $this->parseImageData($data);
-                                    $size = "XL";
+                                    $size = 'XL';
 
                                     foreach ($imageData as $image){
                                         if(isset($image[$size])){
@@ -819,7 +817,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                             if(!file_exists($checkFile)){
                                                 $curFile = $this->downloadFile($imageURL,$this->tmpImageDir);
                                             } else {
-                                                $curFile =  str_replace(PATH_site . "fileadmin","",$checkFile);
+                                                $curFile =  str_replace(PATH_site . 'fileadmin', '',$checkFile);
                                             }
 
                                             // Fal file
@@ -836,7 +834,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                 }
 
                                 // clear
-                                $value = "";
+                                $value = '';
                                 break;
                         }
 
@@ -869,10 +867,10 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $timediff = $endtime - $starttime;
 
         $return = array(
-            "count"     => $count,
-            "filename"  => $filename,
-            "time"      => $timediff,
-            "status"    => $status,
+            'count' => $count,
+            'filename' => $filename,
+            'time' => $timediff,
+            'status' => $status,
         );
 
         if ($this->debug)
@@ -903,7 +901,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             if(!isset($data['single']) && is_array($data)){
                 $return[$name] = $this->parseArrayValues($data);
             } else {
-                $value = isset($data['single'][0]) && !empty($data['single'][0]) ? $data['single'][0] : "";
+                $value = isset($data['single'][0]) && !empty($data['single'][0]) ? $data['single'][0] : '';
                 if(!empty($value)) {
                     $return[$name] = $value;
                 }
@@ -919,12 +917,19 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @return \Klickfabrik\KfMobileDe\Domain\Model\Vehicle
      */
     private function checkCredentials (\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newElement){
-        $hidden = false;
-        $checks = [
-            "misc" => [
-                "emissionConsumption"
+        $hidden     = false;
+        $class      = 'pkw';
+        $curClass   = $newElement->getClass();
+        $checks     = [
+            'misc' => [
+                'emissionConsumption'
             ]
         ];
+
+        // wrong type
+        if(is_null($curClass) || empty($curClass) || $class != $curClass){
+            return $newElement;
+        }
 
         foreach ($checks as $checkKey => $checkValues){
             try {
@@ -1085,7 +1090,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $url    = $vehicle['@attributes']['url'];
             $id     = $vehicle['@attributes']['key'];
 
-            $res = self::downloadXML($this->mobileGetter,$id,$url);
+            $res = $this->downloadXML($this->mobileGetter,$id,$url);
             if($res['status'])
                 $this->singleList[$fileInfo['basename']]["{$id}.xml"] = $res;
         }
@@ -1097,7 +1102,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     private function cleanTypo3temp(){
         $log = [];
         $filesTypes = [
-            '*.xml' => strtotime("now -7days"),
+            '*.xml' => strtotime('now -7days'),
         ];
         foreach ($filesTypes as $type => $age){
             $files = glob($this->tmpDir . $type);
@@ -1126,7 +1131,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         foreach ($this->checks as $rep => $data){
 
             $repDatas = $this->$rep->findAll();
-            $call       = "get" . ucfirst($data['type']);
+            $call       = 'get' . ucfirst($data['type']);
 
             foreach ($repDatas as $repData){
                 $id     = $repData->$call();
@@ -1134,7 +1139,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                 // delete
                 if($import && !in_array($id,$data['data'])){
-                    if($rep == "vehicleRepository"){
+                    if($rep == 'vehicleRepository'){
 
                         # Fal remove
                         foreach ($repData->getImages() as $image){
@@ -1143,7 +1148,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                         }
 
                         // Remove File
-                        $target     = PATH_site . "fileadmin/" . $this->uploadFolder . $data['file'] . DIRECTORY_SEPARATOR;
+                        $target     = PATH_site . 'fileadmin/' . $this->uploadFolder . $data['file'] . DIRECTORY_SEPARATOR;
 
                         # File & Folder remove
                         if(file_exists($target))
@@ -1220,13 +1225,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             if(time() < $fileTime){
                 return array(
-                    "file"  => $this->tmpDir . $filename,
-                    "status"=> true,
+                    'file' => $this->tmpDir . $filename,
+                    'status' => true,
                 );
             }
 
             $starttime = microtime(true);
-            $count  = self::getSellerCount($MobileGetter);
+            $count  = $this->getSellerCount($MobileGetter);
             $loops  = ceil($count / $this->pageSize);
 
             # Main DOM
@@ -1248,7 +1253,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 if($result){
                     $child = new \DOMDocument();
                     $child->loadXML($result);
-                    $ads = $child->getElementsByTagName( "ad" );
+                    $ads = $child->getElementsByTagName('ad');
 
                     foreach($ads as $ad) {
                         $xml->documentElement->appendChild(
@@ -1264,16 +1269,16 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             if($result){
                 # Speichern
                 return array(
-                    "file"  => self::uploadTmpFile($filename,$xml->saveXML()),
-                    "count" => $count,
-                    "max"   => $this->pageSize,
-                    "loops" => $loops,
-                    "time"  => $timediff,
-                    "status"=> true,
+                    'file' => $this->uploadTmpFile($filename,$xml->saveXML()),
+                    'count' => $count,
+                    'max' => $this->pageSize,
+                    'loops' => $loops,
+                    'time' => $timediff,
+                    'status' => true,
                 );
             } else {
                 return array(
-                    "status"=> false,
+                    'status' => false,
                 );
             }
         }
@@ -1291,7 +1296,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $target     = $to . $pathinfo['basename'];
         $result     = file_put_contents( $target , $source);
 
-        return ($result) ? str_replace(PATH_site . "fileadmin","",$target) : false;
+        return ($result) ? str_replace(PATH_site . 'fileadmin', '',$target) : false;
     }
 
     /** ======================================================================================== **/
@@ -1299,11 +1304,11 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /** ======================================================================================== **/
 
     public function getSellerCount($MobileGetter){
-        $result = $MobileGetter->execute("/search-api/search?page.size=1&page.number=");
+        $result = $MobileGetter->execute('/search-api/search?page.size=1&page.number=');
         $xml = new \DOMDocument();
         $xml->loadXML($result);
 
-        $total = $xml->getElementsByTagName( "total" )->item(0)->nodeValue;
+        $total = $xml->getElementsByTagName('total')->item(0)->nodeValue;
 
         return $total;
     }
@@ -1332,7 +1337,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             # XML Parsing (overwrite old XML!!!)
             $xmlAds = new \Klickfabrik\KfMobileDe\Helper\Ads2Value();
-            $xmlAds->setXml($xmlArrayCurl,false);
+            $xmlAds::setXml($xmlArrayCurl,false);
 
             return $xmlAds;
         } else {
@@ -1349,7 +1354,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @throws \InvalidArgumentException
      * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
      */
-    private function uploadImageToDefaultFolder($tmpFile, $targetFolder="", $filename=null){
+    private function uploadImageToDefaultFolder($tmpFile, $targetFolder= '', $filename=null){
 
         $storageUid = 1;
         $fileInfo   = pathinfo($tmpFile, PATHINFO_BASENAME);
@@ -1393,7 +1398,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
     private function showArray($arr){
-        echo "<pre>" . print_r($arr,true) . "</pre>";
+        echo '<pre>' . print_r($arr,true) . '</pre>';
     }
 
     /**
@@ -1412,7 +1417,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * @param string $subdir
      */
-    private function createDefaultFolder($subdir=""){
+    private function createDefaultFolder($subdir= ''){
         $dir = PATH_site . "/fileadmin/{$this->uploadFolder}{$subdir}";
         if(!file_exists($dir)){
             mkdir($dir,0777,true);
@@ -1477,16 +1482,16 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             // set PID
             $this->pid = $args['storageID'];
 
-            $ids = explode(",",$args['storageID']);
+            $ids = explode(',',$args['storageID']);
             $this->setStorageID($ids);
 
             $endtime = microtime(true);
             $timediff = $endtime - $starttime;
 
             $result[] = [
-                "task"  => "setStorageID()",
-                "data"  => $args['storageID'],
-                "time"  => $timediff,
+                'task' => 'setStorageID()',
+                'data' => $args['storageID'],
+                'time' => $timediff,
             ];
         }
 
@@ -1499,10 +1504,10 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 $timediff = $endtime - $starttime;
 
                 $result[] = [
-                    "type"  => "multi",
-                    "task"  => "checkImportAction()",
-                    "args"  => json_encode($task),
-                    "time"  => $timediff,
+                    'type' => 'multi',
+                    'task' => 'checkImportAction()',
+                    'args' => json_encode($task),
+                    'time' => $timediff,
                 ];
             }
         } else {
@@ -1512,10 +1517,10 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $timediff = $endtime - $starttime;
 
             $result[] = [
-                "type"  => "single",
-                "task"  => "checkImportAction()",
-                "args"  => json_encode($args),
-                "time"  => $timediff,
+                'type' => 'single',
+                'task' => 'checkImportAction()',
+                'args' => json_encode($args),
+                'time' => $timediff,
             ];
         }
 
@@ -1527,12 +1532,12 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     private function setStorageID(array $storageIDs){
         $reps = array(
-            "clientsRepository",
-            "featuresRepository",
-            "importerRepository",
-            "sellerRepository",
-            "specificsRepository",
-            "vehicleRepository",
+            'clientsRepository',
+            'featuresRepository',
+            'importerRepository',
+            'sellerRepository',
+            'specificsRepository',
+            'vehicleRepository',
         );
 
         $res = array();
