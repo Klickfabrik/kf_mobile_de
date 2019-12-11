@@ -77,7 +77,14 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $phones = [];
         $googleData = [];
         foreach ($_seller as $seller) {
-            $phone = $this->parsePhone($seller->getPhone());
+            if($seller === null){
+                continue;
+            }
+            $phone = $seller->getPhone();
+            if($phone !== null){
+                $phone = $this->parsePhone($phone);
+                $phones[] = $phone['raw'];
+            }
             $googleData[] = [
                 'latitude' => $seller->getLatitude(),
                 'longitude' => $seller->getLongitude(),
@@ -89,7 +96,6 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
                         join('<br/>', $phone['maps'])
                     ])
             ];
-            $phones[] = $phone['raw'];
             $sellers[] = $seller;
         }
         $return = [
