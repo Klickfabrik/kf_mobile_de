@@ -676,7 +676,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                         // Custom
                         'custom1'               => $xml::getTag('ad:seller-inventory-key'),
-                        'custom2'               => $xml::getTag('ad:identification-number'),
+                        'custom2'               => $xml::getTag('ad:vehicle|ad:specifics|ad:identification-number'),
                     );
 
                     $cur = array(
