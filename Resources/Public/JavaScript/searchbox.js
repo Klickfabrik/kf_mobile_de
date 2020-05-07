@@ -119,7 +119,7 @@ jQuery(document).ready(function ($) {
 
                 switch(inputName){
                     case "make":
-                    case "model":
+                    //case "model":
                         break;
                     default:
                         if(_input.length > 0){
