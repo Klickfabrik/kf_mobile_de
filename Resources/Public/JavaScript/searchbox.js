@@ -64,7 +64,7 @@ jQuery(document).ready(function ($) {
             resultContainer.find(".wrap_next .btn").addClass("disabled").text(loadingText);
 
             $.ajax({
-                url: "/",
+                url: service.getDomain(form.attr('action')),
                 cache: false,
                 data: data.serialize(),
                 success: function (result) {
@@ -89,7 +89,7 @@ jQuery(document).ready(function ($) {
             form.addClass("loading");
 
             $.ajax({
-                url: "/",
+                url: service.getDomain(form.attr('action')),
                 cache: false,
                 data: data.serialize(),
                 success: function (result) {
@@ -107,6 +107,22 @@ jQuery(document).ready(function ($) {
 
             if(autoload){
                 service.getVehicles(form,false,0);
+            }
+        },
+        getDomain: function(string){
+            const regex = /(.*?)\/(\D{2})\//gm;
+            const str = string.indexOf('http') === -1 ? window.location.origin + string : string;
+            let m;
+
+            while ((m = regex.exec(str)) !== null) {
+                // This is necessary to avoid infinite loops with zero-width matches
+                if (m.index === regex.lastIndex) {
+                    regex.lastIndex++;
+                }
+
+                if(typeof m[0] !== "undefined"){
+                    return m[0];
+                }
             }
         },
         changeCount: function(input){

@@ -1383,7 +1383,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @throws \InvalidArgumentException
      * @throws \TYPO3\CMS\Core\Resource\Exception\ResourceDoesNotExistException
      *
-     * @url: http://blog.typo3servers.info/show/typo3-extbase-fal-removedelete-image/
+     * http://blog.typo3servers.info/show/typo3-extbase-fal-removedelete-image/
      */
     private function deleteImage($file){
         $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
