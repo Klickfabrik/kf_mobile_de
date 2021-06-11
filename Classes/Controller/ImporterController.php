@@ -33,6 +33,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     private $pid            = null;
     private $importClient   = 0;
     private $importFilter   = true;
+    private $overwriteImage = true;
 
     /**
      * Persistence Manager
@@ -815,7 +816,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                             $checkFile      = PATH_site . "fileadmin/{$target}{$fileName}";
 
                                             // Download
-                                            if(!file_exists($checkFile)){
+                                            if(!file_exists($checkFile) && $this->overwriteImage == false){
                                                 $curFile = $this->downloadFile($imageURL,$this->tmpImageDir);
                                             } else {
                                                 $curFile =  str_replace(PATH_site . 'fileadmin', '',$checkFile);
