@@ -8,8 +8,8 @@ TRUNCATE `tx_kfmobilede_domain_model_vehicle`;
 TRUNCATE `tx_kfmobilede_vehicle_features_mm`;
 TRUNCATE `tx_kfmobilede_vehicle_specifics_mm`;
 
-#DELETE FROM `sys_file_metadata` as sfm left join `sys_file` as sf on sf.uid = sfm.file  WHERE sf.`identifier` LIKE '%kf_mobile%';
-#DELETE FROM `sys_file` WHERE `identifier` LIKE '%kf_mobile%';
+DELETE FROM `sys_file_metadata` as sfm left join `sys_file` as sf on sf.uid = sfm.file  WHERE sf.`identifier` LIKE '%kf_mobile%';
+DELETE FROM `sys_file` WHERE `identifier` LIKE '%kf_mobile%';
 
 #SELECT * FROM `sys_file_metadata` as sfm left join `sys_file` as sf on sf.uid = sfm.file  WHERE sf.`identifier` LIKE '%kf_mobile%'
 #SELECT GROUP_CONCAT(sm.file) FROM `sys_file` WHERE `identifier` LIKE '%kf_mobile%' 

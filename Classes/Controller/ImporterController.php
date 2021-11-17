@@ -815,8 +815,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                             $fileName       = strtolower("{$this->extensionName}_{$fileInfo['filename']}_{$pos}.{$pathinfo['extension']}");
                                             $checkFile      = PATH_site . "fileadmin/{$target}{$fileName}";
 
-                                            // Download
-                                            if(!file_exists($checkFile) && $this->overwriteImage == false){
+                                            // Download (File fehlt oder Force ist aktiv)
+                                            if(!file_exists($checkFile) || $this->overwriteImage == true){
                                                 $curFile = $this->downloadFile($imageURL,$this->tmpImageDir);
                                             } else {
                                                 $curFile =  str_replace(PATH_site . 'fileadmin', '',$checkFile);
@@ -1359,6 +1359,7 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     private function uploadImageToDefaultFolder($tmpFile, $targetFolder= '', $filename=null){
 
         $storageUid = 1;
+        $tmpFile    = str_replace("//","/",$tmpFile);
         $fileInfo   = pathinfo($tmpFile, PATHINFO_BASENAME);
         $tarFolder  = !empty($targetFolder) ? $targetFolder : $this->uploadFolder;
 
@@ -1373,7 +1374,6 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         } else {
             $curFile    = $storage->getFile($folder->getIdentifier() . $fileInfo);
         }
-
         return $curFile;
     }
 

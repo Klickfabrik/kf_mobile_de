@@ -508,7 +508,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $cookieData = json_encode($cookieData);
             $cookieData = stripslashes($cookieData);
         }
-        setcookie($cookieName, $cookieData, $ttl);
+        //setcookie($cookieName, $cookieData, $ttl);
     }
 
     # ========================================================================================

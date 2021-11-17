@@ -1,5 +1,5 @@
 {
-    "name": "kfmobilede/kf-mobile-de",
+    "name": "klickfabrik/kf-mobile-de",
     "type": "typo3-cms-extension",
     "description": "a plugin to show the mobile.de data in typo3",
     "authors": [
@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "typo3/cms-core": "^8.7.1"
+        "typo3/cms-core": "^8.7.1 || ^9.5.1"
     },
     "autoload": {
         "psr-4": {
