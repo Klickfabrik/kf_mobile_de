@@ -24,5 +24,10 @@
     "replace": {
         "kf_mobile_de": "self.version",
         "typo3-ter/kf-mobile-de": "self.version"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "kf_mobile_de"
+        }
     }
 }
