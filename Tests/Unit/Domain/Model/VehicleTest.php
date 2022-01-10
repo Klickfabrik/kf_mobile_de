@@ -1,31 +1,22 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Tests\Unit\Domain\Model;
 
-use DateTime;
-use Klickfabrik\KfMobileDe\Domain\Model\Features;
-use Klickfabrik\KfMobileDe\Domain\Model\Seller;
-use Klickfabrik\KfMobileDe\Domain\Model\Specifics;
-use Klickfabrik\KfMobileDe\Domain\Model\Vehicle;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-
 /**
  * Test case.
  *
  * @author Marc Finnern <typo3@klickfabrik.net>
  */
-class VehicleTest extends UnitTestCase
+class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
-     * @var Vehicle
+     * @var \Klickfabrik\KfMobileDe\Domain\Model\Vehicle
      */
     protected $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = new Vehicle();
+        $this->subject = new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle();
     }
 
     protected function tearDown()
@@ -513,7 +504,7 @@ class VehicleTest extends UnitTestCase
      */
     public function getImagesReturnsInitialValueForFileReference()
     {
-        $newObjectStorage = new ObjectStorage();
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
             $newObjectStorage,
             $this->subject->getImages()
@@ -525,8 +516,8 @@ class VehicleTest extends UnitTestCase
      */
     public function setImagesForFileReferenceSetsImages()
     {
-        $image = new FileReference();
-        $objectStorageHoldingExactlyOneImages = new ObjectStorage();
+        $image = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $objectStorageHoldingExactlyOneImages = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImages->attach($image);
         $this->subject->setImages($objectStorageHoldingExactlyOneImages);
 
@@ -542,8 +533,8 @@ class VehicleTest extends UnitTestCase
      */
     public function addImageToObjectStorageHoldingImages()
     {
-        $image = new FileReference();
-        $imagesObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
+        $image = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $imagesObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->setMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -559,8 +550,8 @@ class VehicleTest extends UnitTestCase
      */
     public function removeImageFromObjectStorageHoldingImages()
     {
-        $image = new FileReference();
-        $imagesObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
+        $image = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $imagesObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->setMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -569,6 +560,31 @@ class VehicleTest extends UnitTestCase
         $this->inject($this->subject, 'images', $imagesObjectStorageMock);
 
         $this->subject->removeImage($image);
+    }
+
+    /**
+     * @test
+     */
+    public function getImageDataReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getImageData()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setImageDataForStringSetsImageData()
+    {
+        $this->subject->setImageData('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'imageData',
+            $this->subject
+        );
     }
 
     /**
@@ -687,7 +703,7 @@ class VehicleTest extends UnitTestCase
      */
     public function setFirstRegistrationForDateTimeSetsFirstRegistration()
     {
-        $dateTimeFixture = new DateTime();
+        $dateTimeFixture = new \DateTime();
         $this->subject->setFirstRegistration($dateTimeFixture);
 
         self::assertAttributeEquals(
@@ -713,7 +729,7 @@ class VehicleTest extends UnitTestCase
      */
     public function setCreationDateForDateTimeSetsCreationDate()
     {
-        $dateTimeFixture = new DateTime();
+        $dateTimeFixture = new \DateTime();
         $this->subject->setCreationDate($dateTimeFixture);
 
         self::assertAttributeEquals(
@@ -739,7 +755,7 @@ class VehicleTest extends UnitTestCase
      */
     public function setModificationDateForDateTimeSetsModificationDate()
     {
-        $dateTimeFixture = new DateTime();
+        $dateTimeFixture = new \DateTime();
         $this->subject->setModificationDate($dateTimeFixture);
 
         self::assertAttributeEquals(
@@ -977,9 +993,34 @@ class VehicleTest extends UnitTestCase
     /**
      * @test
      */
+    public function getSlugReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getSlug()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setSlugForStringSetsSlug()
+    {
+        $this->subject->setSlug('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'slug',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getFeaturesReturnsInitialValueForFeatures()
     {
-        $newObjectStorage = new ObjectStorage();
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
             $newObjectStorage,
             $this->subject->getFeatures()
@@ -991,8 +1032,8 @@ class VehicleTest extends UnitTestCase
      */
     public function setFeaturesForObjectStorageContainingFeaturesSetsFeatures()
     {
-        $feature = new Features();
-        $objectStorageHoldingExactlyOneFeatures = new ObjectStorage();
+        $feature = new \Klickfabrik\KfMobileDe\Domain\Model\Features();
+        $objectStorageHoldingExactlyOneFeatures = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneFeatures->attach($feature);
         $this->subject->setFeatures($objectStorageHoldingExactlyOneFeatures);
 
@@ -1008,8 +1049,8 @@ class VehicleTest extends UnitTestCase
      */
     public function addFeatureToObjectStorageHoldingFeatures()
     {
-        $feature = new Features();
-        $featuresObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
+        $feature = new \Klickfabrik\KfMobileDe\Domain\Model\Features();
+        $featuresObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->setMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -1025,8 +1066,8 @@ class VehicleTest extends UnitTestCase
      */
     public function removeFeatureFromObjectStorageHoldingFeatures()
     {
-        $feature = new Features();
-        $featuresObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
+        $feature = new \Klickfabrik\KfMobileDe\Domain\Model\Features();
+        $featuresObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->setMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -1042,7 +1083,7 @@ class VehicleTest extends UnitTestCase
      */
     public function getSpecificsReturnsInitialValueForSpecifics()
     {
-        $newObjectStorage = new ObjectStorage();
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
             $newObjectStorage,
             $this->subject->getSpecifics()
@@ -1054,8 +1095,8 @@ class VehicleTest extends UnitTestCase
      */
     public function setSpecificsForObjectStorageContainingSpecificsSetsSpecifics()
     {
-        $specific = new Specifics();
-        $objectStorageHoldingExactlyOneSpecifics = new ObjectStorage();
+        $specific = new \Klickfabrik\KfMobileDe\Domain\Model\Specifics();
+        $objectStorageHoldingExactlyOneSpecifics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneSpecifics->attach($specific);
         $this->subject->setSpecifics($objectStorageHoldingExactlyOneSpecifics);
 
@@ -1071,8 +1112,8 @@ class VehicleTest extends UnitTestCase
      */
     public function addSpecificToObjectStorageHoldingSpecifics()
     {
-        $specific = new Specifics();
-        $specificsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
+        $specific = new \Klickfabrik\KfMobileDe\Domain\Model\Specifics();
+        $specificsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->setMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -1088,8 +1129,8 @@ class VehicleTest extends UnitTestCase
      */
     public function removeSpecificFromObjectStorageHoldingSpecifics()
     {
-        $specific = new Specifics();
-        $specificsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
+        $specific = new \Klickfabrik\KfMobileDe\Domain\Model\Specifics();
+        $specificsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->setMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -1116,7 +1157,7 @@ class VehicleTest extends UnitTestCase
      */
     public function setSellerForSellerSetsSeller()
     {
-        $sellerFixture = new Seller();
+        $sellerFixture = new \Klickfabrik\KfMobileDe\Domain\Model\Seller();
         $this->subject->setSeller($sellerFixture);
 
         self::assertAttributeEquals(

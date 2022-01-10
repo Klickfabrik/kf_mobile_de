@@ -831,14 +831,14 @@
       left: 0;
       top: 0;
       z-index: 1;
-      background: transparentize($color_main,50%);
+      background: transparentize($color_main,0.5);
     }
   }
 
   &__simple {
     padding: 10px;
   }
-  
+
   &__radio {
     margin: 0 0 10px 0;
 
@@ -954,9 +954,9 @@
         .label--checkmark {
           background-color: $color_main;
         }
-        &::after {
-          display: block;
-        }
+        //&::after {
+        //  display: block;
+        //}
       }
     }
     &:hover {
@@ -964,9 +964,9 @@
         .label--checkmark {
           background-color: $color_maingrau;
         }
-        &::after {
-          display: block;
-        }
+        //&::after {
+        //  display: block;
+        //}
       }
     }
   }

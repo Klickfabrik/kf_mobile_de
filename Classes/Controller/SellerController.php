@@ -1,6 +1,7 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Controller;
 
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -11,15 +12,15 @@ namespace Klickfabrik\KfMobileDe\Controller;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
-
 /**
  * SellerController
  */
 class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
+
     /**
      * sellerRepository
-     *
+     * 
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\SellerRepository
      * @inject
      */
@@ -27,7 +28,7 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
     /**
      * vehicleRepository
-     *
+     * 
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository
      * @inject
      */
@@ -35,7 +36,7 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
     /**
      * action show
-     *
+     * 
      * @return void
      */
     public function showAction()
@@ -48,8 +49,10 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     # ========================================================================================
     public function mapsAction()
     {
+
         #Debug
         $this->debug();
+
         # single seller
         $seller = $this->getCurrentSellers();
         $data = $this->getGoogleMaps($seller);
@@ -69,6 +72,7 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         if (empty($_seller) || is_null($_seller)) {
             $_seller = $this->sellerRepository->findAll();
         }
+
         // Check Type (detail-page)
         if (is_a($_seller, 'Klickfabrik\\KfMobileDe\\Domain\\Model\\Seller')) {
             $_seller = [$_seller];
@@ -77,32 +81,35 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $phones = [];
         $googleData = [];
         foreach ($_seller as $seller) {
-            if($seller === null){
+            if ($seller === null) {
                 continue;
             }
             $phone = $seller->getPhone();
-            if($phone !== null){
+            if ($phone !== null) {
                 $phone = $this->parsePhone($phone);
                 $phones[] = $phone['raw'];
             }
             $googleData[] = [
-                'latitude' => $seller->getLatitude(),
-                'longitude' => $seller->getLongitude(),
-                'name' => $seller->getCompanyName(),
-                'address' => join(',<br/>', [
-                        "<strong>{$seller->getCompanyName()}</strong>",
-                        $seller->getStreet(),
-                        $seller->getZipcode() . ' ' . $seller->getCity(),
-                        join('<br/>', $phone['maps'])
-                    ])
+            'latitude' => $seller->getLatitude(), 
+            'longitude' => $seller->getLongitude(), 
+            'name' => $seller->getCompanyName(), 
+            'address' => join(
+            ',<br/>', 
+            [
+            "<strong>{$seller->getCompanyName()}</strong>", 
+            $seller->getStreet(), 
+            $seller->getZipcode() . ' ' . $seller->getCity(), 
+            join('<br/>', $phone['maps'])
+            ]
+            )
             ];
             $sellers[] = $seller;
         }
         $return = [
-            'sellers' => $sellers,
-            'phones' => $phones,
-            'googleData' => $googleData,
-            'count' => count($_seller)
+        'sellers' => $sellers, 
+        'phones' => $phones, 
+        'googleData' => $googleData, 
+        'count' => count($_seller)
         ];
         return $return;
     }
@@ -117,9 +124,9 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $phone = [];
         $maps = [];
         $translate = [
-            'FIXED' => 'Tel.',
-            'FAX' => 'Fax',
-            'CELL' => 'Mobil'
+        'FIXED' => 'Tel.', 
+        'FAX' => 'Fax', 
+        'CELL' => 'Mobil'
         ];
         foreach (json_decode($object, true) as $entry) {
             if (!empty($skip) && in_array(strtolower($entry['type']), $skip)) {
@@ -127,15 +134,15 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             }
             $number = $entry['country-calling-code'] . substr($entry['area-code'], 1) . $entry['number'];
             $array = [
-                'type' => $translate[$entry['type']],
-                'number' => "+{$number}"
+            'type' => $translate[$entry['type']], 
+            'number' => "+{$number}"
             ];
             $phone[md5($number)] = $array;
             $maps[md5($number)] = join(': ', $array);
         }
         return [
-            'raw' => $phone,
-            'maps' => $maps
+        'raw' => $phone, 
+        'maps' => $maps
         ];
     }
 
@@ -154,6 +161,7 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      */
     public function getCurrentSellers()
     {
+
         # single seller
         if (isset($this->settings['select']['seller']) && !empty($this->settings['select']['seller'])) {
             $seller = [];
@@ -183,17 +191,8 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      */
     public function showDebug($arr)
     {
+
         /** \TYPO3\CMS\Extbase\Utility\DebuggerUtility */
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($arr);
-    }
-
-    /**
-     * action places
-     *
-     * @return void
-     */
-    public function placesAction()
-    {
-
     }
 }

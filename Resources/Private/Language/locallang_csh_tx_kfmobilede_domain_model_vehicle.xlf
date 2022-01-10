@@ -1,123 +1,129 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-05T19:24:04Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="EXT:kf_mobile_de/Resources/Private/Language/locallang_csh" date="2021-12-19T13:08:06Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
-			<trans-unit id="model_description.description">
+			<trans-unit id="model_description.description" resname="model_description.description">
 				<source>model description</source>
 			</trans-unit>
-			<trans-unit id="class.description">
+			<trans-unit id="class.description" resname="class.description">
 				<source>class</source>
 			</trans-unit>
-			<trans-unit id="category.description">
+			<trans-unit id="category.description" resname="category.description">
 				<source>category</source>
 			</trans-unit>
-			<trans-unit id="make.description">
+			<trans-unit id="make.description" resname="make.description">
 				<source>make</source>
 			</trans-unit>
-			<trans-unit id="model.description">
+			<trans-unit id="model.description" resname="model.description">
 				<source>model</source>
 			</trans-unit>
-			<trans-unit id="price.description">
+			<trans-unit id="price.description" resname="price.description">
 				<source>price</source>
 			</trans-unit>
-			<trans-unit id="damage_and_unrepaired.description">
+			<trans-unit id="damage_and_unrepaired.description" resname="damage_and_unrepaired.description">
 				<source>damage and unrepaired</source>
 			</trans-unit>
-			<trans-unit id="accident_damaged.description">
+			<trans-unit id="accident_damaged.description" resname="accident_damaged.description">
 				<source>accident damaged</source>
 			</trans-unit>
-			<trans-unit id="roadworthy.description">
+			<trans-unit id="roadworthy.description" resname="roadworthy.description">
 				<source>roadworthy</source>
 			</trans-unit>
-			<trans-unit id="price_type.description">
+			<trans-unit id="price_type.description" resname="price_type.description">
 				<source>priceType</source>
 			</trans-unit>
-			<trans-unit id="fuel.description">
+			<trans-unit id="fuel.description" resname="fuel.description">
 				<source>fuel</source>
 			</trans-unit>
-			<trans-unit id="gearbox.description">
+			<trans-unit id="gearbox.description" resname="gearbox.description">
 				<source>gearbox</source>
 			</trans-unit>
-			<trans-unit id="color.description">
+			<trans-unit id="color.description" resname="color.description">
 				<source>color</source>
 			</trans-unit>
-			<trans-unit id="mileage.description">
+			<trans-unit id="mileage.description" resname="mileage.description">
 				<source>mileage</source>
 			</trans-unit>
-			<trans-unit id="seats.description">
+			<trans-unit id="seats.description" resname="seats.description">
 				<source>seats</source>
 			</trans-unit>
-			<trans-unit id="doors.description">
+			<trans-unit id="doors.description" resname="doors.description">
 				<source>doors</source>
 			</trans-unit>
-			<trans-unit id="power.description">
+			<trans-unit id="power.description" resname="power.description">
 				<source>power</source>
 			</trans-unit>
-			<trans-unit id="cubic_capacity.description">
+			<trans-unit id="cubic_capacity.description" resname="cubic_capacity.description">
 				<source>cubicCapacity</source>
 			</trans-unit>
-			<trans-unit id="emission_class.description">
+			<trans-unit id="emission_class.description" resname="emission_class.description">
 				<source>emissionClass</source>
 			</trans-unit>
-			<trans-unit id="images.description">
+			<trans-unit id="images.description" resname="images.description">
 				<source>images</source>
 			</trans-unit>
-			<trans-unit id="description.description">
+			<trans-unit id="image_data.description" resname="image_data.description">
+				<source>imageData</source>
+			</trans-unit>
+			<trans-unit id="description.description" resname="description.description">
 				<source>description</source>
 			</trans-unit>
-			<trans-unit id="misc.description">
+			<trans-unit id="misc.description" resname="misc.description">
 				<source>misc</source>
 			</trans-unit>
-			<trans-unit id="consumer_price_amount.description">
+			<trans-unit id="consumer_price_amount.description" resname="consumer_price_amount.description">
 				<source>consumerPriceAmount</source>
 			</trans-unit>
-			<trans-unit id="dealer_price_amount.description">
+			<trans-unit id="dealer_price_amount.description" resname="dealer_price_amount.description">
 				<source>dealerPriceAmount</source>
 			</trans-unit>
-			<trans-unit id="first_registration.description">
+			<trans-unit id="first_registration.description" resname="first_registration.description">
 				<source>firstRegistration</source>
 			</trans-unit>
-			<trans-unit id="creation_date.description">
+			<trans-unit id="creation_date.description" resname="creation_date.description">
 				<source>creationDate</source>
 			</trans-unit>
-			<trans-unit id="modification_date.description">
+			<trans-unit id="modification_date.description" resname="modification_date.description">
 				<source>modificationDate</source>
 			</trans-unit>
-			<trans-unit id="detail_page.description">
+			<trans-unit id="detail_page.description" resname="detail_page.description">
 				<source>detail page from mobile.de</source>
 			</trans-unit>
-			<trans-unit id="import_key.description">
+			<trans-unit id="import_key.description" resname="import_key.description">
 				<source>importKey</source>
 			</trans-unit>
-			<trans-unit id="import_client.description">
+			<trans-unit id="import_client.description" resname="import_client.description">
 				<source>importClient</source>
 			</trans-unit>
-			<trans-unit id="import.description">
+			<trans-unit id="import.description" resname="import.description">
 				<source>import</source>
 			</trans-unit>
-			<trans-unit id="custom1.description">
+			<trans-unit id="custom1.description" resname="custom1.description">
 				<source>custom1</source>
 			</trans-unit>
-			<trans-unit id="custom2.description">
+			<trans-unit id="custom2.description" resname="custom2.description">
 				<source>custom2</source>
 			</trans-unit>
-			<trans-unit id="custom3.description">
+			<trans-unit id="custom3.description" resname="custom3.description">
 				<source>custom3</source>
 			</trans-unit>
-			<trans-unit id="custom4.description">
+			<trans-unit id="custom4.description" resname="custom4.description">
 				<source>custom4</source>
 			</trans-unit>
-			<trans-unit id="custom5.description">
+			<trans-unit id="custom5.description" resname="custom5.description">
 				<source>custom5</source>
 			</trans-unit>
-			<trans-unit id="features.description">
+			<trans-unit id="slug.description" resname="slug.description">
+				<source>slug</source>
+			</trans-unit>
+			<trans-unit id="features.description" resname="features.description">
 				<source>features</source>
 			</trans-unit>
-			<trans-unit id="specifics.description">
+			<trans-unit id="specifics.description" resname="specifics.description">
 				<source>specifics</source>
 			</trans-unit>
-			<trans-unit id="seller.description">
+			<trans-unit id="seller.description" resname="seller.description">
 				<source>seller</source>
 			</trans-unit>
 		</body>

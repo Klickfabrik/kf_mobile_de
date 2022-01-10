@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-05T19:24:04Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="EXT:kf_mobile_de/Resources/Private/Language/locallang_csh" date="2021-12-19T13:08:06Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
-			<trans-unit id="company_name.description">
+			<trans-unit id="company_name.description" resname="company_name.description">
 				<source>companyName</source>
 			</trans-unit>
-			<trans-unit id="phone.description">
+			<trans-unit id="phone.description" resname="phone.description">
 				<source>phone</source>
 			</trans-unit>
-			<trans-unit id="street.description">
+			<trans-unit id="street.description" resname="street.description">
 				<source>street</source>
 			</trans-unit>
-			<trans-unit id="zipcode.description">
+			<trans-unit id="zipcode.description" resname="zipcode.description">
 				<source>zipcode</source>
 			</trans-unit>
-			<trans-unit id="city.description">
+			<trans-unit id="city.description" resname="city.description">
 				<source>city</source>
 			</trans-unit>
-			<trans-unit id="country_code.description">
+			<trans-unit id="country_code.description" resname="country_code.description">
 				<source>countryCode</source>
 			</trans-unit>
-			<trans-unit id="latitude.description">
+			<trans-unit id="latitude.description" resname="latitude.description">
 				<source>latitude</source>
 			</trans-unit>
-			<trans-unit id="longitude.description">
+			<trans-unit id="longitude.description" resname="longitude.description">
 				<source>longitude</source>
 			</trans-unit>
-			<trans-unit id="seller_image.description">
+			<trans-unit id="seller_image.description" resname="seller_image.description">
 				<source>sellerImage</source>
 			</trans-unit>
-			<trans-unit id="seller_info.description">
+			<trans-unit id="seller_info.description" resname="seller_info.description">
 				<source>sellerInfo</source>
 			</trans-unit>
-			<trans-unit id="url.description">
+			<trans-unit id="url.description" resname="url.description">
 				<source>url</source>
 			</trans-unit>
-			<trans-unit id="email.description">
+			<trans-unit id="email.description" resname="email.description">
 				<source>email</source>
 			</trans-unit>
-			<trans-unit id="commercial.description">
+			<trans-unit id="commercial.description" resname="commercial.description">
 				<source>commercial</source>
 			</trans-unit>
-			<trans-unit id="import_key.description">
+			<trans-unit id="import_key.description" resname="import_key.description">
 				<source>importKey</source>
 			</trans-unit>
-			<trans-unit id="import.description">
+			<trans-unit id="import.description" resname="import.description">
 				<source>import</source>
 			</trans-unit>
 		</body>

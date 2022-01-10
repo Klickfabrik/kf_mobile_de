@@ -6,7 +6,7 @@ namespace Klickfabrik\KfMobileDe\Tests\Unit\Controller;
  *
  * @author Marc Finnern <typo3@klickfabrik.net>
  */
-class FeaturesControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class FeaturesControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
      * @var \Klickfabrik\KfMobileDe\Controller\FeaturesController

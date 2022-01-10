@@ -6,7 +6,7 @@ namespace Klickfabrik\KfMobileDe\Tests\Unit\Controller;
  *
  * @author Marc Finnern <typo3@klickfabrik.net>
  */
-class SellerControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class SellerControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
      * @var \Klickfabrik\KfMobileDe\Controller\SellerController
@@ -27,4 +27,17 @@ class SellerControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         parent::tearDown();
     }
 
+    /**
+     * @test
+     */
+    public function showActionAssignsTheGivenSellerToView()
+    {
+        $seller = new \Klickfabrik\KfMobileDe\Domain\Model\Seller();
+
+        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+        $this->inject($this->subject, 'view', $view);
+        $view->expects(self::once())->method('assign')->with('seller', $seller);
+
+        $this->subject->showAction($seller);
+    }
 }

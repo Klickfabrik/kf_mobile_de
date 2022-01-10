@@ -6,7 +6,7 @@ namespace Klickfabrik\KfMobileDe\Tests\Unit\Domain\Model;
  *
  * @author Marc Finnern <typo3@klickfabrik.net>
  */
-class SellerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
      * @var \Klickfabrik\KfMobileDe\Domain\Model\Seller

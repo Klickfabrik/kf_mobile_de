@@ -1,6 +1,7 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Controller;
 
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -11,15 +12,15 @@ namespace Klickfabrik\KfMobileDe\Controller;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
-
 /**
  * SpecificsController
  */
 class SpecificsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
+
     /**
      * action list
-     *
+     * 
      * @return void
      */
     public function listAction()
@@ -30,17 +31,16 @@ class SpecificsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action new
-     *
+     * 
      * @return void
      */
     public function newAction()
     {
-
     }
 
     /**
      * action create
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Specifics $newSpecifics
      * @return void
      */
@@ -53,7 +53,7 @@ class SpecificsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action edit
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Specifics $specifics
      * @ignorevalidation $specifics
      * @return void
@@ -65,7 +65,7 @@ class SpecificsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action update
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Specifics $specifics
      * @return void
      */
@@ -78,7 +78,7 @@ class SpecificsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action delete
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Specifics $specifics
      * @return void
      */

@@ -1,9 +1,10 @@
-﻿.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. every .rst file should include Includes.txt
+.. use correct path!
 
 .. include:: Includes.txt
+
+.. Every manual should have a start label for cross-referencing to
+.. start page. Do not remove this!
 
 .. _start:
 
@@ -11,54 +12,56 @@
 KF - Mobile.de
 =============================================================
 
-.. only:: html
+:Version:
+   |release|
 
-	:Classification:
-		kf_mobile_de
+:Language:
+   en
 
-	:Version:
-		|release|
+:Authors:
+   Marc Finnern
 
-	:Language:
-		en
+:Email:
+   typo3@klickfabrik.net
 
-	:Description:
-		a plugin to show the mobile.de data in typo3
+:License:
+   This extension documentation is published under the
+   `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__ (Creative Commons)
+   license
 
-	:Keywords:
-		comma,separated,list,of,keywords
+a plugin to show the mobile.de data in typo3
 
-	:Copyright:
-		2019
+**TYPO3**
 
-	:Author:
-		Marc Finnern
+The content of this document is related to TYPO3 CMS,
+a GNU/GPL CMS/Framework available from `typo3.org <https://typo3.org/>`_ .
 
-	:Email:
-		typo3@klickfabrik.net
+**Community Documentation**
 
-	:License:
-		This document is published under the Open Content License
-		available from http://www.opencontent.org/opl.shtml
+This documentation is community documentation for the TYPO3 extension KF - Mobile.de
 
-	:Rendered:
-		|today|
+It is maintained as part of this third party extension.
 
-	The content of this document is related to TYPO3,
-	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+If you find an error or something is missing, please:
+`Report a Problem <https://github.com/TYPO3-Documentation/TYPO3CMS-Example-ExtensionManual/issues/new>`__
 
-	**Table of Contents**
+**Extension Manual**
+
+This documentation is for the TYPO3 extension kf_mobile_de.
+
+**For Contributors**
+
+You are welcome to help improve this guide.
+Just click on "Edit me on GitHub" on the top right to submit your change request.
 
 .. toctree::
-	:maxdepth: 3
-	:titlesonly:
+   :maxdepth: 3
 
-	Introduction/Index
-	User/Index
-	Administrator/Index
-	Configuration/Index
-	Developer/Index
-	KnownProblems/Index
-	ToDoList/Index
-	ChangeLog/Index
-	Links
+   Introduction/Index
+   Editor/Index
+   Installation/Index
+   Configuration/Index
+   Developer/Index
+   KnownProblems/Index
+   ChangeLog/Index
+   Sitemap

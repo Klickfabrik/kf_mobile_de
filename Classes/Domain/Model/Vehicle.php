@@ -1,6 +1,7 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Domain\Model;
 
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -11,290 +12,305 @@ namespace Klickfabrik\KfMobileDe\Domain\Model;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
-
 /**
  * Vehicle
  */
 class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+
     /**
      * hidden
-     *
+     * 
      * @var boolean
      */
     protected $hidden = false;
 
     /**
      * model description
-     *
+     * 
      * @var string
      * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $modelDescription = '';
 
     /**
      * class
-     *
+     * 
      * @var string
      */
     protected $class = '';
 
     /**
      * category
-     *
+     * 
      * @var string
      */
     protected $category = '';
 
     /**
      * make
-     *
+     * 
      * @var string
      */
     protected $make = '';
 
     /**
      * model
-     *
+     * 
      * @var string
      */
     protected $model = '';
 
     /**
      * price
-     *
+     * 
      * @var int
      */
     protected $price = 0;
 
     /**
      * damage and unrepaired
-     *
+     * 
      * @var bool
      */
     protected $damageAndUnrepaired = false;
 
     /**
      * accident damaged
-     *
+     * 
      * @var bool
      */
     protected $accidentDamaged = false;
 
     /**
      * roadworthy
-     *
+     * 
      * @var bool
      */
     protected $roadworthy = false;
 
     /**
      * priceType
-     *
+     * 
      * @var string
      */
     protected $priceType = '';
 
     /**
      * fuel
-     *
+     * 
      * @var string
      */
     protected $fuel = '';
 
     /**
      * gearbox
-     *
+     * 
      * @var string
      */
     protected $gearbox = '';
 
     /**
      * color
-     *
+     * 
      * @var string
      */
     protected $color = false;
 
     /**
      * mileage
-     *
+     * 
      * @var string
      */
     protected $mileage = false;
 
     /**
      * seats
-     *
+     * 
      * @var string
      */
     protected $seats = false;
 
     /**
      * doors
-     *
+     * 
      * @var string
      */
     protected $doors = '';
 
     /**
      * power
-     *
+     * 
      * @var string
      */
     protected $power = false;
 
     /**
      * cubicCapacity
-     *
+     * 
      * @var string
      */
     protected $cubicCapacity = '';
 
     /**
      * emissionClass
-     *
+     * 
      * @var string
      */
     protected $emissionClass = '';
 
     /**
      * images
-     *
+     * 
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      * @cascade remove
      */
     protected $images = null;
 
     /**
+     * imageData
+     * 
+     * @var string
+     */
+    protected $imageData = '';
+
+    /**
      * description
-     *
+     * 
      * @var string
      */
     protected $description = '';
 
     /**
      * misc
-     *
+     * 
      * @var string
      */
     protected $misc = '';
 
     /**
      * consumerPriceAmount
-     *
+     * 
      * @var string
      */
     protected $consumerPriceAmount = '';
 
     /**
      * dealerPriceAmount
-     *
+     * 
      * @var string
      */
     protected $dealerPriceAmount = '';
 
     /**
      * firstRegistration
-     *
+     * 
      * @var \DateTime
      */
     protected $firstRegistration = null;
 
     /**
      * creationDate
-     *
+     * 
      * @var \DateTime
      */
     protected $creationDate = null;
 
     /**
      * modificationDate
-     *
+     * 
      * @var \DateTime
      */
     protected $modificationDate = null;
 
     /**
      * detail page from mobile.de
-     *
+     * 
      * @var string
      */
     protected $detailPage = '';
 
     /**
      * importKey
-     *
+     * 
      * @var string
      */
     protected $importKey = '';
 
     /**
      * importClient
-     *
+     * 
      * @var string
      */
     protected $importClient = '';
 
     /**
      * import
-     *
+     * 
      * @var bool
      */
     protected $import = false;
 
     /**
      * custom1
-     *
+     * 
      * @var string
      */
     protected $custom1 = '';
 
     /**
      * custom2
-     *
+     * 
      * @var string
      */
     protected $custom2 = '';
 
     /**
      * custom3
-     *
+     * 
      * @var string
      */
     protected $custom3 = '';
 
     /**
      * custom4
-     *
+     * 
      * @var string
      */
     protected $custom4 = '';
 
     /**
      * custom5
-     *
+     * 
      * @var string
      */
     protected $custom5 = '';
 
     /**
+     * slug
+     * 
+     * @var string
+     */
+    protected $slug = '';
+
+    /**
      * features
-     *
+     * 
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Features>
      */
     protected $features = null;
 
     /**
      * specifics
-     *
+     * 
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Specifics>
      */
     protected $specifics = null;
 
     /**
      * seller
-     *
+     * 
      * @var \Klickfabrik\KfMobileDe\Domain\Model\Seller
      */
     protected $seller = null;
@@ -320,6 +336,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function __construct()
     {
+
         //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
     }
@@ -329,7 +346,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Do not modify this method!
      * It will be rewritten on each save in the extension builder
      * You may modify the constructor of this class instead
-     *
+     * 
      * @return void
      */
     protected function initStorageObjects()
@@ -341,7 +358,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the modelDescription
-     *
+     * 
      * @return string $modelDescription
      */
     public function getModelDescription()
@@ -351,7 +368,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the modelDescription
-     *
+     * 
      * @param string $modelDescription
      * @return void
      */
@@ -362,7 +379,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the price
-     *
+     * 
      * @return int $price
      */
     public function getPrice()
@@ -372,7 +389,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the price
-     *
+     * 
      * @param int $price
      * @return void
      */
@@ -383,7 +400,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the damageAndUnrepaired
-     *
+     * 
      * @return bool $damageAndUnrepaired
      */
     public function getDamageAndUnrepaired()
@@ -393,7 +410,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the damageAndUnrepaired
-     *
+     * 
      * @param bool $damageAndUnrepaired
      * @return void
      */
@@ -404,7 +421,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the boolean state of damageAndUnrepaired
-     *
+     * 
      * @return bool
      */
     public function isDamageAndUnrepaired()
@@ -414,7 +431,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the accidentDamaged
-     *
+     * 
      * @return bool $accidentDamaged
      */
     public function getAccidentDamaged()
@@ -424,7 +441,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the accidentDamaged
-     *
+     * 
      * @param bool $accidentDamaged
      * @return void
      */
@@ -435,7 +452,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the boolean state of accidentDamaged
-     *
+     * 
      * @return bool
      */
     public function isAccidentDamaged()
@@ -445,7 +462,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the roadworthy
-     *
+     * 
      * @return bool $roadworthy
      */
     public function getRoadworthy()
@@ -455,7 +472,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the roadworthy
-     *
+     * 
      * @param bool $roadworthy
      * @return void
      */
@@ -466,7 +483,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the boolean state of roadworthy
-     *
+     * 
      * @return bool
      */
     public function isRoadworthy()
@@ -476,7 +493,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Adds a FileReference
-     *
+     * 
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
      * @return void
      */
@@ -487,7 +504,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Removes a FileReference
-     *
+     * 
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove The FileReference to be removed
      * @return void
      */
@@ -498,7 +515,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the images
-     *
+     * 
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
      */
     public function getImages()
@@ -508,7 +525,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the images
-     *
+     * 
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
      * @return void
      */
@@ -519,7 +536,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the detailPage
-     *
+     * 
      * @return string $detailPage
      */
     public function getDetailPage()
@@ -529,7 +546,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the detailPage
-     *
+     * 
      * @param string $detailPage
      * @return void
      */
@@ -540,7 +557,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the creationDate
-     *
+     * 
      * @return \DateTime $creationDate
      */
     public function getCreationDate()
@@ -550,7 +567,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the creationDate
-     *
+     * 
      * @param \DateTime $creationDate
      * @return void
      */
@@ -561,7 +578,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the modificationDate
-     *
+     * 
      * @return \DateTime $modificationDate
      */
     public function getModificationDate()
@@ -571,7 +588,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the modificationDate
-     *
+     * 
      * @param \DateTime $modificationDate
      * @return void
      */
@@ -582,7 +599,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the category
-     *
+     * 
      * @return string $category
      */
     public function getCategory()
@@ -592,7 +609,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the category
-     *
+     * 
      * @param string $category
      * @return void
      */
@@ -603,7 +620,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the make
-     *
+     * 
      * @return string $make
      */
     public function getMake()
@@ -613,7 +630,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the make
-     *
+     * 
      * @param string $make
      * @return void
      */
@@ -624,7 +641,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the model
-     *
+     * 
      * @return string $model
      */
     public function getModel()
@@ -634,7 +651,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the model
-     *
+     * 
      * @param string $model
      * @return void
      */
@@ -645,7 +662,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the consumerPriceAmount
-     *
+     * 
      * @return string $consumerPriceAmount
      */
     public function getConsumerPriceAmount()
@@ -655,7 +672,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the consumerPriceAmount
-     *
+     * 
      * @param string $consumerPriceAmount
      * @return void
      */
@@ -666,7 +683,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the dealerPriceAmount
-     *
+     * 
      * @return string $dealerPriceAmount
      */
     public function getDealerPriceAmount()
@@ -676,7 +693,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the dealerPriceAmount
-     *
+     * 
      * @param string $dealerPriceAmount
      * @return void
      */
@@ -687,7 +704,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the priceType
-     *
+     * 
      * @return string $priceType
      */
     public function getPriceType()
@@ -697,7 +714,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the priceType
-     *
+     * 
      * @param string $priceType
      * @return void
      */
@@ -708,7 +725,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the description
-     *
+     * 
      * @return string $description
      */
     public function getDescription()
@@ -718,7 +735,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the description
-     *
+     * 
      * @param string $description
      * @return void
      */
@@ -729,7 +746,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the importKey
-     *
+     * 
      * @return string $importKey
      */
     public function getImportKey()
@@ -739,7 +756,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the importKey
-     *
+     * 
      * @param string $importKey
      * @return void
      */
@@ -750,7 +767,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the importClient
-     *
+     * 
      * @return string $importClient
      */
     public function getImportClient()
@@ -760,7 +777,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the importClient
-     *
+     * 
      * @param string $importClient
      * @return void
      */
@@ -771,7 +788,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the import
-     *
+     * 
      * @return bool $import
      */
     public function getImport()
@@ -781,7 +798,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the import
-     *
+     * 
      * @param bool $import
      * @return void
      */
@@ -792,7 +809,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the boolean state of import
-     *
+     * 
      * @return bool
      */
     public function isImport()
@@ -802,7 +819,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the fuel
-     *
+     * 
      * @return string $fuel
      */
     public function getFuel()
@@ -812,7 +829,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the fuel
-     *
+     * 
      * @param string $fuel
      * @return void
      */
@@ -823,7 +840,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the gearbox
-     *
+     * 
      * @return string $gearbox
      */
     public function getGearbox()
@@ -833,7 +850,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the gearbox
-     *
+     * 
      * @param string $gearbox
      * @return void
      */
@@ -844,7 +861,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the misc
-     *
+     * 
      * @return string $misc
      */
     public function getMisc()
@@ -854,7 +871,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the misc
-     *
+     * 
      * @param string $misc
      * @return void
      */
@@ -865,7 +882,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the color
-     *
+     * 
      * @return string color
      */
     public function getColor()
@@ -875,7 +892,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the color
-     *
+     * 
      * @param bool $color
      * @return void
      */
@@ -886,7 +903,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the mileage
-     *
+     * 
      * @return string mileage
      */
     public function getMileage()
@@ -896,7 +913,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the mileage
-     *
+     * 
      * @param bool $mileage
      * @return void
      */
@@ -907,7 +924,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the seats
-     *
+     * 
      * @return string seats
      */
     public function getSeats()
@@ -917,7 +934,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the seats
-     *
+     * 
      * @param bool $seats
      * @return void
      */
@@ -928,7 +945,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the power
-     *
+     * 
      * @return string power
      */
     public function getPower()
@@ -938,7 +955,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the power
-     *
+     * 
      * @param bool $power
      * @return void
      */
@@ -949,7 +966,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the class
-     *
+     * 
      * @return string class
      */
     public function getClass()
@@ -959,7 +976,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the class
-     *
+     * 
      * @param bool $class
      * @return void
      */
@@ -970,7 +987,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Adds a Features
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Features $feature
      * @return void
      */
@@ -981,7 +998,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Removes a Features
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Features $featureToRemove The Features to be removed
      * @return void
      */
@@ -992,7 +1009,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the features
-     *
+     * 
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Features> features
      */
     public function getFeatures()
@@ -1002,7 +1019,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the features
-     *
+     * 
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Features> $features
      * @return void
      */
@@ -1013,7 +1030,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Adds a Specifics
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Specifics $specific
      * @return void
      */
@@ -1024,7 +1041,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Removes a Specifics
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Specifics $specificToRemove The Specifics to be removed
      * @return void
      */
@@ -1035,7 +1052,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the specifics
-     *
+     * 
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Specifics> specifics
      */
     public function getSpecifics()
@@ -1045,7 +1062,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the specifics
-     *
+     * 
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Klickfabrik\KfMobileDe\Domain\Model\Specifics> $specifics
      * @return void
      */
@@ -1056,7 +1073,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the seller
-     *
+     * 
      * @return \Klickfabrik\KfMobileDe\Domain\Model\Seller seller
      */
     public function getSeller()
@@ -1066,7 +1083,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the seller
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Seller $seller
      * @return void
      */
@@ -1077,7 +1094,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the doors
-     *
+     * 
      * @return string $doors
      */
     public function getDoors()
@@ -1087,7 +1104,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the doors
-     *
+     * 
      * @param string $doors
      * @return void
      */
@@ -1098,7 +1115,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the emissionClass
-     *
+     * 
      * @return string $emissionClass
      */
     public function getEmissionClass()
@@ -1108,7 +1125,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the emissionClass
-     *
+     * 
      * @param string $emissionClass
      * @return void
      */
@@ -1119,7 +1136,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the firstRegistration
-     *
+     * 
      * @return \DateTime $firstRegistration
      */
     public function getFirstRegistration()
@@ -1129,7 +1146,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the firstRegistration
-     *
+     * 
      * @param \DateTime $firstRegistration
      * @return void
      */
@@ -1140,7 +1157,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the custom1
-     *
+     * 
      * @return string $custom1
      */
     public function getCustom1()
@@ -1150,7 +1167,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the custom1
-     *
+     * 
      * @param string $custom1
      * @return void
      */
@@ -1161,7 +1178,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the custom2
-     *
+     * 
      * @return string $custom2
      */
     public function getCustom2()
@@ -1171,7 +1188,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the custom2
-     *
+     * 
      * @param string $custom2
      * @return void
      */
@@ -1182,7 +1199,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the custom3
-     *
+     * 
      * @return string $custom3
      */
     public function getCustom3()
@@ -1192,7 +1209,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the custom3
-     *
+     * 
      * @param string $custom3
      * @return void
      */
@@ -1203,7 +1220,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the custom4
-     *
+     * 
      * @return string $custom4
      */
     public function getCustom4()
@@ -1213,7 +1230,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the custom4
-     *
+     * 
      * @param string $custom4
      * @return void
      */
@@ -1224,7 +1241,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the custom5
-     *
+     * 
      * @return string $custom5
      */
     public function getCustom5()
@@ -1234,7 +1251,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the custom5
-     *
+     * 
      * @param string $custom5
      * @return void
      */
@@ -1245,7 +1262,7 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the cubicCapacity
-     *
+     * 
      * @return string $cubicCapacity
      */
     public function getCubicCapacity()
@@ -1255,12 +1272,54 @@ class Vehicle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the cubicCapacity
-     *
+     * 
      * @param string $cubicCapacity
      * @return void
      */
     public function setCubicCapacity($cubicCapacity)
     {
         $this->cubicCapacity = $cubicCapacity;
+    }
+
+    /**
+     * Returns the slug
+     * 
+     * @return string $slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Sets the slug
+     * 
+     * @param string $slug
+     * @return void
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * Returns the imageData
+     * 
+     * @return string $imageData
+     */
+    public function getImageData()
+    {
+        return $this->imageData;
+    }
+
+    /**
+     * Sets the imageData
+     * 
+     * @param string $imageData
+     * @return void
+     */
+    public function setImageData($imageData)
+    {
+        $this->imageData = $imageData;
     }
 }

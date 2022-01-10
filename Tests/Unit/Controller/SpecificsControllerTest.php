@@ -6,7 +6,7 @@ namespace Klickfabrik\KfMobileDe\Tests\Unit\Controller;
  *
  * @author Marc Finnern <typo3@klickfabrik.net>
  */
-class SpecificsControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class SpecificsControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
      * @var \Klickfabrik\KfMobileDe\Controller\SpecificsController

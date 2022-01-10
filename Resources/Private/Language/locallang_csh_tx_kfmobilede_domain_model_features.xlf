@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-05T19:24:04Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="EXT:kf_mobile_de/Resources/Private/Language/locallang_csh" date="2021-12-19T13:08:06Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
-			<trans-unit id="name.description">
+			<trans-unit id="name.description" resname="name.description">
 				<source>name</source>
 			</trans-unit>
-			<trans-unit id="description.description">
+			<trans-unit id="description.description" resname="description.description">
 				<source>description</source>
 			</trans-unit>
 		</body>

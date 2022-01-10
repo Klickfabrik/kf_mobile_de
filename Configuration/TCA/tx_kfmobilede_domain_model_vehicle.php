@@ -1,8 +1,4 @@
 <?php
-
-use TYPO3\CMS\Core\Resource\File;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle',
@@ -20,26 +16,26 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'model_description,class,category,make,model,price,damage_and_unrepaired,accident_damaged,roadworthy,price_type,fuel,gearbox,color,mileage,seats,doors,power,cubic_capacity,emission_class,images,description,misc,consumer_price_amount,dealer_price_amount,first_registration,creation_date,modification_date,detail_page,import_key,import_client,import,custom1,custom2,custom3,custom4,custom5,features,specifics,seller',
+        'searchFields' => 'model_description,class,category,make,model,price_type,fuel,gearbox,color,mileage,seats,doors,power,cubic_capacity,emission_class,image_data,description,misc,consumer_price_amount,dealer_price_amount,detail_page,import_key,import_client,custom1,custom2,custom3,custom4,custom5,slug',
         'iconfile' => 'EXT:kf_mobile_de/Resources/Public/Icons/tx_kfmobilede_domain_model_vehicle.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, cubic_capacity, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, features, specifics, seller',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, cubic_capacity, emission_class, images, image_data, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, slug, features, specifics, seller',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, cubic_capacity, emission_class, images, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, features, specifics, seller, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, model_description, class, category, make, model, price, damage_and_unrepaired, accident_damaged, roadworthy, price_type, fuel, gearbox, color, mileage, seats, doors, power, cubic_capacity, emission_class, images, image_data, description, misc, consumer_price_amount, dealer_price_amount, first_registration, creation_date, modification_date, detail_page, import_key, import_client, import, custom1, custom2, custom3, custom4, custom5, slug, features, specifics, seller, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'special' => 'languages',
                 'items' => [
                     [
-                        'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
+                        'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
                         -1,
                         'flags-multiple'
                     ]
@@ -50,7 +46,7 @@ return [
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'exclude' => true,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -59,7 +55,7 @@ return [
                     ['', 0],
                 ],
                 'foreign_table' => 'tx_kfmobilede_domain_model_vehicle',
-                'foreign_table_where' => 'AND tx_kfmobilede_domain_model_vehicle.pid=###CURRENT_PID### AND tx_kfmobilede_domain_model_vehicle.sys_language_uid IN (-1,0)',
+                'foreign_table_where' => 'AND {#tx_kfmobilede_domain_model_vehicle}.{#pid}=###CURRENT_PID### AND {#tx_kfmobilede_domain_model_vehicle}.{#sys_language_uid} IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -68,7 +64,7 @@ return [
             ],
         ],
         't3ver_label' => [
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.versionLabel',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.versionLabel',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -77,45 +73,46 @@ return [
         ],
         'hidden' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.visible',
             'config' => [
                 'type' => 'check',
+                'renderType' => 'checkboxToggle',
                 'items' => [
-                    '1' => [
-                        '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
+                    [
+                        0 => '',
+                        1 => '',
+                        'invertStateDisplay' => true
                     ]
                 ],
             ],
         ],
         'starttime' => [
             'exclude' => true,
-            'behaviour' => [
-                'allowLanguageSynchronization' => true
-            ],
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'size' => 13,
-                'eval' => 'datetime',
+                'eval' => 'datetime,int',
                 'default' => 0,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'endtime' => [
             'exclude' => true,
-            'behaviour' => [
-                'allowLanguageSynchronization' => true
-            ],
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'size' => 13,
-                'eval' => 'datetime',
+                'eval' => 'datetime,int',
                 'default' => 0,
                 'range' => [
                     'upper' => mktime(0, 0, 0, 1, 1, 2038)
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
 
@@ -180,12 +177,11 @@ return [
                 'type' => 'check',
                 'items' => [
                     '1' => [
-                        '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
+                        '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
                     ]
                 ],
                 'default' => 0,
             ]
-            
         ],
         'accident_damaged' => [
             'exclude' => true,
@@ -194,12 +190,11 @@ return [
                 'type' => 'check',
                 'items' => [
                     '1' => [
-                        '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
+                        '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
                     ]
                 ],
                 'default' => 0,
             ]
-            
         ],
         'roadworthy' => [
             'exclude' => true,
@@ -208,12 +203,11 @@ return [
                 'type' => 'check',
                 'items' => [
                     '1' => [
-                        '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
+                        '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
                     ]
                 ],
                 'default' => 0,
             ]
-            
         ],
         'price_type' => [
             'exclude' => true,
@@ -308,8 +302,8 @@ return [
         'images' => [
             'exclude' => true,
             'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.images',
-            'config' => 
-            ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' =>
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'images',
                 [
                     'appearance' => [
@@ -321,37 +315,52 @@ return [
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_TEXT => [
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_IMAGE => [
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_AUDIO => [
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_VIDEO => [
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_APPLICATION => [
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
                             'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ]
+                    ],
+                    'foreign_match_fields' => [
+                        'fieldname' => 'images',
+                        'tablenames' => 'tx_kfmobilede_domain_model_vehicle',
+                        'table_local' => 'sys_file',
                     ],
                     'maxitems' => 20
                 ],
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
             ),
 
+        ],
+        'image_data' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.image_data',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim'
+            ]
         ],
         'description' => [
             'exclude' => true,
@@ -369,7 +378,7 @@ return [
                 'rows' => 15,
                 'eval' => 'trim',
             ],
-            
+
         ],
         'misc' => [
             'exclude' => true,
@@ -469,12 +478,11 @@ return [
                 'type' => 'check',
                 'items' => [
                     '1' => [
-                        '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
+                        '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
                     ]
                 ],
                 'default' => 0,
             ]
-            
         ],
         'custom1' => [
             'exclude' => true,
@@ -516,11 +524,27 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.custom5',
             'config' => [
-                'type' => 'text',
-                'cols' => 40,
-                'rows' => 15,
+                'type' => 'input',
+                'size' => 30,
                 'eval' => 'trim'
-            ]
+            ],
+        ],
+        'slug' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf:tx_kfmobilede_domain_model_vehicle.slug',
+            'config' => [
+                'type' => 'slug',
+                'generatorOptions' => [
+                    'fields' => ['model_description'],
+                    'fieldSeparator' => '/',
+                    'prefixParentPageSlug' => true,
+                    'replacements' => [
+                        '/' => '',
+                    ],
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInSite',
+            ],
         ],
         'features' => [
             'exclude' => true,
@@ -546,7 +570,7 @@ return [
                     ],
                 ],
             ],
-            
+
         ],
         'specifics' => [
             'exclude' => true,
@@ -572,7 +596,7 @@ return [
                     ],
                 ],
             ],
-            
+
         ],
         'seller' => [
             'exclude' => true,
@@ -581,10 +605,12 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_kfmobilede_domain_model_seller',
+                'default' => 0,
                 'minitems' => 0,
                 'maxitems' => 1,
             ],
+
         ],
-    
+
     ],
 ];

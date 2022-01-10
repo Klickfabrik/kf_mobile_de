@@ -3,6 +3,7 @@ namespace Klickfabrik\KfMobileDe\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -13,15 +14,15 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
-
 /**
  * VehicleController
  */
 class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
+
     /**
      * vehicleRepository
-     *
+     * 
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository
      * @inject
      */
@@ -59,7 +60,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * The current request.
-     *
+     * 
      * @var \TYPO3\CMS\Extbase\Mvc\Request
      * @api
      */
@@ -69,22 +70,18 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @var array
      */
     protected $settings = [];
-
     protected $options = [
-        'mileage' => 'KM Stand',
-        'power' => 'PS/KW',
-        'fuel' => 'Kraftstoff',
-        'importKey' => 'Fahrzeugnummer',
-        'gearbox' => 'Getriebe',
-        'category' => 'Karosserie',
-        'seller' => 'Standort',
-        'first_registration' => 'Erstzulassung'
+    'mileage' => 'KM Stand', 
+    'power' => 'PS/KW', 
+    'fuel' => 'Kraftstoff', 
+    'importKey' => 'Fahrzeugnummer', 
+    'gearbox' => 'Getriebe', 
+    'category' => 'Karosserie', 
+    'seller' => 'Standort', 
+    'first_registration' => 'Erstzulassung'
     ];
-
     protected $kwInPS = 1.36;
-
     private $goback = 'goback';
-
     private $specificsAllow = ['Gebrauchtfahrzeug', 'Tageszulassung', 'Elektro', 'Neufahrzeug', 'Vorführfahrzeug', 'Jahreswagen'];
 
     /**
@@ -94,6 +91,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function listAction()
     {
         $settings = $this->getSettings();
+
         #Debug
         if (isset($this->settings['debug']) && $this->settings['debug']) {
             $this->showArray($this->settings);
@@ -109,25 +107,29 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $energy_efficiency[$importKey] = $this->getEfficiency($vehicle);
             }
             $data = [
-                'data' => $vehicles,
-                'options' => $this->collectData($vehicles, 'options'),
-                'specifics' => $this->collectData($vehicles, 'specifics'),
-                'features' => $this->collectData($vehicles, 'features'),
-                'seller' => $this->collectData($vehicles, 'seller'),
-                'energy_efficiency' => $energy_efficiency
+            'data' => $vehicles, 
+            'options' => $this->collectData($vehicles, 'options'), 
+            'specifics' => $this->collectData($vehicles, 'specifics'), 
+            'features' => $this->collectData($vehicles, 'features'), 
+            'seller' => $this->collectData($vehicles, 'seller'), 
+            'energy_efficiency' => $energy_efficiency
             ];
             $this->view->assign('vehicles', $data);
         }
+
         // Misc
-        $this->view->assign('misc', [
-            'layout' => 'list',
-            'kw' => $this->kwInPS
-        ]);
+        $this->view->assign(
+        'misc', 
+        [
+        'layout' => 'list', 
+        'kw' => $this->kwInPS
+        ]
+        );
     }
 
     /**
      * action show
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
      * @return void
      */
@@ -135,11 +137,12 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $this->settings['layout'] = 'detail';
         $data = [
-            'data' => $vehicle,
-            'options' => $this->collectData([$vehicle], 'options')
+        'data' => $vehicle, 
+        'options' => $this->collectData([$vehicle], 'options')
         ];
         $this->view->assign('vehicle', $data);
         $this->view->assign('goback', GeneralUtility::_GP($this->goback));
+
         // Google Maps
         $settings_map = $this->settings[$this->settings['layout']]['map'];
         if (!$settings_map['hide']) {
@@ -158,13 +161,18 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->view->assign('google_id', 'map_' . rand(0, 9999));
             $this->view->assign('google_places', $this->getPlacesId($vehicle->getImportClient()));
         }
+
         // CO2
         $this->view->assign('energy_efficiency', $this->getEfficiency($vehicle));
+
         // Misc
-        $this->view->assign('misc', [
-            'layout' => 'detail',
-            'kw' => $this->kwInPS
-        ]);
+        $this->view->assign(
+        'misc', 
+        [
+        'layout' => 'detail', 
+        'kw' => $this->kwInPS
+        ]
+        );
     }
 
     /**
@@ -174,28 +182,28 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     private function getEfficiency(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
     {
         $data = [
-            'emissionClass' => '-',
-            'emissionSticker' => '',
-            'emissionConsumption' => [
-                'emission-sticker' => '',
-                'co2-emission' => '-',
-                'inner' => '-',
-                'outer' => '-',
-                'combined' => '-',
-                'energy-efficiency-class' => ''
-            ]
+        'emissionClass' => '-', 
+        'emissionSticker' => '', 
+        'emissionConsumption' => [
+        'emission-sticker' => '', 
+        'co2-emission' => '-', 
+        'inner' => '-', 
+        'outer' => '-', 
+        'combined' => '-', 
+        'energy-efficiency-class' => ''
+        ]
         ];
-
         if ($vehicle->getMisc()) {
             $dataTemp = json_decode($vehicle->getMisc(), true);
-            foreach ($dataTemp as $key => $value){
-
-                if(empty($value)){ continue; }
-
-                if(is_array($value)){
-                    foreach ($value as $subKey => $subValue){
-                        if(empty($subValue)){ continue; }
-
+            foreach ($dataTemp as $key => $value) {
+                if (empty($value)) {
+                    continue;
+                }
+                if (is_array($value)) {
+                    foreach ($value as $subKey => $subValue) {
+                        if (empty($subValue)) {
+                            continue;
+                        }
                         $data[$key][$subKey] = $subValue;
                     }
                 } else {
@@ -203,7 +211,6 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 }
             }
         }
-
         $return = $this->array_flatten($data);
         if ($this->isJson($return['energy-efficiency-class'])) {
             $return['energy-efficiency-class'] = '';
@@ -217,7 +224,6 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->showDebug($return);
         }
         */
-
         return $return;
     }
 
@@ -249,34 +255,38 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->settings['layout'] = 'search';
         $settings = $this->settings[$this->settings['layout']];
         $data = [
-            'translate' => $settings,
-            'extensionName' => 'tx_' . strtolower($this->extensionName) . '_kfmobileview[search]',
-            'kw' => $this->kwInPS
+        'translate' => $settings, 
+        'extensionName' => 'tx_' . strtolower($this->extensionName) . '_kfmobileview[search]', 
+        'kw' => $this->kwInPS
         ];
         foreach ($settings['data'] as $area => $setting_data) {
             if (!empty($setting_data)) {
                 $data['data'][$area] = $this->vehicleRepository->getSearchBoxData(array_keys($setting_data));
             }
         }
+
         // Searchbox with json-Data
         $data['data']['json'] = json_encode($this->vehicleRepository->getSearchboxByMake(array_keys($setting_data)));
+
         // Ranges
         $data['data']['select']['range'] = [
-            'range' => $this->getSearchboxRange(0, 150000, 10000),
-            'year' => $this->getSearchboxRange(date('Y'), date('Y', $this->vehicleRepository->getByDate('firstRegistration', 'asc')), 1),
-            'price' => $this->getSearchboxRange(1000, 100000, 1000)
+        'range' => $this->getSearchboxRange(0, 150000, 10000), 
+        'year' => $this->getSearchboxRange(date('Y'), date('Y', $this->vehicleRepository->getByDate('firstRegistration', 'asc')), 1), 
+        'price' => $this->getSearchboxRange(1000, 100000, 1000)
         ];
+
         // Reps
         $data['data']['select']['seller'] = $this->sellerRepository->findAll();
         $data['data']['select']['specifics'] = $this->specificsRepository->findAll();
         $data['data']['select']['features'] = $this->featuresRepository->findAll();
+
         // ReOrder
         foreach ($data['data']['select'] as $key => $rep) {
             switch ($key) {
                 case 'class':
                     $tmp = [];
-                    foreach ($rep as $pos => $value){
-                        $first = explode(" ",$value);
+                    foreach ($rep as $pos => $value) {
+                        $first = explode(" ", $value);
                         $firstKey = strtolower(array_shift($first));
                         $tmp[$firstKey] = $value;
                     }
@@ -301,11 +311,15 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
         $this->view->assign('vehicle', $data);
         $this->view->assign('goback', $GLOBALS['TSFE']->id);
+
         // Misc
-        $this->view->assign('misc', [
-            'layout' => 'search',
-            'kw' => $this->kwInPS
-        ]);
+        $this->view->assign(
+        'misc', 
+        [
+        'layout' => 'search', 
+        'kw' => $this->kwInPS
+        ]
+        );
     }
 
     # ========================================================================================
@@ -324,11 +338,14 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $objects = 0;
         }
         if (!is_null($searchRequest) && !empty($searchRequest)) {
-            $data['result'] = $this->vehicleRepository->getSearchResults($searchRequest, [
-                'objects' => $objects,
-                'limit' => GeneralUtility::_GP('limit'),
-                'offset' => GeneralUtility::_GP('offset')
-            ]);
+            $data['result'] = $this->vehicleRepository->getSearchResults(
+            $searchRequest, 
+            [
+            'objects' => $objects, 
+            'limit' => GeneralUtility::_GP('limit'), 
+            'offset' => GeneralUtility::_GP('offset')
+            ]
+            );
             $data['result']['goback'] = GeneralUtility::_GP($this->goback);
         }
         $this->saveLastSearch($searchRequest);
@@ -343,11 +360,15 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             }
         }
         $this->view->assign('vehicles', $data['result']);
+
         // Misc
-        $this->view->assign('misc', [
-            'layout' => 'ajaxResult',
-            'kw' => $this->kwInPS
-        ]);
+        $this->view->assign(
+        'misc', 
+        [
+        'layout' => 'ajaxResult', 
+        'kw' => $this->kwInPS
+        ]
+        );
     }
 
     /**
@@ -357,7 +378,6 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $this->setCookieData('search', $searchRequest);
     }
-
     private function resetLastSearch()
     {
         $this->setCookieData('search', '');
@@ -442,15 +462,18 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     private function getSettings()
     {
         $ov = $this->settings['overwrite'];
+
         // Typoscript
         $limit = isset($this->settings['list']['items']) && $this->settings['list']['items'] != '' ? $this->settings['list']['items'] : 10;
         $offset = isset($_GET['page']) && $_GET['page'] > 0 ? ($_GET['page'] - 1) * $limit : 0;
         $filter = isset($this->settings['select']) ? $this->settings['select'] : [];
         $showAll = isset($this->settings['list']['showAll']) && $this->settings['list']['showAll'] != '' ? $this->settings['list']['showAll'] : 0;
+
         // overwrite
         $limit = isset($ov['list']['items']) && $ov['list']['items'] != '' ? $ov['list']['items'] : $limit;
         $offset = isset($_GET["{$this->extensionName}[page]"]) && !empty($_GET["{$this->extensionName}[page]"]) ? $_GET["{$this->extensionName}[page]"] : $offset;
         $showAll = isset($ov['list']['showAll']) && $ov['list']['showAll'] != '' ? $ov['list']['showAll'] : $showAll;
+
         // Cookie
         if (isset($this->settings['list']['cookies']) && $this->settings['list']['cookies'] == 1) {
             $filter['mode'] = 'cookie';
@@ -463,10 +486,10 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $filter['mode'] = 'default';
         }
         return [
-            'limit' => intval($limit),
-            'offset' => intval($offset),
-            'filter' => $filter,
-            'showAll' => $showAll
+        'limit' => intval($limit), 
+        'offset' => intval($offset), 
+        'filter' => $filter, 
+        'showAll' => $showAll
         ];
     }
 
@@ -508,6 +531,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $cookieData = json_encode($cookieData);
             $cookieData = stripslashes($cookieData);
         }
+
         //setcookie($cookieName, $cookieData, $ttl);
     }
 
@@ -527,6 +551,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function showDebug($arr)
     {
+
         /** \TYPO3\CMS\Extbase\Utility\DebuggerUtility */
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($arr);
     }
@@ -544,27 +569,26 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $all = $this->vehicleRepository->getcurCount();
         $pages = ceil($all / $limit);
         $return = [
-            'limit' => $limit,
-            'all' => $all,
-            'pages' => $pages,
-            'active' => $pages > 1
+        'limit' => $limit, 
+        'all' => $all, 
+        'pages' => $pages, 
+        'active' => $pages > 1
         ];
         return $return;
     }
 
     /**
      * action new
-     *
+     * 
      * @return void
      */
     public function newAction()
     {
-
     }
 
     /**
      * action create
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newVehicle
      * @return void
      */
@@ -577,7 +601,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * action edit
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
      * @ignorevalidation $vehicle
      * @return void
@@ -589,7 +613,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * action update
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
      * @return void
      */
@@ -602,7 +626,7 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * action delete
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
      * @return void
      */
@@ -611,5 +635,13 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->vehicleRepository->remove($vehicle);
         $this->redirect('list');
+    }
+
+    /**
+     * @param \Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository $vehicleRepository
+     */
+    public function injectVehicleRepository(\Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository $vehicleRepository)
+    {
+        $this->vehicleRepository = $vehicleRepository;
     }
 }

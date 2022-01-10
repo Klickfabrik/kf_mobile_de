@@ -1,6 +1,7 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Domain\Model;
 
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -11,29 +12,29 @@ namespace Klickfabrik\KfMobileDe\Domain\Model;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
-
 /**
  * Specifics
  */
 class Specifics extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 {
+
     /**
      * name
-     *
+     * 
      * @var string
      */
     protected $name = '';
 
     /**
      * description
-     *
+     * 
      * @var string
      */
     protected $description = '';
 
     /**
      * Returns the name
-     *
+     * 
      * @return string $name
      */
     public function getName()
@@ -43,7 +44,7 @@ class Specifics extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the name
-     *
+     * 
      * @param string $name
      * @return void
      */
@@ -54,7 +55,7 @@ class Specifics extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Returns the description
-     *
+     * 
      * @return string $description
      */
     public function getDescription()
@@ -64,7 +65,7 @@ class Specifics extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the description
-     *
+     * 
      * @param string $description
      * @return void
      */

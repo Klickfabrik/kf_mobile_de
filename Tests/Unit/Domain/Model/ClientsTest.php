@@ -6,7 +6,7 @@ namespace Klickfabrik\KfMobileDe\Tests\Unit\Domain\Model;
  *
  * @author Marc Finnern <typo3@klickfabrik.net>
  */
-class ClientsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class ClientsTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
      * @var \Klickfabrik\KfMobileDe\Domain\Model\Clients

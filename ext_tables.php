@@ -29,6 +29,7 @@ call_user_func(
                     'Specifics' => 'list, new, create, edit, update, delete',
                     'Seller' => 'maps',
                     'Clients' => 'places',
+                    
                 ],
                 [
                     'access' => 'user,group',
@@ -55,9 +56,6 @@ call_user_func(
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_kfmobilede_domain_model_seller', 'EXT:kf_mobile_de/Resources/Private/Language/locallang_csh_tx_kfmobilede_domain_model_seller.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_kfmobilede_domain_model_seller');
-
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_kfmobilede_domain_model_importer', 'EXT:kf_mobile_de/Resources/Private/Language/locallang_csh_tx_kfmobilede_domain_model_importer.xlf');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_kfmobilede_domain_model_importer');
 
     }
 );

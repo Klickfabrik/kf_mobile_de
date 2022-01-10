@@ -1,6 +1,7 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Controller;
 
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -11,31 +12,29 @@ namespace Klickfabrik\KfMobileDe\Controller;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
-
 /**
  * ClientsController
  */
 class ClientsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
+
     /**
      * ClientsRepository
-     *
+     * 
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\ClientsRepository
      * @inject
      */
     protected $ClientsRepository = null;
 
-
-
     # ========================================================================================
     # Google Reviews
     # ========================================================================================
-
     public function placesAction()
     {
+
         # single clients
         $clients = $this->getCurrentClient();
-        if(!empty($clients) && is_array($clients)){
+        if (!empty($clients) && is_array($clients)) {
             $clients = array_shift($clients);
             $this->view->assign('google_places', $clients->getApikey());
         }
@@ -44,12 +43,12 @@ class ClientsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     # ========================================================================================
     # System helper
     # ========================================================================================
-
     /**
      * @return array
      */
     private function getCurrentClient()
     {
+
         # single clients
         if (isset($this->settings['select']['clients']) && !empty($this->settings['select']['clients'])) {
             $clients = [];
@@ -60,8 +59,6 @@ class ClientsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         } else {
             $clients = $this->ClientsRepository->findAll();
         }
-
         return $clients;
     }
-
 }

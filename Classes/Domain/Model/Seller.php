@@ -1,6 +1,7 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Domain\Model;
 
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -11,108 +12,110 @@ namespace Klickfabrik\KfMobileDe\Domain\Model;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
-
 /**
  * Seller
  */
 class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+
     /**
      * companyName
-     *
+     * 
      * @var string
      * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $companyName = '';
 
     /**
      * phone
-     *
+     * 
      * @var string
      */
     protected $phone = '';
 
     /**
      * street
-     *
+     * 
      * @var string
      */
     protected $street = '';
 
     /**
      * zipcode
-     *
+     * 
      * @var string
      */
     protected $zipcode = '';
 
     /**
      * city
-     *
+     * 
      * @var string
      */
     protected $city = '';
 
     /**
      * countryCode
-     *
+     * 
      * @var string
      */
     protected $countryCode = '';
 
     /**
      * latitude
-     *
+     * 
      * @var string
      */
     protected $latitude = '';
 
     /**
      * longitude
-     *
+     * 
      * @var string
      */
     protected $longitude = '';
 
     /**
      * sellerImage
-     *
+     * 
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      * @cascade remove
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $sellerImage = null;
 
     /**
      * sellerInfo
-     *
+     * 
      * @var string
      */
     protected $sellerInfo = '';
 
     /**
      * url
-     *
+     * 
      * @var string
      */
     protected $url = '';
 
     /**
      * email
-     *
+     * 
      * @var string
      */
     protected $email = '';
 
     /**
      * commercial
-     *
+     * 
      * @var bool
      */
     protected $commercial = false;
 
     /**
      * importKey
-     *
+     * 
      * @var string
      * @validate NotEmpty
      */
@@ -120,14 +123,14 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * import
-     *
+     * 
      * @var bool
      */
     protected $import = false;
 
     /**
      * Returns the url
-     *
+     * 
      * @return string $url
      */
     public function getUrl()
@@ -137,7 +140,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the url
-     *
+     * 
      * @param string $url
      * @return void
      */
@@ -148,7 +151,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the commercial
-     *
+     * 
      * @return bool $commercial
      */
     public function getCommercial()
@@ -158,7 +161,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the commercial
-     *
+     * 
      * @param bool $commercial
      * @return void
      */
@@ -169,7 +172,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the boolean state of commercial
-     *
+     * 
      * @return bool
      */
     public function isCommercial()
@@ -179,7 +182,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the zipcode
-     *
+     * 
      * @return string $zipcode
      */
     public function getZipcode()
@@ -189,7 +192,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the zipcode
-     *
+     * 
      * @param string $zipcode
      * @return void
      */
@@ -200,7 +203,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the city
-     *
+     * 
      * @return string $city
      */
     public function getCity()
@@ -210,7 +213,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the city
-     *
+     * 
      * @param string $city
      * @return void
      */
@@ -221,7 +224,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the countryCode
-     *
+     * 
      * @return string $countryCode
      */
     public function getCountryCode()
@@ -231,7 +234,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the countryCode
-     *
+     * 
      * @param string $countryCode
      * @return void
      */
@@ -242,7 +245,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the latitude
-     *
+     * 
      * @return string $latitude
      */
     public function getLatitude()
@@ -252,7 +255,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the latitude
-     *
+     * 
      * @param string $latitude
      * @return void
      */
@@ -263,7 +266,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the longitude
-     *
+     * 
      * @return string $longitude
      */
     public function getLongitude()
@@ -273,7 +276,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the longitude
-     *
+     * 
      * @param string $longitude
      * @return void
      */
@@ -284,7 +287,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the importKey
-     *
+     * 
      * @return string importKey
      */
     public function getImportKey()
@@ -294,7 +297,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the importKey
-     *
+     * 
      * @param string $importKey
      * @return void
      */
@@ -305,7 +308,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the companyName
-     *
+     * 
      * @return string $companyName
      */
     public function getCompanyName()
@@ -315,7 +318,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the companyName
-     *
+     * 
      * @param string $companyName
      * @return void
      */
@@ -326,7 +329,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the phone
-     *
+     * 
      * @return string $phone
      */
     public function getPhone()
@@ -336,7 +339,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the phone
-     *
+     * 
      * @param string $phone
      * @return void
      */
@@ -347,7 +350,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the street
-     *
+     * 
      * @return string $street
      */
     public function getStreet()
@@ -357,7 +360,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the street
-     *
+     * 
      * @param string $street
      * @return void
      */
@@ -368,7 +371,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the import
-     *
+     * 
      * @return bool $import
      */
     public function getImport()
@@ -378,7 +381,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the import
-     *
+     * 
      * @param bool $import
      * @return void
      */
@@ -389,7 +392,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the boolean state of import
-     *
+     * 
      * @return bool
      */
     public function isImport()
@@ -399,7 +402,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the email
-     *
+     * 
      * @return string $email
      */
     public function getEmail()
@@ -409,7 +412,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the email
-     *
+     * 
      * @param string $email
      * @return void
      */
@@ -420,7 +423,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the sellerImage
-     *
+     * 
      * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $sellerImage
      */
     public function getSellerImage()
@@ -430,7 +433,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the sellerImage
-     *
+     * 
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $sellerImage
      * @return void
      */
@@ -441,7 +444,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the sellerInfo
-     *
+     * 
      * @return string $sellerInfo
      */
     public function getSellerInfo()
@@ -451,7 +454,7 @@ class Seller extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the sellerInfo
-     *
+     * 
      * @param string $sellerInfo
      * @return void
      */

@@ -6,6 +6,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -16,18 +17,14 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
-
 /**
  * The repository for Vehicles
  */
 class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
     private $tableKey = 'tx_kfmobilede';
-
     private $curCount = 0;
-
     private $dateTimes = ['first_registration', 'creation_date', 'modification_date'];
-
     private $searchFields = ['model_description', 'class', 'category', 'model', 'make'];
 
     /**
@@ -56,12 +53,12 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     public function findAll($settings = ['limit' => 0, 'offset' => 0], $filter = [])
     {
         $filterAllow = [
-            'vehicle' => 'uid',
-            'specifics' => 'specifics',
-            'features' => 'features',
-            'seller' => 'seller',
-            'json' => 'uid',
-            'uids' => 'uid'
+        'vehicle' => 'uid', 
+        'specifics' => 'specifics', 
+        'features' => 'features', 
+        'seller' => 'seller', 
+        'json' => 'uid', 
+        'uids' => 'uid'
         ];
         $query = $this->createQuery();
         $constraints = [];
@@ -79,28 +76,34 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                             foreach ($jsonJquery['field'] as $jsonfield => $jsonvalues) {
                                 foreach (explode(',', $jsonvalues) as $value) {
                                     if (!empty($value)) {
+
                                         #$where[] = $queryBuilder->expr()->like($jsonfield, $queryBuilder->createNamedParameter($value));
                                         $where[] = $queryBuilder->expr()->like(
-                                            $jsonfield,
-                                            $queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards($value) . '%')
+                                        $jsonfield, 
+                                        $queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards($value) . '%')
                                         );
                                     }
                                 }
                             }
                         }
+
                         // Query
                         $queryBuilder->select('uid')->from($table)->where(join(' AND ', $where));
+
                         // ShowAll
                         if (!isset($settings['showAll']) || isset($settings['showAll']) && $settings['showAll'] == 0) {
+
                             // Limit
                             if (isset($settings['limit']) && $settings['limit'] > 0) {
                                 $queryBuilder->setMaxResults($settings['limit']);
                             }
+
                             // Offset
                             if (isset($settings['offset']) && $settings['offset'] > 0) {
                                 $queryBuilder->setFirstResult($settings['offset']);
                             }
                         }
+
                         // Execute
                         $result = $queryBuilder->execute()->fetchAll();
                         $uids = [];
@@ -112,8 +115,8 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                     case 'features':
                     case 'specifics':
                     case 'seller':
-                        $constraints[] =  $query->equals("{$field}.uid", $filter[$key]);
-                    break;
+                        $constraints[] = $query->equals("{$field}.uid", $filter[$key]);
+                        break;
                     default:
                         $query->matching($query->in($field, $ids), $query->logicalAnd($query->equals('hidden', 0), $query->equals('deleted', 0)));
                         break;
@@ -146,6 +149,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     public function findOneByKey($key, $value, $hidden = 1, $delete = 0)
     {
         $query = $this->createQuery();
+
         // Here you enable the hidden and deleted Records
         if ($hidden) {
             $query->getQuerySettings()->setIgnoreEnableFields(true);
@@ -198,8 +202,8 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     private function getDefaults($condition = 'AND')
     {
         $defaults = [
-            'deleted' => 0,
-            'hidden' => 0
+        'deleted' => 0, 
+        'hidden' => 0
         ];
         $return = '';
         foreach ($defaults as $key => $value) {
@@ -249,9 +253,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                             $setOrder = explode(';', $requestValue);
                             if (count($setOrder) == 2) {
                                 $sort = $setOrder[1] == 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING;
-                                $setOrderings = [
-                                    $setOrder[0] => $sort
-                                ];
+                                $setOrderings = [$setOrder[0] => $sort];
                             }
                             break;
                         case 'fulltext':
@@ -289,16 +291,20 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                                     }
                                     switch ($subKey) {
                                         case 'min':
-                                            $subQuery[] = $query->logicalOr([
-                                                $query->equals($requestKey, null),
-                                                $query->greaterThanOrEqual($requestKey, $subValue)
-                                            ]);
+                                            $subQuery[] = $query->logicalOr(
+                                            [
+                                            $query->equals($requestKey, null), 
+                                            $query->greaterThanOrEqual($requestKey, $subValue)
+                                            ]
+                                            );
                                             break;
                                         case 'max':
-                                            $subQuery[] = $query->logicalOr([
-                                                $query->equals($requestKey, null),
-                                                $query->lessThanOrEqual($requestKey, $subValue)
-                                            ]);
+                                            $subQuery[] = $query->logicalOr(
+                                            [
+                                            $query->equals($requestKey, null), 
+                                            $query->lessThanOrEqual($requestKey, $subValue)
+                                            ]
+                                            );
                                             break;
                                     }
                                 }
@@ -329,13 +335,15 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         if (!empty($setOrderings)) {
             $query->setOrderings($setOrderings);
         }
+
         // Full Limits
         $allCount = $query->execute()->count();
         $results['limits'] = [
-            'max' => $allCount,
-            'offsets' => ceil($allCount / $options['limit']),
-            'next_offset' => $options['offset'] + 1
+        'max' => $allCount, 
+        'offsets' => ceil($allCount / $options['limit']), 
+        'next_offset' => $options['offset'] + 1
         ];
+
         // searchbox
         if ($options['objects'] == false) {
             $subQuery = $query;
@@ -344,6 +352,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             unset($subQuery);
             unset($subResult);
         }
+
         // Limits
         if (isset($options['offset']) && $options['offset'] > 0) {
             $query->setOffset($options['offset'] * $options['limit']);
@@ -351,8 +360,10 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         if (isset($options['limit']) && $options['limit'] > 0) {
             $query->setLimit($options['limit']);
         }
+
         // Debug
         $this->debugQuery($query, $request);
+
         // Callbacks
         if (isset($options['objects']) && $options['objects']) {
             $results['data'] = $query->execute();
@@ -369,12 +380,20 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     {
         $form = [];
         $allow = [
-            'class', 'category', 'make', 'model',
-            'fuel', 'gearbox', 'color', 'seats',
-            'doors', 'power', 'emissionClass',
-            'consumerPriceAmount',
-            'features' => ['id'],
-            'specifics' => ['id']
+        'class', 
+        'category', 
+        'make', 
+        'model', 
+        'fuel', 
+        'gearbox', 
+        'color', 
+        'seats', 
+        'doors', 
+        'power', 
+        'emissionClass', 
+        'consumerPriceAmount', 
+        'features' => ['id'], 
+        'specifics' => ['id']
         ];
         foreach ($subResult as $pos => $vehicle) {
             foreach ($allow as $allowKey => $allowValue) {
@@ -423,6 +442,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         if (!empty($constraints) && count($constraints) > 1) {
             $query->matching($constraints);
         }
+
         // Debug
         $this->debugQuery($query);
         $results = $query->execute();
@@ -453,6 +473,7 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $select = join(', ', $select);
         $statement = "SELECT {$select} FROM {$this->tableKey}_domain_model_vehicle {$where}";
         $query->statement($statement);
+
         ### returnRawQueryResult:TRUE (default:false)
         $results = $query->execute(TRUE);
         $delimiter = ';';

@@ -15,7 +15,9 @@
                     "_default2_new_create": false,
                     "_default3_edit_update": false,
                     "_default4_delete": false,
-                    "customActions": []
+                    "customActions": [
+                        "places"
+                    ]
                 },
                 "name": "Clients",
                 "objectsettings": {
@@ -27,7 +29,6 @@
                     "description": "",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": false,
                     "type": "Entity",
                     "uid": "295104165829"
@@ -126,7 +127,6 @@
                     "description": "",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": false,
                     "type": "Entity",
                     "uid": "1031685691879"
@@ -360,6 +360,17 @@
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
+                            "propertyName": "imageData",
+                            "propertyType": "Text",
+                            "uid": "601645866148"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "20",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
                             "propertyName": "description",
                             "propertyType": "RichText",
                             "uid": "1300145033620"
@@ -526,8 +537,19 @@
                             "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
                             "propertyName": "custom5",
-                            "propertyType": "Text",
+                            "propertyType": "String",
                             "uid": "1418878587463"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "20",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "slug",
+                            "propertyType": "String",
+                            "uid": "1320851978071"
                         }
                     ]
                 },
@@ -597,7 +619,6 @@
                     "description": "",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": true,
                     "type": "ValueObject",
                     "uid": "1501189057817"
@@ -660,7 +681,6 @@
                     "description": "",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": true,
                     "type": "ValueObject",
                     "uid": "650643436342"
@@ -707,12 +727,12 @@
             "value": {
                 "actionGroup": {
                     "_default0_list": false,
-                    "_default1_show": false,
+                    "_default1_show": true,
                     "_default2_new_create": false,
                     "_default3_edit_update": false,
                     "_default4_delete": false,
                     "customActions": [
-                        "places"
+                        "maps"
                     ]
                 },
                 "name": "Seller",
@@ -725,7 +745,6 @@
                     "description": "",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": false,
                     "type": "Entity",
                     "uid": "1214140175348"
@@ -909,7 +928,7 @@
         "backendModules": [
             {
                 "actions": {
-                    "controllerActionCombinations": ""
+                    "controllerActionCombinations": "Importer => list, show, new, create, checkImport\nVehicle => list, show, new, create, edit, update, delete, search, ajaxResult\nFeatures => list, new, create, edit, update, delete\nSpecifics => list, new, create, edit, update, delete\nSeller => maps\nClients => places"
                 },
                 "description": "Import data from xml",
                 "key": "kfmobileimport",
@@ -922,14 +941,14 @@
         "emConf": {
             "category": "plugin",
             "custom_category": "",
-            "dependsOn": "typo3 => 7.6.0-8.7.99\n",
+            "dependsOn": "typo3 => 7.6.0-11.4.99\n",
             "disableLocalization": false,
             "disableVersioning": false,
             "skipGenerateDocumentationTemplate": false,
             "sourceLanguage": "en",
             "state": "stable",
-            "targetVersion": "8.7.0-8.7.99",
-            "version": "1.4.0"
+            "targetVersion": "9.5.0-9.5.99",
+            "version": "2.0.0"
         },
         "extensionKey": "kf_mobile_de",
         "name": "KF - Mobile.de",
@@ -946,7 +965,7 @@
         "plugins": [
             {
                 "actions": {
-                    "controllerActionCombinations": "Importer => list, show, new, create, checkImport\nVehicle => list, show, new, create, edit, update, delete, search, ajaxResult\nFeatures => list, new, create, edit, update, delete\nSpecifics => list, new, create, edit, update, delete\nSeller => maps\nClients => places",
+                    "controllerActionCombinations": "Vehicle => list,show,search,ajaxResult\nSeller => maps\nClients => places",
                     "noncacheableActions": "Vehicle => create, update, delete\nFeatures => create, update, delete\nSpecifics => create, update, delete",
                     "switchableActions": "List \/ Detailview\nVehicle->list; Vehicle->show;\nListview\nVehicle->list;\nDetailview\nVehicle->show;\nSearchbox\nVehicle->search;\nGoogle Maps\nSeller->maps;\nGoogle Reviews\nClients->places;"
                 },
@@ -995,9 +1014,10 @@
             }
         }
     ],
+    "storagePath": "\/var\/www\/html\/public\/typo3conf\/ext\/",
     "log": {
-        "last_modified": "2019-07-05 07:42",
-        "extension_builder_version": "8.10.4",
+        "last_modified": "2021-12-19 01:08",
+        "extension_builder_version": "9.10.5",
         "be_user": "Marc Finnern (3)"
     }
 }

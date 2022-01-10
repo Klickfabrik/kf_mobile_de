@@ -1,6 +1,7 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Controller;
 
+
 /***
  *
  * This file is part of the "KF - Mobile.de" Extension for TYPO3 CMS.
@@ -11,15 +12,15 @@ namespace Klickfabrik\KfMobileDe\Controller;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
-
 /**
  * FeaturesController
  */
 class FeaturesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
+
     /**
      * action list
-     *
+     * 
      * @return void
      */
     public function listAction()
@@ -30,17 +31,16 @@ class FeaturesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action new
-     *
+     * 
      * @return void
      */
     public function newAction()
     {
-
     }
 
     /**
      * action create
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Features $newFeatures
      * @return void
      */
@@ -53,7 +53,7 @@ class FeaturesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action edit
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Features $features
      * @ignorevalidation $features
      * @return void
@@ -65,7 +65,7 @@ class FeaturesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action update
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Features $features
      * @return void
      */
@@ -78,7 +78,7 @@ class FeaturesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action delete
-     *
+     * 
      * @param \Klickfabrik\KfMobileDe\Domain\Model\Features $features
      * @return void
      */
