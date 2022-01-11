@@ -1,6 +1,7 @@
 <?php
 namespace Klickfabrik\KfMobileDe\Controller;
 
+use Klickfabrik\KfMobileDe\Utility\SlugUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /***
@@ -20,20 +21,23 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 
-    private $tmpDir         = PATH_site . 'typo3temp/';
-    private $tmpImageDir    = PATH_site . 'fileadmin/user_upload/_temp_/';
-    private $uploadFolder   = 'user_upload/kf_mobile/';
-    private $pageSize       = 50;
-    private $checks         = array();
-    private $mobileGetter   = null;
-    private $debug          = 0;
-    private $force_update   = 0;
-    private $singleList     = array();
-    private $mode           = 'single';
-    private $pid            = null;
-    private $importClient   = 0;
-    private $importFilter   = true;
+    private $tmpDir = PATH_site . 'typo3temp/';
+    private $tmpImageDir = PATH_site . 'fileadmin/user_upload/_temp_/';
+    private $uploadFolder = 'user_upload/kf_mobile/';
+    private $pageSize = 50;
+    private $checks = [];
+    private $mobileGetter = null;
+    private $debug = 0;
+    private $force_update = 0;
+    private $singleList = [];
+    private $mode = 'single';
+    private $pid = null;
+    private $importClient = 0;
+    private $importFilter = true;
     private $overwriteImage = true;
+
+    // Feature 2020
+    private $uploadImages = false;
 
     /**
      * Persistence Manager
@@ -662,74 +666,88 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                             'emissionSticker'       => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-sticker','key'),
                             'emissionConsumption'   => [
                                 'emission-sticker' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-sticker'),
-                                'energy-efficiency-class' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','energy-efficiency-class'),
-                                'envkv-compliant' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','envkv-compliant'),
-                                'co2-emission' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','co2-emission'),
-                                'inner' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','inner'),
-                                'outer' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','outer'),
-                                'combined' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','combined'),
-                                'unit' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption','unit'),
+                                'energy-efficiency-class' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption', 'energy-efficiency-class'),
+                                'envkv-compliant' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption', 'envkv-compliant'),
+                                'co2-emission' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption', 'co2-emission'),
+                                'inner' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption', 'inner'),
+                                'outer' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption', 'outer'),
+                                'combined' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption', 'combined'),
+                                'unit' => $xml::getTag('ad:vehicle|ad:specifics|ad:emission-fuel-consumption', 'unit'),
                             ],
                         ],
 
                         // Images
-                        'images'                => $xml::getTag($imageTag),
+//                        'images' => $xml::getTag($imageTag),
+//                        'image_data' => $xml::getTag($imageTag),
+
+                        // slug
+                        'slug' => $xml::getTag('ad:vehicle|ad:model-description'),
 
                         // Custom
-                        'custom1'               => $xml::getTag('ad:seller-inventory-key'),
-                        'custom2'               => $xml::getTag('ad:vehicle|ad:specifics|ad:identification-number'),
+                        'custom1' => $xml::getTag('ad:seller-inventory-key'),
+                        'custom2' => $xml::getTag('ad:vehicle|ad:specifics|ad:identification-number'),
                     );
 
-                    $cur = array(
-                        'import'            => true,
-                        'importClient'      => $this->importClient,
-                    );
+
+                    // Upload image or not
+                    if ($this->uploadImages) {
+                        $xmlResult['images'] = $xml::getTag($imageTag);
+                    } else {
+                        $xmlResult['imageData'] = $xml::getTag($imageTag);
+                    }
+
+
+                    $cur = [
+                        'import' => true,
+                        'importClient' => $this->importClient,
+                    ];
 
                     // remove old specs
                     $this->removeSpecs($newElement);
 
-                    foreach ($xmlResult as $name => $data){
-                        $firstData  = $this->getValue($xmlResult,$name);
-                        switch($name){
+                    foreach ($xmlResult as $name => $data) {
+                        $firstData = $this->getValue($xmlResult, $name);
+                        switch ($name) {
                             case 'seller':
-                                $find   = 'findOneBy' . ucfirst($search);
-                                $value  = $this->sellerRepository->$find($firstData);
+                                $find = 'findOneBy' . ucfirst($search);
+                                $value = $this->sellerRepository->$find($firstData);
                                 break;
                             case 'features':
                             case 'specifics':
-                                $value = array();
-                                if($data != null){
-                                    foreach ($data as $relValue){
-                                        $relName    = $relValue['key'];
-                                        $relRep     = "{$name}Repository";
-                                        $resData    = $this->$relRep->findOneByName($relName);
+                                $value = [];
+                                if ($data != null) {
+                                    foreach ($data as $relValue) {
+                                        $relName = $relValue['key'];
+                                        $relRep = "{$name}Repository";
+                                        $resData = $this->$relRep->findOneByName($relName);
 
-                                        if(!empty($resData))
+                                        if (!empty($resData))
                                             $value[$name][] = $resData;
                                     }
                                 }
                                 break;
+                            case 'imageData':
                             case 'images':
                                 $json = $this->isJson($firstData);
-                                if($json){
-                                    $data = json_decode($firstData,true);
+                                if ($json) {
+                                    $data = json_decode($firstData, true);
 
                                     $single = true;
-                                    $value  = array();
-                                    foreach ($data as $imageArray){
-                                        if(isset($imageArray['ad:representation'])){
-                                            $single     = false;
-                                            $imageData  = $imageArray['ad:representation'];
+                                    $value = [];
+                                    foreach ($data as $imageArray) {
+                                        if (isset($imageArray['ad:representation'])) {
+                                            $single = false;
+                                            $imageData = $imageArray['ad:representation'];
 
-                                            $subImages = array();
-                                            foreach ($imageData as $subData){
-                                                if(isset($subData['@attributes'])){
-                                                    $subImages[] =  array_shift($subData);
+                                            $subImages = [];
+                                            foreach ($imageData as $subData) {
+                                                if (isset($subData['@attributes'])) {
+                                                    $subImages[] = array_shift($subData);
                                                 }
                                             }
-                                            $value[]    = !empty($subImages) ? $subImages : $imageData;
+                                            $value[] = !empty($subImages) ? $subImages : $imageData;
                                         } else {
-                                            $value[]    = $imageArray;
+                                            $value[] = $imageArray;
                                         }
                                     }
 
@@ -770,8 +788,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                 $value = new \DateTime($value);
                                 break;
                             case 'features':
-                                if($value[$key] != null){
-                                    foreach ($value[$key] as $obj){
+                                if ($value[$key] != null) {
+                                    foreach ($value[$key] as $obj) {
                                         $newElement->addFeature($obj);
                                     }
                                 }
@@ -780,8 +798,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                 $value = '';
                                 break;
                             case 'specifics':
-                                if($value[$key] != null){
-                                    foreach ($value[$key] as $obj){
+                                if ($value[$key] != null) {
+                                    foreach ($value[$key] as $obj) {
                                         $newElement->addSpecific($obj);
                                     }
                                 }
@@ -790,43 +808,43 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                                 break;
                             case 'image':
                             case 'images':
-                                $subFolder  = ''; //$this->checks[$rep]['file'];
-                                $target     = $this->uploadFolder . $subFolder . DIRECTORY_SEPARATOR;
+                                $subFolder = ''; //$this->checks[$rep]['file'];
+                                $target = $this->uploadFolder . $subFolder . DIRECTORY_SEPARATOR;
 
                                 $this->createDefaultFolder($subFolder);
 
                                 // Download
-                                if($this->isJson($value)){
+                                if ($this->isJson($value)) {
                                     // remove old images
                                     $this->removeImages($newElement);
 
                                     // add new images
                                     $pos = 1;
-                                    $data = json_decode($value,true);
+                                    $data = json_decode($value, true);
                                     $imageData = $this->parseImageData($data);
                                     $size = 'XL';
 
-                                    foreach ($imageData as $image){
-                                        if(isset($image[$size])){
+                                    foreach ($imageData as $image) {
+                                        if (isset($image[$size])) {
                                             $imageURL = $image[$size];
 
                                             // File
-                                            $pathinfo       = pathinfo($imageURL);
-                                            $fileName       = strtolower("{$this->extensionName}_{$fileInfo['filename']}_{$pos}.{$pathinfo['extension']}");
-                                            $checkFile      = PATH_site . "fileadmin/{$target}{$fileName}";
+                                            $pathinfo = pathinfo($imageURL);
+                                            $fileName = strtolower("{$this->extensionName}_{$fileInfo['filename']}_{$pos}.{$pathinfo['extension']}");
+                                            $checkFile = PATH_site . "fileadmin/{$target}{$fileName}";
 
                                             // Download (File fehlt oder Force ist aktiv)
-                                            if(!file_exists($checkFile) || $this->overwriteImage == true){
-                                                $curFile = $this->downloadFile($imageURL,$this->tmpImageDir);
+                                            if (!file_exists($checkFile) || $this->overwriteImage == true) {
+                                                $curFile = $this->downloadFile($imageURL, $this->tmpImageDir);
                                             } else {
-                                                $curFile =  str_replace(PATH_site . 'fileadmin', '',$checkFile);
+                                                $curFile = str_replace(PATH_site . 'fileadmin', '', $checkFile);
                                             }
 
                                             // Fal file
-                                            $file           = $this->uploadImageToDefaultFolder($curFile,$target,$fileName);
+                                            $file = $this->uploadImageToDefaultFolder($curFile, $target, $fileName);
 
                                             // Move and add
-                                            $fileReference  = $this->objectManager->get('Klickfabrik\KfMobileDe\Domain\Model\FileReference');
+                                            $fileReference = $this->objectManager->get('Klickfabrik\KfMobileDe\Domain\Model\FileReference');
                                             $fileReference->setOriginalResource($file);
 
                                             $newElement->addImage($fileReference);
@@ -837,6 +855,13 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                                 // clear
                                 $value = '';
+                                break;
+                            case 'slug':
+                                $value = SlugUtility::generateUniqueSlug(
+                                    $newElement->getUid(),
+                                    'tx_kfmobilede_domain_model_vehicle',
+                                    'slug'
+                                );
                                 break;
                         }
 
