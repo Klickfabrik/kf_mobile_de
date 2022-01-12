@@ -380,6 +380,12 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         foreach ($data['result'] as $pos => $vehicles) {
             if (is_object($vehicles)) {
                 foreach ($vehicles as $vehicle) {
+
+                    # Generiert JSON => Array
+                    $imageJson = json_decode($vehicle->getImageData(), true);
+                    $images = $this->getImages($imageJson);
+                    $vehicle->setImageData($images);
+
                     $data['result']['energy_efficiency'][$vehicle->getImportKey()] = $this->getEfficiency($vehicle);
                 }
             }
