@@ -3,6 +3,7 @@ namespace Klickfabrik\KfMobileDe\Controller;
 
 use Klickfabrik\KfMobileDe\Utility\SlugUtility;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /***
@@ -1529,6 +1530,8 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
      */
     public function runAutoImport($return=true, $args=array()){
+        $this->PATH_site = Environment::getPublicPath() . '/';
+
         $result = [];
 
         if(isset($args['storageID']) && !empty($args['storageID'])){
@@ -1595,8 +1598,17 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             'vehicleRepository',
         );
 
+        $this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+
         $res = array();
         foreach ($reps as $rep){
+
+            // wenn nicht da initialisieren
+            if(!$this->$rep){
+                $importRepo = ucfirst($rep);
+                $this->$rep = $this->objectManager->get(sprintf('Klickfabrik\\KfMobileDe\\Domain\\Repository\\%s', $importRepo));
+            }
+
             $res[] = $this->$rep->setDefaultStorage($storageIDs);
         }
     }
