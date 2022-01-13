@@ -1,8 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Klickfabrik\KfMobileDe\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Extbase\Mvc\Request;
 
 /***
  *
@@ -14,6 +18,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
+
 /**
  * VehicleController
  */
@@ -24,37 +29,37 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * vehicleRepository
      *
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $vehicleRepository = null;
 
     /**
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\SellerRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $sellerRepository = null;
 
     /**
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\SpecificsRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $specificsRepository = null;
 
     /**
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\FeaturesRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $featuresRepository = null;
 
     /**
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\ClientsRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $clientsRepository = null;
 
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $configurationManager = null;
 
@@ -109,7 +114,6 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $imageJson = json_decode($vehicle->getImageData(), true);
                 $images = $this->getImages($imageJson);
                 $vehicle->setImageData($images);
-
                 $energy_efficiency[$importKey] = $this->getEfficiency($vehicle);
             }
             $data = [
@@ -133,22 +137,24 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         );
     }
 
-    private function getImages($jsonImages){
+    /**
+     * @param $jsonImages
+     */
+    private function getImages($jsonImages)
+    {
         $returnImages = [];
 
         // wenn es nur ein Bild gibt
-        if(isset($jsonImages[0][0][0])){
+        if (isset($jsonImages[0][0][0])) {
             $jsonImages = $jsonImages[0][0];
         }
-
-        foreach ($jsonImages as $image){
-            foreach ($image as $size){
-                if(isset($size['size'])){
+        foreach ($jsonImages as $image) {
+            foreach ($image as $size) {
+                if (isset($size['size'])) {
                     $returnImages[$size['size']][] = $size['url'];
                 }
             }
         }
-
         return $returnImages;
     }
 
@@ -166,7 +172,6 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $imageJson = json_decode($vehicle->getImageData(), true);
         $images = $this->getImages($imageJson);
         $vehicle->setImageData($images);
-
         $data = [
             'data' => $vehicle,
             'options' => $this->collectData([$vehicle], 'options')
@@ -285,9 +290,10 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $this->settings['layout'] = 'search';
         $settings = $this->settings[$this->settings['layout']];
+        $extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
         $data = [
             'translate' => $settings,
-            'extensionName' => 'tx_' . strtolower($this->extensionName) . '_kfmobileview[search]',
+            'extensionName' => 'tx_' . strtolower($extensionName) . '_kfmobileview[search]',
             'kw' => $this->kwInPS
         ];
         foreach ($settings['data'] as $area => $setting_data) {
@@ -391,7 +397,6 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     $imageJson = json_decode($vehicle->getImageData(), true);
                     $images = $this->getImages($imageJson);
                     $vehicle->setImageData($images);
-
                     $data['result']['energy_efficiency'][$vehicle->getImportKey()] = $this->getEfficiency($vehicle);
                 }
             }
@@ -523,8 +528,8 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $filter['mode'] = 'default';
         }
         return [
-            'limit' => intval($limit),
-            'offset' => intval($offset),
+            'limit' => (int)$limit,
+            'offset' => (int)$offset,
             'filter' => $filter,
             'showAll' => $showAll
         ];
@@ -612,66 +617,6 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             'active' => $pages > 1
         ];
         return $return;
-    }
-
-    /**
-     * action new
-     *
-     * @return void
-     */
-    public function newAction()
-    {
-    }
-
-    /**
-     * action create
-     *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newVehicle
-     * @return void
-     */
-    public function createAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $newVehicle)
-    {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->vehicleRepository->add($newVehicle);
-        $this->redirect('list');
-    }
-
-    /**
-     * action edit
-     *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
-     * @ignorevalidation $vehicle
-     * @return void
-     */
-    public function editAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
-    {
-        $this->view->assign('vehicle', $vehicle);
-    }
-
-    /**
-     * action update
-     *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
-     * @return void
-     */
-    public function updateAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
-    {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->vehicleRepository->update($vehicle);
-        $this->redirect('list');
-    }
-
-    /**
-     * action delete
-     *
-     * @param \Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle
-     * @return void
-     */
-    public function deleteAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
-    {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->vehicleRepository->remove($vehicle);
-        $this->redirect('list');
     }
 
     /**

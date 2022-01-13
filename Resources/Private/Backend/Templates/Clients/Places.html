@@ -5,16 +5,14 @@
 
 <f:layout name="Default" />
 
-This template is responsible for displaying a single view for a domain object
-
 If you modify this template, do not forget to change the overwrite settings
 in /Configuration/ExtensionBuilder/settings.yaml:
   Resources:
     Private:
       Backend:
         Templates:
-          Vehicle:
-            Show.html: keep
+          Clients:
+            Places.html: keep
 
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
@@ -22,15 +20,11 @@ Otherwise your changes will be overwritten the next time you save the extension 
     <be:moduleLayout.button.linkButton
         icon="actions-view-go-back"
         title="{f:translate(id: 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.goBack')}"
-        link="{f:uri.action(controller: 'Vehicle', action: 'list')}"
+        link="{f:uri.action(controller: 'Clients', action: 'list')}"
     />
 </f:section>
 
 <f:section name="Content">
-    <h1>Single View for Vehicle</h1>
-
-    <f:flashMessages />
-    <f:render partial="Vehicle/Properties" arguments="{vehicle: vehicle}" />
-    <f:link.action action="list" class="btn btn-default">Back to list</f:link.action>
+    <h1>Template for places action</h1>
 </f:section>
 </html>

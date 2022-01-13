@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:kf_mobile_de/Resources/Private/Language/locallang_csh" date="2021-12-19T13:08:06Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="EXT:kf_mobile_de/Resources/Private/Language/locallang_csh_tx_kfmobilede_domain_model_seller.xlf" date="2022-01-13T13:36:00Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
 			<trans-unit id="company_name.description" resname="company_name.description">

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Klickfabrik\KfMobileDe\Domain\Model;
 
 
@@ -12,6 +15,7 @@ namespace Klickfabrik\KfMobileDe\Domain\Model;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
+
 /**
  * Clients
  */
@@ -20,42 +24,42 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * name
-     * 
+     *
      * @var string
      */
     protected $name = '';
 
     /**
      * id
-     * 
+     *
      * @var string
      */
     protected $id = '';
 
     /**
      * username
-     * 
+     *
      * @var string
      */
     protected $username = '';
 
     /**
      * password
-     * 
+     *
      * @var string
      */
     protected $password = '';
 
     /**
      * apikey
-     * 
+     *
      * @var string
      */
     protected $apikey = '';
 
     /**
      * Returns the name
-     * 
+     *
      * @return string $name
      */
     public function getName()
@@ -65,7 +69,7 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the name
-     * 
+     *
      * @param string $name
      * @return void
      */
@@ -76,7 +80,7 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the id
-     * 
+     *
      * @return string $id
      */
     public function getId()
@@ -86,7 +90,7 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the id
-     * 
+     *
      * @param string $id
      * @return void
      */
@@ -97,7 +101,7 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the apikey
-     * 
+     *
      * @return string $apikey
      */
     public function getApikey()
@@ -107,7 +111,7 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the apikey
-     * 
+     *
      * @param string $apikey
      * @return void
      */
@@ -118,7 +122,7 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the username
-     * 
+     *
      * @return string $username
      */
     public function getUsername()
@@ -128,7 +132,7 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the username
-     * 
+     *
      * @param string $username
      * @return void
      */
@@ -139,7 +143,7 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the password
-     * 
+     *
      * @return string $password
      */
     public function getPassword()
@@ -149,7 +153,7 @@ class Clients extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the password
-     * 
+     *
      * @param string $password
      * @return void
      */

@@ -1,28 +1,36 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Klickfabrik\KfMobileDe\Tests\Unit\Controller;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+
 /**
- * Test case.
+ * Test case
  *
  * @author Marc Finnern <typo3@klickfabrik.net>
  */
-class VehicleControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+class VehicleControllerTest extends UnitTestCase
 {
     /**
-     * @var \Klickfabrik\KfMobileDe\Controller\VehicleController
+     * @var \Klickfabrik\KfMobileDe\Controller\VehicleController|MockObject|AccessibleObjectInterface
      */
-    protected $subject = null;
+    protected $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = $this->getMockBuilder(\Klickfabrik\KfMobileDe\Controller\VehicleController::class)
-            ->setMethods(['redirect', 'forward', 'addFlashMessage'])
+        $this->subject = $this->getMockBuilder($this->buildAccessibleProxy(\Klickfabrik\KfMobileDe\Controller\VehicleController::class))
+            ->onlyMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
@@ -30,23 +38,22 @@ class VehicleControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
     /**
      * @test
      */
-    public function listActionFetchesAllVehiclesFromRepositoryAndAssignsThemToView()
+    public function listActionFetchesAllVehiclesFromRepositoryAndAssignsThemToView(): void
     {
-
         $allVehicles = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $vehicleRepository = $this->getMockBuilder(\Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository::class)
-            ->setMethods(['findAll'])
+            ->onlyMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
         $vehicleRepository->expects(self::once())->method('findAll')->will(self::returnValue($allVehicles));
-        $this->inject($this->subject, 'vehicleRepository', $vehicleRepository);
+        $this->subject->_set('vehicleRepository', $vehicleRepository);
 
-        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+        $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assign')->with('vehicles', $allVehicles);
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->listAction();
     }
@@ -54,82 +61,14 @@ class VehicleControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
     /**
      * @test
      */
-    public function showActionAssignsTheGivenVehicleToView()
+    public function showActionAssignsTheGivenVehicleToView(): void
     {
         $vehicle = new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle();
 
-        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
-        $this->inject($this->subject, 'view', $view);
+        $view = $this->getMockBuilder(ViewInterface::class)->getMock();
+        $this->subject->_set('view', $view);
         $view->expects(self::once())->method('assign')->with('vehicle', $vehicle);
 
         $this->subject->showAction($vehicle);
-    }
-
-    /**
-     * @test
-     */
-    public function createActionAddsTheGivenVehicleToVehicleRepository()
-    {
-        $vehicle = new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle();
-
-        $vehicleRepository = $this->getMockBuilder(\Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository::class)
-            ->setMethods(['add'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $vehicleRepository->expects(self::once())->method('add')->with($vehicle);
-        $this->inject($this->subject, 'vehicleRepository', $vehicleRepository);
-
-        $this->subject->createAction($vehicle);
-    }
-
-    /**
-     * @test
-     */
-    public function editActionAssignsTheGivenVehicleToView()
-    {
-        $vehicle = new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle();
-
-        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
-        $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('vehicle', $vehicle);
-
-        $this->subject->editAction($vehicle);
-    }
-
-    /**
-     * @test
-     */
-    public function updateActionUpdatesTheGivenVehicleInVehicleRepository()
-    {
-        $vehicle = new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle();
-
-        $vehicleRepository = $this->getMockBuilder(\Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository::class)
-            ->setMethods(['update'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $vehicleRepository->expects(self::once())->method('update')->with($vehicle);
-        $this->inject($this->subject, 'vehicleRepository', $vehicleRepository);
-
-        $this->subject->updateAction($vehicle);
-    }
-
-    /**
-     * @test
-     */
-    public function deleteActionRemovesTheGivenVehicleFromVehicleRepository()
-    {
-        $vehicle = new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle();
-
-        $vehicleRepository = $this->getMockBuilder(\Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository::class)
-            ->setMethods(['remove'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $vehicleRepository->expects(self::once())->method('remove')->with($vehicle);
-        $this->inject($this->subject, 'vehicleRepository', $vehicleRepository);
-
-        $this->subject->deleteAction($vehicle);
     }
 }

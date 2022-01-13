@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Klickfabrik\KfMobileDe\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -17,6 +20,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
+
 /**
  * The repository for Vehicles
  */
@@ -53,12 +57,12 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     public function findAll($settings = ['limit' => 0, 'offset' => 0], $filter = [])
     {
         $filterAllow = [
-        'vehicle' => 'uid', 
-        'specifics' => 'specifics', 
-        'features' => 'features', 
-        'seller' => 'seller', 
-        'json' => 'uid', 
-        'uids' => 'uid'
+            'vehicle' => 'uid',
+            'specifics' => 'specifics',
+            'features' => 'features',
+            'seller' => 'seller',
+            'json' => 'uid',
+            'uids' => 'uid'
         ];
         $query = $this->createQuery();
         $constraints = [];
@@ -79,8 +83,8 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
                                         #$where[] = $queryBuilder->expr()->like($jsonfield, $queryBuilder->createNamedParameter($value));
                                         $where[] = $queryBuilder->expr()->like(
-                                        $jsonfield, 
-                                        $queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards($value) . '%')
+                                            $jsonfield,
+                                            $queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards($value) . '%')
                                         );
                                     }
                                 }
@@ -202,8 +206,8 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     private function getDefaults($condition = 'AND')
     {
         $defaults = [
-        'deleted' => 0, 
-        'hidden' => 0
+            'deleted' => 0,
+            'hidden' => 0
         ];
         $return = '';
         foreach ($defaults as $key => $value) {
@@ -292,18 +296,18 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                                     switch ($subKey) {
                                         case 'min':
                                             $subQuery[] = $query->logicalOr(
-                                            [
-                                            $query->equals($requestKey, null), 
-                                            $query->greaterThanOrEqual($requestKey, $subValue)
-                                            ]
+                                                [
+                                                    $query->equals($requestKey, null),
+                                                    $query->greaterThanOrEqual($requestKey, $subValue)
+                                                ]
                                             );
                                             break;
                                         case 'max':
                                             $subQuery[] = $query->logicalOr(
-                                            [
-                                            $query->equals($requestKey, null), 
-                                            $query->lessThanOrEqual($requestKey, $subValue)
-                                            ]
+                                                [
+                                                    $query->equals($requestKey, null),
+                                                    $query->lessThanOrEqual($requestKey, $subValue)
+                                                ]
                                             );
                                             break;
                                     }
@@ -339,9 +343,9 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         // Full Limits
         $allCount = $query->execute()->count();
         $results['limits'] = [
-        'max' => $allCount, 
-        'offsets' => ceil($allCount / $options['limit']), 
-        'next_offset' => $options['offset'] + 1
+            'max' => $allCount,
+            'offsets' => ceil($allCount / $options['limit']),
+            'next_offset' => $options['offset'] + 1
         ];
 
         // searchbox
@@ -380,20 +384,20 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     {
         $form = [];
         $allow = [
-        'class', 
-        'category', 
-        'make', 
-        'model', 
-        'fuel', 
-        'gearbox', 
-        'color', 
-        'seats', 
-        'doors', 
-        'power', 
-        'emissionClass', 
-        'consumerPriceAmount', 
-        'features' => ['id'], 
-        'specifics' => ['id']
+            'class',
+            'category',
+            'make',
+            'model',
+            'fuel',
+            'gearbox',
+            'color',
+            'seats',
+            'doors',
+            'power',
+            'emissionClass',
+            'consumerPriceAmount',
+            'features' => ['id'],
+            'specifics' => ['id']
         ];
         foreach ($subResult as $pos => $vehicle) {
             foreach ($allow as $allowKey => $allowValue) {
@@ -451,8 +455,11 @@ class VehicleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         foreach ($results as $result) {
             foreach ($fields as $name) {
                 $call = 'get' . ucfirst($name);
-                $data[$name] = array_filter(explode($delimiter, $result->{$call}()));
-                natsort($data[$name]);
+                $callData = $result->{$call}();
+                if(is_string($callData)){
+                    $data[$name] = array_filter(explode($delimiter, $callData));
+                    natsort($data[$name]);
+                }
             }
         }
         return $data;

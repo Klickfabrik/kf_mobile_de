@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:kf_mobile_de/Resources/Private/Language/locallang_db" date="2021-12-19T13:08:06Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="EXT:kf_mobile_de/Resources/Private/Language/locallang_db.xlf" date="2022-01-13T13:36:00Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
 			<trans-unit id="tx_kfmobilede_domain_model_clients" resname="tx_kfmobilede_domain_model_clients">
@@ -212,12 +212,6 @@
 			</trans-unit>
 			<trans-unit id="tx_kfmobilede_domain_model_seller.import" resname="tx_kfmobilede_domain_model_seller.import">
 				<source>Import</source>
-			</trans-unit>
-			<trans-unit id="tx_kf_mobile_de_kfmobileview.name" resname="tx_kf_mobile_de_kfmobileview.name">
-				<source>Mobile.de</source>
-			</trans-unit>
-			<trans-unit id="tx_kf_mobile_de_kfmobileview.description" resname="tx_kf_mobile_de_kfmobileview.description">
-				<source>Display a mobile.de data</source>
 			</trans-unit>
 		</body>
 	</file>

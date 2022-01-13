@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:kf_mobile_de/Resources/Private/Language/locallang" date="2021-12-19T13:08:06Z" product-name="kf_mobile_de">
+	<file source-language="en" datatype="plaintext" original="EXT:kf_mobile_de/Resources/Private/Language/locallang.xlf" date="2022-01-13T13:36:00Z" product-name="kf_mobile_de">
 		<header/>
 		<body>
 			<trans-unit id="tx_kfmobilede_domain_model_clients" resname="tx_kfmobilede_domain_model_clients">
@@ -210,30 +210,8 @@
 			<trans-unit id="tx_kfmobilede_domain_model_seller.import_key" resname="tx_kfmobilede_domain_model_seller.import_key">
 				<source>Import Key</source>
 			</trans-unit>
-			<trans-unit id="tx_kfmobilede_domain_model_seller.import">
+			<trans-unit id="tx_kfmobilede_domain_model_seller.import" resname="tx_kfmobilede_domain_model_seller.import">
 				<source>Import</source>
-			</trans-unit>
-
-			<trans-unit id="tx_kf_mobile_de_kfmobileview.name">
-				<source>Mobile.de</source>
-			</trans-unit>
-			<trans-unit id="tx_kf_mobile_de_kfmobileview.description">
-				<source>Display a mobile.de data</source>
-			</trans-unit>
-			<trans-unit id="tx_kfmobilede_domain_model_importer.import">
-				<source>Import</source>
-			</trans-unit>
-			<trans-unit id="tx_kfmobilede_domain_model_importer.update">
-				<source>Update</source>
-			</trans-unit>
-			<trans-unit id="tx_kfmobilede_domain_model_importer.update_force">
-				<source>Update -> Force</source>
-			</trans-unit>
-			<trans-unit id="tx_kfmobilede_domain_model_importer.status">
-				<source>Status</source>
-			</trans-unit>
-			<trans-unit id="tx_kfmobilede_domain_model_importer.debug">
-				<source>:: Debug ::</source>
 			</trans-unit>
 		</body>
 	</file>

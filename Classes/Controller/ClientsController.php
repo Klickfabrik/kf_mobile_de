@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Klickfabrik\KfMobileDe\Controller;
 
 
@@ -12,6 +15,7 @@ namespace Klickfabrik\KfMobileDe\Controller;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
+
 /**
  * ClientsController
  */
@@ -20,9 +24,9 @@ class ClientsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * ClientsRepository
-     * 
+     *
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\ClientsRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $ClientsRepository = null;
 

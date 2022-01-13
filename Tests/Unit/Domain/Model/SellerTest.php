@@ -1,25 +1,36 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Klickfabrik\KfMobileDe\Tests\Unit\Domain\Model;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+
 /**
- * Test case.
+ * Test case
  *
  * @author Marc Finnern <typo3@klickfabrik.net>
  */
-class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+class SellerTest extends UnitTestCase
 {
     /**
-     * @var \Klickfabrik\KfMobileDe\Domain\Model\Seller
+     * @var \Klickfabrik\KfMobileDe\Domain\Model\Seller|MockObject|AccessibleObjectInterface
      */
-    protected $subject = null;
+    protected $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = new \Klickfabrik\KfMobileDe\Domain\Model\Seller();
+
+        $this->subject = $this->getAccessibleMock(
+            \Klickfabrik\KfMobileDe\Domain\Model\Seller::class,
+            ['dummy']
+        );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
@@ -27,7 +38,7 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function getCompanyNameReturnsInitialValueForString()
+    public function getCompanyNameReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -38,21 +49,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCompanyNameForStringSetsCompanyName()
+    public function setCompanyNameForStringSetsCompanyName(): void
     {
         $this->subject->setCompanyName('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'companyName',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('companyName'));
     }
 
     /**
      * @test
      */
-    public function getPhoneReturnsInitialValueForString()
+    public function getPhoneReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -63,21 +70,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setPhoneForStringSetsPhone()
+    public function setPhoneForStringSetsPhone(): void
     {
         $this->subject->setPhone('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'phone',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('phone'));
     }
 
     /**
      * @test
      */
-    public function getStreetReturnsInitialValueForString()
+    public function getStreetReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -88,21 +91,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setStreetForStringSetsStreet()
+    public function setStreetForStringSetsStreet(): void
     {
         $this->subject->setStreet('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'street',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('street'));
     }
 
     /**
      * @test
      */
-    public function getZipcodeReturnsInitialValueForString()
+    public function getZipcodeReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -113,21 +112,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setZipcodeForStringSetsZipcode()
+    public function setZipcodeForStringSetsZipcode(): void
     {
         $this->subject->setZipcode('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'zipcode',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('zipcode'));
     }
 
     /**
      * @test
      */
-    public function getCityReturnsInitialValueForString()
+    public function getCityReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -138,21 +133,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCityForStringSetsCity()
+    public function setCityForStringSetsCity(): void
     {
         $this->subject->setCity('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'city',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('city'));
     }
 
     /**
      * @test
      */
-    public function getCountryCodeReturnsInitialValueForString()
+    public function getCountryCodeReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -163,21 +154,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCountryCodeForStringSetsCountryCode()
+    public function setCountryCodeForStringSetsCountryCode(): void
     {
         $this->subject->setCountryCode('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'countryCode',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('countryCode'));
     }
 
     /**
      * @test
      */
-    public function getLatitudeReturnsInitialValueForString()
+    public function getLatitudeReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -188,21 +175,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setLatitudeForStringSetsLatitude()
+    public function setLatitudeForStringSetsLatitude(): void
     {
         $this->subject->setLatitude('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'latitude',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('latitude'));
     }
 
     /**
      * @test
      */
-    public function getLongitudeReturnsInitialValueForString()
+    public function getLongitudeReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -213,21 +196,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setLongitudeForStringSetsLongitude()
+    public function setLongitudeForStringSetsLongitude(): void
     {
         $this->subject->setLongitude('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'longitude',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('longitude'));
     }
 
     /**
      * @test
      */
-    public function getSellerImageReturnsInitialValueForFileReference()
+    public function getSellerImageReturnsInitialValueForFileReference(): void
     {
         self::assertEquals(
             null,
@@ -238,22 +217,18 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setSellerImageForFileReferenceSetsSellerImage()
+    public function setSellerImageForFileReferenceSetsSellerImage(): void
     {
         $fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $this->subject->setSellerImage($fileReferenceFixture);
 
-        self::assertAttributeEquals(
-            $fileReferenceFixture,
-            'sellerImage',
-            $this->subject
-        );
+        self::assertEquals($fileReferenceFixture, $this->subject->_get('sellerImage'));
     }
 
     /**
      * @test
      */
-    public function getSellerInfoReturnsInitialValueForString()
+    public function getSellerInfoReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -264,21 +239,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setSellerInfoForStringSetsSellerInfo()
+    public function setSellerInfoForStringSetsSellerInfo(): void
     {
         $this->subject->setSellerInfo('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'sellerInfo',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('sellerInfo'));
     }
 
     /**
      * @test
      */
-    public function getUrlReturnsInitialValueForString()
+    public function getUrlReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -289,21 +260,17 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setUrlForStringSetsUrl()
+    public function setUrlForStringSetsUrl(): void
     {
         $this->subject->setUrl('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'url',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('url'));
     }
 
     /**
      * @test
      */
-    public function getEmailReturnsInitialValueForString()
+    public function getEmailReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -314,46 +281,35 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setEmailForStringSetsEmail()
+    public function setEmailForStringSetsEmail(): void
     {
         $this->subject->setEmail('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'email',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('email'));
     }
 
     /**
      * @test
      */
-    public function getCommercialReturnsInitialValueForBool()
+    public function getCommercialReturnsInitialValueForBool(): void
     {
-        self::assertSame(
-            false,
-            $this->subject->getCommercial()
-        );
+        self::assertFalse($this->subject->getCommercial());
     }
 
     /**
      * @test
      */
-    public function setCommercialForBoolSetsCommercial()
+    public function setCommercialForBoolSetsCommercial(): void
     {
         $this->subject->setCommercial(true);
 
-        self::assertAttributeEquals(
-            true,
-            'commercial',
-            $this->subject
-        );
+        self::assertEquals(true, $this->subject->_get('commercial'));
     }
 
     /**
      * @test
      */
-    public function getImportKeyReturnsInitialValueForString()
+    public function getImportKeyReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -364,39 +320,28 @@ class SellerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setImportKeyForStringSetsImportKey()
+    public function setImportKeyForStringSetsImportKey(): void
     {
         $this->subject->setImportKey('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'importKey',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('importKey'));
     }
 
     /**
      * @test
      */
-    public function getImportReturnsInitialValueForBool()
+    public function getImportReturnsInitialValueForBool(): void
     {
-        self::assertSame(
-            false,
-            $this->subject->getImport()
-        );
+        self::assertFalse($this->subject->getImport());
     }
 
     /**
      * @test
      */
-    public function setImportForBoolSetsImport()
+    public function setImportForBoolSetsImport(): void
     {
         $this->subject->setImport(true);
 
-        self::assertAttributeEquals(
-            true,
-            'import',
-            $this->subject
-        );
+        self::assertEquals(true, $this->subject->_get('import'));
     }
 }

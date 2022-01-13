@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Klickfabrik\KfMobileDe\Controller;
 
 
@@ -12,6 +15,7 @@ namespace Klickfabrik\KfMobileDe\Controller;
  *  (c) 2018 Marc Finnern <typo3@klickfabrik.net>, Klickfabrik
  *
  ***/
+
 /**
  * SellerController
  */
@@ -20,29 +24,19 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
     /**
      * sellerRepository
-     * 
+     *
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\SellerRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $sellerRepository = null;
 
     /**
      * vehicleRepository
-     * 
+     *
      * @var \Klickfabrik\KfMobileDe\Domain\Repository\VehicleRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $vehicleRepository = null;
-
-    /**
-     * action show
-     * 
-     * @return void
-     */
-    public function showAction()
-    {
-        $this->googleMaps();
-    }
 
     # ========================================================================================
     # Google Maps
@@ -90,15 +84,15 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
                 $phones[] = $phone['raw'];
             }
             $googleData[] = [
-            'latitude' => $seller->getLatitude(), 
-            'longitude' => $seller->getLongitude(), 
-            'name' => $seller->getCompanyName(), 
+            'latitude' => $seller->getLatitude(),
+            'longitude' => $seller->getLongitude(),
+            'name' => $seller->getCompanyName(),
             'address' => join(
-            ',<br/>', 
+            ',<br/>',
             [
-            "<strong>{$seller->getCompanyName()}</strong>", 
-            $seller->getStreet(), 
-            $seller->getZipcode() . ' ' . $seller->getCity(), 
+            "<strong>{$seller->getCompanyName()}</strong>",
+            $seller->getStreet(),
+            $seller->getZipcode() . ' ' . $seller->getCity(),
             join('<br/>', $phone['maps'])
             ]
             )
@@ -106,9 +100,9 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             $sellers[] = $seller;
         }
         $return = [
-        'sellers' => $sellers, 
-        'phones' => $phones, 
-        'googleData' => $googleData, 
+        'sellers' => $sellers,
+        'phones' => $phones,
+        'googleData' => $googleData,
         'count' => count($_seller)
         ];
         return $return;
@@ -124,8 +118,8 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $phone = [];
         $maps = [];
         $translate = [
-        'FIXED' => 'Tel.', 
-        'FAX' => 'Fax', 
+        'FIXED' => 'Tel.',
+        'FAX' => 'Fax',
         'CELL' => 'Mobil'
         ];
         foreach (json_decode($object, true) as $entry) {
@@ -134,14 +128,14 @@ class SellerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             }
             $number = $entry['country-calling-code'] . substr($entry['area-code'], 1) . $entry['number'];
             $array = [
-            'type' => $translate[$entry['type']], 
+            'type' => $translate[$entry['type']],
             'number' => "+{$number}"
             ];
             $phone[md5($number)] = $array;
             $maps[md5($number)] = join(': ', $array);
         }
         return [
-        'raw' => $phone, 
+        'raw' => $phone,
         'maps' => $maps
         ];
     }

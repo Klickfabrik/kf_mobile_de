@@ -21,7 +21,7 @@ class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandC
 
     /**
      * @var \Klickfabrik\KfMobileDe\Controller\ImporterController
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $importService;
 

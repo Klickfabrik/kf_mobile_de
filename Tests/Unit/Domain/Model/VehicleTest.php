@@ -1,25 +1,36 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Klickfabrik\KfMobileDe\Tests\Unit\Domain\Model;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+
 /**
- * Test case.
+ * Test case
  *
  * @author Marc Finnern <typo3@klickfabrik.net>
  */
-class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+class VehicleTest extends UnitTestCase
 {
     /**
-     * @var \Klickfabrik\KfMobileDe\Domain\Model\Vehicle
+     * @var \Klickfabrik\KfMobileDe\Domain\Model\Vehicle|MockObject|AccessibleObjectInterface
      */
-    protected $subject = null;
+    protected $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = new \Klickfabrik\KfMobileDe\Domain\Model\Vehicle();
+
+        $this->subject = $this->getAccessibleMock(
+            \Klickfabrik\KfMobileDe\Domain\Model\Vehicle::class,
+            ['dummy']
+        );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
@@ -27,7 +38,7 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function getModelDescriptionReturnsInitialValueForString()
+    public function getModelDescriptionReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -38,21 +49,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setModelDescriptionForStringSetsModelDescription()
+    public function setModelDescriptionForStringSetsModelDescription(): void
     {
         $this->subject->setModelDescription('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'modelDescription',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('modelDescription'));
     }
 
     /**
      * @test
      */
-    public function getClassReturnsInitialValueForString()
+    public function getClassReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -63,21 +70,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setClassForStringSetsClass()
+    public function setClassForStringSetsClass(): void
     {
         $this->subject->setClass('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'class',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('class'));
     }
 
     /**
      * @test
      */
-    public function getCategoryReturnsInitialValueForString()
+    public function getCategoryReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -88,21 +91,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCategoryForStringSetsCategory()
+    public function setCategoryForStringSetsCategory(): void
     {
         $this->subject->setCategory('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'category',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('category'));
     }
 
     /**
      * @test
      */
-    public function getMakeReturnsInitialValueForString()
+    public function getMakeReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -113,21 +112,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setMakeForStringSetsMake()
+    public function setMakeForStringSetsMake(): void
     {
         $this->subject->setMake('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'make',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('make'));
     }
 
     /**
      * @test
      */
-    public function getModelReturnsInitialValueForString()
+    public function getModelReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -138,21 +133,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setModelForStringSetsModel()
+    public function setModelForStringSetsModel(): void
     {
         $this->subject->setModel('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'model',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('model'));
     }
 
     /**
      * @test
      */
-    public function getPriceReturnsInitialValueForInt()
+    public function getPriceReturnsInitialValueForInt(): void
     {
         self::assertSame(
             0,
@@ -163,96 +154,71 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setPriceForIntSetsPrice()
+    public function setPriceForIntSetsPrice(): void
     {
         $this->subject->setPrice(12);
 
-        self::assertAttributeEquals(
-            12,
-            'price',
-            $this->subject
-        );
+        self::assertEquals(12, $this->subject->_get('price'));
     }
 
     /**
      * @test
      */
-    public function getDamageAndUnrepairedReturnsInitialValueForBool()
+    public function getDamageAndUnrepairedReturnsInitialValueForBool(): void
     {
-        self::assertSame(
-            false,
-            $this->subject->getDamageAndUnrepaired()
-        );
+        self::assertFalse($this->subject->getDamageAndUnrepaired());
     }
 
     /**
      * @test
      */
-    public function setDamageAndUnrepairedForBoolSetsDamageAndUnrepaired()
+    public function setDamageAndUnrepairedForBoolSetsDamageAndUnrepaired(): void
     {
         $this->subject->setDamageAndUnrepaired(true);
 
-        self::assertAttributeEquals(
-            true,
-            'damageAndUnrepaired',
-            $this->subject
-        );
+        self::assertEquals(true, $this->subject->_get('damageAndUnrepaired'));
     }
 
     /**
      * @test
      */
-    public function getAccidentDamagedReturnsInitialValueForBool()
+    public function getAccidentDamagedReturnsInitialValueForBool(): void
     {
-        self::assertSame(
-            false,
-            $this->subject->getAccidentDamaged()
-        );
+        self::assertFalse($this->subject->getAccidentDamaged());
     }
 
     /**
      * @test
      */
-    public function setAccidentDamagedForBoolSetsAccidentDamaged()
+    public function setAccidentDamagedForBoolSetsAccidentDamaged(): void
     {
         $this->subject->setAccidentDamaged(true);
 
-        self::assertAttributeEquals(
-            true,
-            'accidentDamaged',
-            $this->subject
-        );
+        self::assertEquals(true, $this->subject->_get('accidentDamaged'));
     }
 
     /**
      * @test
      */
-    public function getRoadworthyReturnsInitialValueForBool()
+    public function getRoadworthyReturnsInitialValueForBool(): void
     {
-        self::assertSame(
-            false,
-            $this->subject->getRoadworthy()
-        );
+        self::assertFalse($this->subject->getRoadworthy());
     }
 
     /**
      * @test
      */
-    public function setRoadworthyForBoolSetsRoadworthy()
+    public function setRoadworthyForBoolSetsRoadworthy(): void
     {
         $this->subject->setRoadworthy(true);
 
-        self::assertAttributeEquals(
-            true,
-            'roadworthy',
-            $this->subject
-        );
+        self::assertEquals(true, $this->subject->_get('roadworthy'));
     }
 
     /**
      * @test
      */
-    public function getPriceTypeReturnsInitialValueForString()
+    public function getPriceTypeReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -263,21 +229,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setPriceTypeForStringSetsPriceType()
+    public function setPriceTypeForStringSetsPriceType(): void
     {
         $this->subject->setPriceType('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'priceType',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('priceType'));
     }
 
     /**
      * @test
      */
-    public function getFuelReturnsInitialValueForString()
+    public function getFuelReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -288,21 +250,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setFuelForStringSetsFuel()
+    public function setFuelForStringSetsFuel(): void
     {
         $this->subject->setFuel('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'fuel',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('fuel'));
     }
 
     /**
      * @test
      */
-    public function getGearboxReturnsInitialValueForString()
+    public function getGearboxReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -313,21 +271,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setGearboxForStringSetsGearbox()
+    public function setGearboxForStringSetsGearbox(): void
     {
         $this->subject->setGearbox('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'gearbox',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('gearbox'));
     }
 
     /**
      * @test
      */
-    public function getColorReturnsInitialValueForString()
+    public function getColorReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -338,21 +292,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setColorForStringSetsColor()
+    public function setColorForStringSetsColor(): void
     {
         $this->subject->setColor('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'color',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('color'));
     }
 
     /**
      * @test
      */
-    public function getMileageReturnsInitialValueForString()
+    public function getMileageReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -363,21 +313,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setMileageForStringSetsMileage()
+    public function setMileageForStringSetsMileage(): void
     {
         $this->subject->setMileage('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'mileage',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('mileage'));
     }
 
     /**
      * @test
      */
-    public function getSeatsReturnsInitialValueForString()
+    public function getSeatsReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -388,21 +334,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setSeatsForStringSetsSeats()
+    public function setSeatsForStringSetsSeats(): void
     {
         $this->subject->setSeats('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'seats',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('seats'));
     }
 
     /**
      * @test
      */
-    public function getDoorsReturnsInitialValueForString()
+    public function getDoorsReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -413,21 +355,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setDoorsForStringSetsDoors()
+    public function setDoorsForStringSetsDoors(): void
     {
         $this->subject->setDoors('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'doors',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('doors'));
     }
 
     /**
      * @test
      */
-    public function getPowerReturnsInitialValueForString()
+    public function getPowerReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -438,21 +376,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setPowerForStringSetsPower()
+    public function setPowerForStringSetsPower(): void
     {
         $this->subject->setPower('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'power',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('power'));
     }
 
     /**
      * @test
      */
-    public function getCubicCapacityReturnsInitialValueForString()
+    public function getCubicCapacityReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -463,21 +397,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCubicCapacityForStringSetsCubicCapacity()
+    public function setCubicCapacityForStringSetsCubicCapacity(): void
     {
         $this->subject->setCubicCapacity('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'cubicCapacity',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('cubicCapacity'));
     }
 
     /**
      * @test
      */
-    public function getEmissionClassReturnsInitialValueForString()
+    public function getEmissionClassReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -488,21 +418,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setEmissionClassForStringSetsEmissionClass()
+    public function setEmissionClassForStringSetsEmissionClass(): void
     {
         $this->subject->setEmissionClass('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'emissionClass',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('emissionClass'));
     }
 
     /**
      * @test
      */
-    public function getImagesReturnsInitialValueForFileReference()
+    public function getImagesReturnsInitialValueForFileReference(): void
     {
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
@@ -514,33 +440,29 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setImagesForFileReferenceSetsImages()
+    public function setImagesForFileReferenceSetsImages(): void
     {
         $image = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $objectStorageHoldingExactlyOneImages = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImages->attach($image);
         $this->subject->setImages($objectStorageHoldingExactlyOneImages);
 
-        self::assertAttributeEquals(
-            $objectStorageHoldingExactlyOneImages,
-            'images',
-            $this->subject
-        );
+        self::assertEquals($objectStorageHoldingExactlyOneImages, $this->subject->_get('images'));
     }
 
     /**
      * @test
      */
-    public function addImageToObjectStorageHoldingImages()
+    public function addImageToObjectStorageHoldingImages(): void
     {
         $image = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $imagesObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['attach'])
+            ->onlyMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $imagesObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($image));
-        $this->inject($this->subject, 'images', $imagesObjectStorageMock);
+        $this->subject->_set('images', $imagesObjectStorageMock);
 
         $this->subject->addImage($image);
     }
@@ -548,16 +470,16 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function removeImageFromObjectStorageHoldingImages()
+    public function removeImageFromObjectStorageHoldingImages(): void
     {
         $image = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $imagesObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['detach'])
+            ->onlyMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $imagesObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($image));
-        $this->inject($this->subject, 'images', $imagesObjectStorageMock);
+        $this->subject->_set('images', $imagesObjectStorageMock);
 
         $this->subject->removeImage($image);
     }
@@ -565,7 +487,7 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function getImageDataReturnsInitialValueForString()
+    public function getImageDataReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -576,21 +498,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setImageDataForStringSetsImageData()
+    public function setImageDataForStringSetsImageData(): void
     {
         $this->subject->setImageData('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'imageData',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('imageData'));
     }
 
     /**
      * @test
      */
-    public function getDescriptionReturnsInitialValueForString()
+    public function getDescriptionReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -601,21 +519,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setDescriptionForStringSetsDescription()
+    public function setDescriptionForStringSetsDescription(): void
     {
         $this->subject->setDescription('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'description',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('description'));
     }
 
     /**
      * @test
      */
-    public function getMiscReturnsInitialValueForString()
+    public function getMiscReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -626,21 +540,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setMiscForStringSetsMisc()
+    public function setMiscForStringSetsMisc(): void
     {
         $this->subject->setMisc('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'misc',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('misc'));
     }
 
     /**
      * @test
      */
-    public function getConsumerPriceAmountReturnsInitialValueForString()
+    public function getConsumerPriceAmountReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -651,21 +561,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setConsumerPriceAmountForStringSetsConsumerPriceAmount()
+    public function setConsumerPriceAmountForStringSetsConsumerPriceAmount(): void
     {
         $this->subject->setConsumerPriceAmount('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'consumerPriceAmount',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('consumerPriceAmount'));
     }
 
     /**
      * @test
      */
-    public function getDealerPriceAmountReturnsInitialValueForString()
+    public function getDealerPriceAmountReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -676,21 +582,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setDealerPriceAmountForStringSetsDealerPriceAmount()
+    public function setDealerPriceAmountForStringSetsDealerPriceAmount(): void
     {
         $this->subject->setDealerPriceAmount('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'dealerPriceAmount',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('dealerPriceAmount'));
     }
 
     /**
      * @test
      */
-    public function getFirstRegistrationReturnsInitialValueForDateTime()
+    public function getFirstRegistrationReturnsInitialValueForDateTime(): void
     {
         self::assertEquals(
             null,
@@ -701,22 +603,18 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setFirstRegistrationForDateTimeSetsFirstRegistration()
+    public function setFirstRegistrationForDateTimeSetsFirstRegistration(): void
     {
         $dateTimeFixture = new \DateTime();
         $this->subject->setFirstRegistration($dateTimeFixture);
 
-        self::assertAttributeEquals(
-            $dateTimeFixture,
-            'firstRegistration',
-            $this->subject
-        );
+        self::assertEquals($dateTimeFixture, $this->subject->_get('firstRegistration'));
     }
 
     /**
      * @test
      */
-    public function getCreationDateReturnsInitialValueForDateTime()
+    public function getCreationDateReturnsInitialValueForDateTime(): void
     {
         self::assertEquals(
             null,
@@ -727,22 +625,18 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCreationDateForDateTimeSetsCreationDate()
+    public function setCreationDateForDateTimeSetsCreationDate(): void
     {
         $dateTimeFixture = new \DateTime();
         $this->subject->setCreationDate($dateTimeFixture);
 
-        self::assertAttributeEquals(
-            $dateTimeFixture,
-            'creationDate',
-            $this->subject
-        );
+        self::assertEquals($dateTimeFixture, $this->subject->_get('creationDate'));
     }
 
     /**
      * @test
      */
-    public function getModificationDateReturnsInitialValueForDateTime()
+    public function getModificationDateReturnsInitialValueForDateTime(): void
     {
         self::assertEquals(
             null,
@@ -753,22 +647,18 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setModificationDateForDateTimeSetsModificationDate()
+    public function setModificationDateForDateTimeSetsModificationDate(): void
     {
         $dateTimeFixture = new \DateTime();
         $this->subject->setModificationDate($dateTimeFixture);
 
-        self::assertAttributeEquals(
-            $dateTimeFixture,
-            'modificationDate',
-            $this->subject
-        );
+        self::assertEquals($dateTimeFixture, $this->subject->_get('modificationDate'));
     }
 
     /**
      * @test
      */
-    public function getDetailPageReturnsInitialValueForString()
+    public function getDetailPageReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -779,21 +669,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setDetailPageForStringSetsDetailPage()
+    public function setDetailPageForStringSetsDetailPage(): void
     {
         $this->subject->setDetailPage('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'detailPage',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('detailPage'));
     }
 
     /**
      * @test
      */
-    public function getImportKeyReturnsInitialValueForString()
+    public function getImportKeyReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -804,21 +690,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setImportKeyForStringSetsImportKey()
+    public function setImportKeyForStringSetsImportKey(): void
     {
         $this->subject->setImportKey('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'importKey',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('importKey'));
     }
 
     /**
      * @test
      */
-    public function getImportClientReturnsInitialValueForString()
+    public function getImportClientReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -829,46 +711,35 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setImportClientForStringSetsImportClient()
+    public function setImportClientForStringSetsImportClient(): void
     {
         $this->subject->setImportClient('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'importClient',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('importClient'));
     }
 
     /**
      * @test
      */
-    public function getImportReturnsInitialValueForBool()
+    public function getImportReturnsInitialValueForBool(): void
     {
-        self::assertSame(
-            false,
-            $this->subject->getImport()
-        );
+        self::assertFalse($this->subject->getImport());
     }
 
     /**
      * @test
      */
-    public function setImportForBoolSetsImport()
+    public function setImportForBoolSetsImport(): void
     {
         $this->subject->setImport(true);
 
-        self::assertAttributeEquals(
-            true,
-            'import',
-            $this->subject
-        );
+        self::assertEquals(true, $this->subject->_get('import'));
     }
 
     /**
      * @test
      */
-    public function getCustom1ReturnsInitialValueForString()
+    public function getCustom1ReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -879,21 +750,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCustom1ForStringSetsCustom1()
+    public function setCustom1ForStringSetsCustom1(): void
     {
         $this->subject->setCustom1('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'custom1',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('custom1'));
     }
 
     /**
      * @test
      */
-    public function getCustom2ReturnsInitialValueForString()
+    public function getCustom2ReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -904,21 +771,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCustom2ForStringSetsCustom2()
+    public function setCustom2ForStringSetsCustom2(): void
     {
         $this->subject->setCustom2('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'custom2',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('custom2'));
     }
 
     /**
      * @test
      */
-    public function getCustom3ReturnsInitialValueForString()
+    public function getCustom3ReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -929,21 +792,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCustom3ForStringSetsCustom3()
+    public function setCustom3ForStringSetsCustom3(): void
     {
         $this->subject->setCustom3('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'custom3',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('custom3'));
     }
 
     /**
      * @test
      */
-    public function getCustom4ReturnsInitialValueForString()
+    public function getCustom4ReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -954,21 +813,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCustom4ForStringSetsCustom4()
+    public function setCustom4ForStringSetsCustom4(): void
     {
         $this->subject->setCustom4('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'custom4',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('custom4'));
     }
 
     /**
      * @test
      */
-    public function getCustom5ReturnsInitialValueForString()
+    public function getCustom5ReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -979,21 +834,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setCustom5ForStringSetsCustom5()
+    public function setCustom5ForStringSetsCustom5(): void
     {
         $this->subject->setCustom5('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'custom5',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('custom5'));
     }
 
     /**
      * @test
      */
-    public function getSlugReturnsInitialValueForString()
+    public function getSlugReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -1004,21 +855,17 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setSlugForStringSetsSlug()
+    public function setSlugForStringSetsSlug(): void
     {
         $this->subject->setSlug('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'slug',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('slug'));
     }
 
     /**
      * @test
      */
-    public function getFeaturesReturnsInitialValueForFeatures()
+    public function getFeaturesReturnsInitialValueForFeatures(): void
     {
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
@@ -1030,33 +877,29 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setFeaturesForObjectStorageContainingFeaturesSetsFeatures()
+    public function setFeaturesForObjectStorageContainingFeaturesSetsFeatures(): void
     {
         $feature = new \Klickfabrik\KfMobileDe\Domain\Model\Features();
         $objectStorageHoldingExactlyOneFeatures = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneFeatures->attach($feature);
         $this->subject->setFeatures($objectStorageHoldingExactlyOneFeatures);
 
-        self::assertAttributeEquals(
-            $objectStorageHoldingExactlyOneFeatures,
-            'features',
-            $this->subject
-        );
+        self::assertEquals($objectStorageHoldingExactlyOneFeatures, $this->subject->_get('features'));
     }
 
     /**
      * @test
      */
-    public function addFeatureToObjectStorageHoldingFeatures()
+    public function addFeatureToObjectStorageHoldingFeatures(): void
     {
         $feature = new \Klickfabrik\KfMobileDe\Domain\Model\Features();
         $featuresObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['attach'])
+            ->onlyMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $featuresObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($feature));
-        $this->inject($this->subject, 'features', $featuresObjectStorageMock);
+        $this->subject->_set('features', $featuresObjectStorageMock);
 
         $this->subject->addFeature($feature);
     }
@@ -1064,16 +907,16 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function removeFeatureFromObjectStorageHoldingFeatures()
+    public function removeFeatureFromObjectStorageHoldingFeatures(): void
     {
         $feature = new \Klickfabrik\KfMobileDe\Domain\Model\Features();
         $featuresObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['detach'])
+            ->onlyMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $featuresObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($feature));
-        $this->inject($this->subject, 'features', $featuresObjectStorageMock);
+        $this->subject->_set('features', $featuresObjectStorageMock);
 
         $this->subject->removeFeature($feature);
     }
@@ -1081,7 +924,7 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function getSpecificsReturnsInitialValueForSpecifics()
+    public function getSpecificsReturnsInitialValueForSpecifics(): void
     {
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
@@ -1093,33 +936,29 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setSpecificsForObjectStorageContainingSpecificsSetsSpecifics()
+    public function setSpecificsForObjectStorageContainingSpecificsSetsSpecifics(): void
     {
         $specific = new \Klickfabrik\KfMobileDe\Domain\Model\Specifics();
         $objectStorageHoldingExactlyOneSpecifics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneSpecifics->attach($specific);
         $this->subject->setSpecifics($objectStorageHoldingExactlyOneSpecifics);
 
-        self::assertAttributeEquals(
-            $objectStorageHoldingExactlyOneSpecifics,
-            'specifics',
-            $this->subject
-        );
+        self::assertEquals($objectStorageHoldingExactlyOneSpecifics, $this->subject->_get('specifics'));
     }
 
     /**
      * @test
      */
-    public function addSpecificToObjectStorageHoldingSpecifics()
+    public function addSpecificToObjectStorageHoldingSpecifics(): void
     {
         $specific = new \Klickfabrik\KfMobileDe\Domain\Model\Specifics();
         $specificsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['attach'])
+            ->onlyMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $specificsObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($specific));
-        $this->inject($this->subject, 'specifics', $specificsObjectStorageMock);
+        $this->subject->_set('specifics', $specificsObjectStorageMock);
 
         $this->subject->addSpecific($specific);
     }
@@ -1127,16 +966,16 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function removeSpecificFromObjectStorageHoldingSpecifics()
+    public function removeSpecificFromObjectStorageHoldingSpecifics(): void
     {
         $specific = new \Klickfabrik\KfMobileDe\Domain\Model\Specifics();
         $specificsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['detach'])
+            ->onlyMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $specificsObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($specific));
-        $this->inject($this->subject, 'specifics', $specificsObjectStorageMock);
+        $this->subject->_set('specifics', $specificsObjectStorageMock);
 
         $this->subject->removeSpecific($specific);
     }
@@ -1144,7 +983,7 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function getSellerReturnsInitialValueForSeller()
+    public function getSellerReturnsInitialValueForSeller(): void
     {
         self::assertEquals(
             null,
@@ -1155,15 +994,11 @@ class VehicleTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setSellerForSellerSetsSeller()
+    public function setSellerForSellerSetsSeller(): void
     {
         $sellerFixture = new \Klickfabrik\KfMobileDe\Domain\Model\Seller();
         $this->subject->setSeller($sellerFixture);
 
-        self::assertAttributeEquals(
-            $sellerFixture,
-            'seller',
-            $this->subject
-        );
+        self::assertEquals($sellerFixture, $this->subject->_get('seller'));
     }
 }
