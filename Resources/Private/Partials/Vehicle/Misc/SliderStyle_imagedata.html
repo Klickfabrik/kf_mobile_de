@@ -1,11 +1,11 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:variable name="cssdata" value=".slider--item {height: {slider_h}px;width: 100%;}" />
 <f:for each="{vehicles.data}" as="vehicle">
-    <f:if condition="{vehicle.images -> f.count()} > 1">
-        <f:for each="{vehicle.images}" as="image" iteration="iterator">
+    <f:if condition="{vehicle.imagedata.M -> f.count()} > 1">
+        <f:for each="{vehicle.imagedata.M}" as="image" iteration="iterator">
             <f:if condition="{iterator.index} < {settings.list.images.limit}">
                 <f:variable name="cssdata">{cssdata}
-                    .slider--uid{vehicle.uid} {background: url("<f:uri.image image="{image}" width="{slider_w}" />") center center / cover transparent;}</f:variable>
+.slider--uid{vehicle.uid} {background: url("{image}") center center / cover transparent;}</f:variable>
             </f:if>
         </f:for>
     </f:if>

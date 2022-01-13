@@ -161,6 +161,12 @@ class VehicleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function showAction(\Klickfabrik\KfMobileDe\Domain\Model\Vehicle $vehicle)
     {
         $this->settings['layout'] = 'detail';
+
+        # Generiert JSON => Array
+        $imageJson = json_decode($vehicle->getImageData(), true);
+        $images = $this->getImages($imageJson);
+        $vehicle->setImageData($images);
+
         $data = [
             'data' => $vehicle,
             'options' => $this->collectData([$vehicle], 'options')
