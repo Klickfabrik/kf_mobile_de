@@ -47,8 +47,8 @@ plugin.tx_kfmobilede_kfmobileview {
         }
 
         javaScript {
-            # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=jQuery Script (1.11.2)
-            jQuery 	            = EXT:kf_mobile_de/Resources/Public/Vendor/jQuery/jquery-1.11.2.min.js
+            # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=jQuery Script (3.7.1)
+            jQuery 	            = EXT:kf_mobile_de/Resources/Public/Vendor/jQuery/jquery-3.7.1.min.js
             # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=sly 1.6.1
             plugin_sly          = EXT:kf_mobile_de/Resources/Public/Vendor/Sly/sly.min.js
             # cat=plugin.tx_kfmobilede_kfmobileview/file; type=string; label=jQuery Easing
